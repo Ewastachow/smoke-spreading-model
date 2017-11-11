@@ -23,6 +23,7 @@ public class Smoke extends Automaton3Dim{
     @Override
     protected CellState nextCellState(Cell currentState, Set<Cell> neighborsStates) {
         //todo Implement
+
         // Temporary implementation
         if((currentState.state).equals(IsSmoked.SMOKED)) return IsSmoked.SMOKED;
 

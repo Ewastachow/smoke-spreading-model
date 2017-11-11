@@ -19,7 +19,6 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable{
         this.cells = cells;
         this.neighborhoodStrategy = neighborhoodStrategy;
         this.stateFactory = stateFactory;
-
     }
 
     @Override
@@ -33,7 +32,6 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable{
         if (neighborhoodStrategy != null ? !neighborhoodStrategy.equals(automaton.neighborhoodStrategy) : automaton.neighborhoodStrategy != null)
             return false;
         return stateFactory != null ? stateFactory.equals(automaton.stateFactory) : automaton.stateFactory == null;
-
     }
 
     @Override
@@ -107,7 +105,6 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable{
 
         public Cell next() {
             if(hasNext()){
-
                 currentState=nextCoordinates(currentState);
                 return new Cell(currentState, cells.get(currentState));
             }
@@ -121,12 +118,6 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable{
 
     public Automaton nextstate() {
         Automaton letGetStartedAgain = newInstance(stateFactory, neighborhoodStrategy);
-//        CellIterator iterator = (CellIterator)letGetStartedAgain.iterator();
-//        for (Cell i: this) {
-//            iterator.next();
-//            iterator.setState(nextCellState(i,
-//                    mapCoordinates(neighborhoodStrategy.cellNeighbors(i.coords))));
-//        }
         Map<CellCoordinates, CellState> newCells = new TreeMap<>();
         for (Map.Entry<CellCoordinates, CellState> i : cells.entrySet()) {
             Cell cell = new Cell(i.getKey(), i.getValue());
@@ -134,8 +125,6 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable{
                     this.mapCoordinates(neighborhoodStrategy.cellNeighbors(i.getKey()))));
         }
         letGetStartedAgain.setCells(newCells);
-
-
         return letGetStartedAgain;
     }
 
