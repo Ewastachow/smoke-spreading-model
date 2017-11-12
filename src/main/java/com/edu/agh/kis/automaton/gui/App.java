@@ -12,13 +12,13 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(this.getClass().getResource("gui3dTest.fxml"));
+        loader.setLocation(this.getClass().getResource("automatonGUI.fxml"));
 
         Pane pane = loader.load();
 
         Scene scene = new Scene(pane);
 
-        primaryStage.setTitle("Test ES");
+        primaryStage.setTitle("Smoke Spreading Model");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

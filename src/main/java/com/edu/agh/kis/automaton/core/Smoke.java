@@ -11,6 +11,10 @@ import java.util.Set;
 
 public class Smoke extends Automaton3Dim{
 
+    public Smoke() {
+        super();
+    }
+
     public Smoke(Map<CellCoordinates, CellState> cells, CellNeighborhood neighborhoodStrategy, CellStateFactory stateFactory, int width, int height, int depth) {
         super(cells, neighborhoodStrategy, stateFactory, width, height, depth);
     }
