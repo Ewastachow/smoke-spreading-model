@@ -3,7 +3,11 @@ package com.edu.agh.kis.automaton.gui;
 import com.edu.agh.kis.automaton.core.Automaton;
 import com.edu.agh.kis.automaton.core.Smoke;
 import com.edu.agh.kis.automaton.core.coords.CellCoordinates;
+import com.edu.agh.kis.automaton.core.coords.Coords3D;
+import com.edu.agh.kis.automaton.core.neighborhood.VonNeumanNeighborhood3Dim;
 import com.edu.agh.kis.automaton.core.state.CellState;
+import com.edu.agh.kis.automaton.core.state.IsSmoked;
+import com.edu.agh.kis.automaton.core.state.SmokeState;
 import com.edu.agh.kis.automaton.core.stateFactory.GeneralStateFactory;
 
 import java.util.Map;
@@ -23,40 +27,38 @@ public class AutomatonGUISource {
     String neighborhoodStrategy;
     public String stateFactory;
 
-    int height;
     int width;
+    int height;
+    int depth;
     int radious;
-    boolean wrapping;
 
-    boolean quadLife;
-
-    int rule1;
-    int rule2;
-    int rule3;
-
-    public int[][] cells;
+    public SmokeState[][][] cells;
 
     AutomatonGUISource() {
         height = 20;
         width = 20;
         radious = 1;
-        rule1 = 2;
-        rule2 = 3;
-        rule3 = 3;
-        quadLife = false;
-        wrapping = false;
-        cells = new int[width][height];
+        cells = new SmokeState[width][height][depth];
         automatonClass = Smoke.class;
-        neighborhoodStrategy = "MoorNeighborhood";
+        neighborhoodStrategy = "VonNeuman";
         currentAutomaton = new Smoke();
-//        for (int i = 0; i < width; i++)
-//            for (int j = 0; j < height; j++)
-//                currentAutomaton.setNewCellState(new Coords2D(i, j), BinaryState.DEAD);
+        for (int i = 0; i < width; i++)
+            for (int j = 0; j < height; j++)
+                for (int k = 0; k < depth; j++)
+                currentAutomaton.setNewCellState(new Coords3D(i, j, k), IsSmoked.CLEAR);
         start();
     }
 
     void start() {
         Map<CellCoordinates, CellState> tmp = new TreeMap<CellCoordinates, CellState>();
+            for (int i = 0; i < width; i++)
+                for (int j = 0; j < height; j++)
+                    for (int k = 0; k < depth; j++)
+                        tmp.put(new Coords3D(i, j,k), IsSmoked.CLEAR);
+        currentAutomaton = new Smoke(tmp,
+                    new VonNeumanNeighborhood3Dim(radious, height, width, depth),
+                    new GeneralStateFactory(currentAutomaton.getCells()),
+                    width, height, depth);
 //        if ((automatonClass == GameOfLife.class) && (!quadLife)) {
 //            for (int i = 0; i < width; i++)
 //                for (int j = 0; j < height; j++)
@@ -117,16 +119,20 @@ public class AutomatonGUISource {
 //                    new GeneralStateFactory(currentAutomaton.getCells()),
 //                    width, rule1);
 //        }
-//        putIntoMap();
+        putIntoMap();
     }
 
     void nextState() {
         currentAutomaton = currentAutomaton.nextstate();
 //        if (automatonClass == OneDim.class) cells = putLowerOneDim();
-//        putIntoTable();
+        putIntoTable();
     }
 
     void putIntoMap() {
+            for (int i = 0; i < width; i++)
+                for (int j = 0; j < height; j++)
+                    for (int k = 0; k < depth; k++)
+                        currentAutomaton.setNewCellState(new Coords3D(i, j, k), cells[i][j][k]);
 //        if ((automatonClass == GameOfLife.class) && (!quadLife)) {
 //            for (int i = 0; i < width; i++)
 //                for (int j = 0; j < height; j++)
@@ -197,7 +203,12 @@ public class AutomatonGUISource {
     }
 
     void putIntoTable() {
-//        if ((automatonClass == GameOfLife.class) && (!quadLife)) {
+            cells = new SmokeState[width][height][depth];
+            for (int i = 0; i < width; i++)
+                    for (int j = 0; j < height; j++)
+                        for (int k = 0; k < height; k++)
+                            cells[i][j][k] = (SmokeState)currentAutomaton.getStateOfCoords(new Coords3D(i, j, k));
+        //        if ((automatonClass == GameOfLife.class) && (!quadLife)) {
 //            cells = new int[width][height];
 //            for (int i = 0; i < width; i++)
 //                for (int j = 0; j < height; j++)
@@ -267,14 +278,5 @@ public class AutomatonGUISource {
 //                    cells[i][0] = 1;
 //                }
 //        }
-    }
-
-    public int[][] putLowerOneDim() {
-        int[][] tmp = new int[width][height];
-        tmp = cells;
-        for (int i = (height - 1); i > 0; i--)
-            for (int j = 0; j < width; j++)
-                tmp[j][i] = cells[j][(i - 1)];
-        return tmp;
     }
 }

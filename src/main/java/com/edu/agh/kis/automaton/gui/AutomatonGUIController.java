@@ -1,6 +1,9 @@
 package com.edu.agh.kis.automaton.gui;
 
 import com.edu.agh.kis.automaton.core.Smoke;
+import com.edu.agh.kis.automaton.core.state.CellState;
+import com.edu.agh.kis.automaton.core.state.IsSmoked;
+import com.edu.agh.kis.automaton.core.state.SmokeState;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -31,6 +34,8 @@ public class AutomatonGUIController extends Observable {
     private Timeline timeline = new Timeline();
 
     private String structure;
+
+    private int showZ;
 
     @FXML
     private ToggleButton moorToggleButton;
@@ -82,24 +87,24 @@ public class AutomatonGUIController extends Observable {
 
     @FXML
     void gameOfLifeToggleButtonAction(ActionEvent event) {
-        currentState.automatonClass = Smoke.class;
-        currentState.quadLife = false;
-        setButton();
-        timeline.stop();
-        resetCells(currentState.width, currentState.height, currentState.cells);
-        currentState.start();
-        createBoard();
+//        currentState.automatonClass = Smoke.class;
+//        currentState.quadLife = false;
+//        setButton();
+//        timeline.stop();
+//        resetCells(currentState.width, currentState.height, currentState.cells);
+//        currentState.start();
+//        createBoard();
     }
 
     @FXML
     void quadLifeToggleButtonAction(ActionEvent event) {
-        currentState.automatonClass = Smoke.class;
-        currentState.quadLife = true;
-        setButton();
-        timeline.stop();
-        resetCells(currentState.width, currentState.height, currentState.cells);
-        currentState.start();
-        createBoard();
+//        currentState.automatonClass = Smoke.class;
+//        currentState.quadLife = true;
+//        setButton();
+//        timeline.stop();
+//        resetCells(currentState.width, currentState.height, currentState.cells);
+//        currentState.start();
+//        createBoard();
     }
 
     @FXML
@@ -136,7 +141,7 @@ public class AutomatonGUIController extends Observable {
 
     @FXML
     void wrappingToggleButtonAction(ActionEvent event) {
-        currentState.wrapping = !currentState.wrapping;
+//        currentState.wrapping = !currentState.wrapping;
     }
 
     @FXML
@@ -149,7 +154,7 @@ public class AutomatonGUIController extends Observable {
     @FXML
     void resetButtonAction(ActionEvent event) {
         timeline.stop();
-        resetCells(currentState.width, currentState.height, currentState.cells);
+        resetCells(currentState.width, currentState.height, currentState.depth, currentState.cells);
         currentState.start();
         currentState.putIntoTable();
         createBoard();
@@ -167,12 +172,12 @@ public class AutomatonGUIController extends Observable {
 
     @FXML
     void moorToggleButtonAction(ActionEvent event) {
-        currentState.neighborhoodStrategy = "MoorNeighborhood";
+//        currentState.neighborhoodStrategy = "MoorNeighborhood";
     }
 
     @FXML
     void vonNeumanToggleButtonAction(ActionEvent event) {
-        currentState.neighborhoodStrategy = "VonNeumanNeighborhood";
+//        currentState.neighborhoodStrategy = "VonNeumanNeighborhood";
     }
 
     @FXML
@@ -214,14 +219,17 @@ public class AutomatonGUIController extends Observable {
 //                else currentState.cells[x][y] = 1;
 //            }
 //        }
+        currentState.cells[x][y][showZ] = new SmokeState(IsSmoked.SOURCE_OF_FIRE, 300);
         currentState.putIntoMap();
         createBoard();
     }
 
-    public void resetCells(int w, int h, int[][] tab) {
-        for (int i = 0; i < w; i++)
-            for (int j = 0; j < h; j++)
-                tab[i][j] = 0;
+    public void resetCells(int w, int h, int d, CellState[][][] tab) {
+        // todo wczytywac mape z pliku
+//        for (int i = 0; i < w; i++)
+//            for (int j = 0; j < h; j++)
+//                for (int k = 0; k < d; k++)
+//                tab[i][j][k] = new SmokeState();
     }
 
     public void createBoard() {
@@ -241,6 +249,14 @@ public class AutomatonGUIController extends Observable {
                 Rectangle r = new Rectangle();
                 r.setWidth(w);
                 r.setHeight(h);
+
+                if (currentState.cells[j][i][showZ].getIsSmoked() == IsSmoked.SMOKED)
+                    r.setFill(Paint.valueOf("000000"));
+                else if(currentState.cells[j][i][showZ].getIsSmoked() == IsSmoked.SMOKED)
+                    r.setFill(Paint.valueOf("FF0000"));
+                else r.setFill(Paint.valueOf("FFFFFF"));
+
+
 //                if ((currentState.automatonClass == GameOfLife.class) && (!currentState.quadLife)) {
 //                    if (currentState.cells[j][i] == 1) {
 //                        r.setFill(Paint.valueOf("000000"));
@@ -323,6 +339,7 @@ public class AutomatonGUIController extends Observable {
 
     @FXML
     void initialize() {
+        showZ = 0;
         currentState = new AutomatonGUISource();
 //        structure = "None";
 //        rule1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 256, 2));
@@ -360,7 +377,7 @@ public class AutomatonGUIController extends Observable {
 //            structure = "Block";
 //        });
 
-        resetCells(currentState.width, currentState.height, currentState.cells);
+        resetCells(currentState.width, currentState.height, currentState.depth, currentState.cells);
         createBoard();
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.getKeyFrames().add(new KeyFrame(Duration.millis(100),
@@ -368,11 +385,12 @@ public class AutomatonGUIController extends Observable {
         widthSlider.valueProperty().addListener((ObservableValue<? extends Number> observable,
                                                  Number oldValue, Number newValue) -> {
             currentState.width = newValue.intValue();
-            int[][] tmp = new int[currentState.width][currentState.height];
-            resetCells(currentState.width, currentState.height, tmp);
+            SmokeState[][][] tmp = new SmokeState[currentState.width][currentState.height][currentState.depth];
+            resetCells(currentState.width, currentState.height, currentState.depth, tmp);
             for (int i = 0; i < oldValue.intValue(); i++)
-                for (int j = 0; j < currentState.height; j++) {
-                    if (i < currentState.width) tmp[i][j] = currentState.cells[i][j];
+                for (int j = 0; j < currentState.height; j++)
+                    for (int k = 0; k < currentState.depth; k++) {
+                    if (i < currentState.width) tmp[i][j][k] = currentState.cells[i][j][k];
                 }
             currentState.cells = tmp;
             createBoard();
@@ -380,16 +398,17 @@ public class AutomatonGUIController extends Observable {
         });
         heightSlider.valueProperty().addListener((ObservableValue<? extends Number> observable,
                                                   Number oldValue, Number newValue) -> {
+            //TODO; JAk bd robic "Z" to trzeba zmienic mozliwe wartosci show Z
             currentState.height = newValue.intValue();
-            int[][] tmp = new int[currentState.width][currentState.height];
-            resetCells(currentState.width, currentState.height, tmp);
+            SmokeState[][][] tmp = new SmokeState[currentState.width][currentState.height][currentState.depth];
+            resetCells(currentState.width, currentState.height, currentState.depth, tmp);
             for (int i = 0; i < currentState.width; i++)
-                for (int j = 0; j < oldValue.intValue(); j++) {
-                    if (j < currentState.height) tmp[i][j] = currentState.cells[i][j];
-                }
+                for (int j = 0; j < oldValue.intValue(); j++)
+                    for (int k = 0; k < currentState.depth; k++){
+                        if (j < currentState.height) tmp[i][j][k] = currentState.cells[i][j][k];
+                    }
             currentState.cells = tmp;
             createBoard();
-
         });
         radiousSlider.valueProperty().addListener((ObservableValue<? extends Number> observable,
                                                    Number oldValue, Number newValue) -> currentState.radious = newValue.intValue());
