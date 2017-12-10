@@ -37,9 +37,9 @@ public class Smoke extends Automaton3Dim{
         SmokeState result = new SmokeState(IsSmoked.CLEAR, 20);
 
         if ((currentState.state).equals(IsSmoked.SOURCE_OF_FIRE)) {
-            return IsSmoked.SOURCE_OF_FIRE;
+            return new SmokeState(IsSmoked.SOURCE_OF_FIRE, 300);
         }else if ((currentState.state).equals((IsSmoked.SMOKED))){
-            return IsSmoked.SMOKED;
+            return new SmokeState(IsSmoked.SMOKED, 300);
         }else{
 
             if(strategy == Strategy.TO_UP) {

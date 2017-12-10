@@ -19,7 +19,7 @@ apply plugin: 'application'
 
 sourceCompatibility = 1.8
 
-mainClassName = 'com.edu.agh.kis.automaton.sample.Main'
+mainClassName = 'com.edu.agh.kis.automaton.gui.App'
 
 repositories {
     mavenLocal()
@@ -37,7 +37,7 @@ dependencies {
 
 jfx {
     // minimal requirement for jfxJar-task
-    mainClass = 'com.edu.agh.kis.automaton.sample.Main'
+    mainClass = 'com.edu.agh.kis.automaton.gui.App'
 
     // minimal requirement for jfxNative-task
     vendor = 'ES'

@@ -226,10 +226,10 @@ public class AutomatonGUIController extends Observable {
 
     public void resetCells(int w, int h, int d, CellState[][][] tab) {
         // todo wczytywac mape z pliku
-//        for (int i = 0; i < w; i++)
-//            for (int j = 0; j < h; j++)
-//                for (int k = 0; k < d; k++)
-//                tab[i][j][k] = new SmokeState();
+        for (int i = 0; i < w; i++)
+            for (int j = 0; j < h; j++)
+                for (int k = 0; k < d; k++)
+                    tab[i][j][k] = new SmokeState(IsSmoked.CLEAR,20);
     }
 
     public void createBoard() {
@@ -249,11 +249,13 @@ public class AutomatonGUIController extends Observable {
                 Rectangle r = new Rectangle();
                 r.setWidth(w);
                 r.setHeight(h);
+//TODO: LAMA
 
-                if (currentState.cells[j][i][showZ].getIsSmoked() == IsSmoked.SMOKED)
+
+                if (currentState.cells[j][i][showZ].getIsSmoked().equals(IsSmoked.SMOKED))
                     r.setFill(Paint.valueOf("000000"));
-                else if(currentState.cells[j][i][showZ].getIsSmoked() == IsSmoked.SMOKED)
-                    r.setFill(Paint.valueOf("FF0000"));
+                else if(currentState.cells[j][i][showZ].getIsSmoked().equals(IsSmoked.CLEAR))
+                    r.setFill(Paint.valueOf("000000"));
                 else r.setFill(Paint.valueOf("FFFFFF"));
 
 
