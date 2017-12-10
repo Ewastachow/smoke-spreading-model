@@ -13,6 +13,7 @@ public abstract class Automaton3Dim extends Automaton {
     private int width;
     private int height;
     private int depth;
+    private static Strategy strategy;
 
     public Automaton3Dim() {
         super();

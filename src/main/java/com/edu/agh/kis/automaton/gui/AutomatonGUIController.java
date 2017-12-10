@@ -104,33 +104,33 @@ public class AutomatonGUIController extends Observable {
 
     @FXML
     void langtonAntToggleButtonAction(ActionEvent event) {
-        currentState.automatonClass = Smoke.class;
-        setButton();
-        timeline.stop();
-        resetCells(currentState.width, currentState.height, currentState.cells);
-        currentState.start();
-        createBoard();
+//        currentState.automatonClass = Smoke.class;
+//        setButton();
+//        timeline.stop();
+//        resetCells(currentState.width, currentState.height, currentState.cells);
+//        currentState.start();
+//        createBoard();
     }
 
     @FXML
     void wireworldToggleButtonAction(ActionEvent event) {
-        currentState.automatonClass = Smoke.class;
-        setButton();
-        timeline.stop();
-        resetCells(currentState.width, currentState.height, currentState.cells);
-        currentState.start();
-        createBoard();
+//        currentState.automatonClass = Smoke.class;
+//        setButton();
+//        timeline.stop();
+//        resetCells(currentState.width, currentState.height, currentState.cells);
+//        currentState.start();
+//        createBoard();
 
     }
 
     @FXML
     void oneDimToggleButtonAction(ActionEvent event) {
-        currentState.automatonClass = Smoke.class;
-        setButton();
-        timeline.stop();
-        resetCells(currentState.width, currentState.height, currentState.cells);
-        currentState.start();
-        createBoard();
+//        currentState.automatonClass = Smoke.class;
+//        setButton();
+//        timeline.stop();
+//        resetCells(currentState.width, currentState.height, currentState.cells);
+//        currentState.start();
+//        createBoard();
 
     }
 
@@ -324,41 +324,41 @@ public class AutomatonGUIController extends Observable {
     @FXML
     void initialize() {
         currentState = new AutomatonGUISource();
-        structure = "None";
-        rule1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 256, 2));
-        rule2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 15, 3));
-        rule3.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 15, 3));
-        rule1.valueProperty().addListener((o, oldValue, newValue) -> {
-            currentState.rule1 = newValue;
-        });
-        rule2.valueProperty().addListener((o, oldValue, newValue) -> {
-            currentState.rule2 = newValue;
-        });
-        rule3.valueProperty().addListener((o, oldValue, newValue) -> {
-            currentState.rule3 = newValue;
-        });
-
-        MenuItem none = new MenuItem("None");
-        MenuItem glider = new MenuItem("Glider");
-        MenuItem spaceship = new MenuItem("Spaceship");
-        MenuItem blinker = new MenuItem("Blinker");
-        MenuItem block = new MenuItem("Block");
-        structureMenuButton.getItems().addAll(none, glider, spaceship, blinker, block);
-        none.setOnAction(event -> {
-            structure = "None";
-        });
-        glider.setOnAction(event -> {
-            structure = "Glider";
-        });
-        spaceship.setOnAction(event -> {
-            structure = "Spaceship";
-        });
-        blinker.setOnAction(event -> {
-            structure = "Blinker";
-        });
-        block.setOnAction(event -> {
-            structure = "Block";
-        });
+//        structure = "None";
+//        rule1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 256, 2));
+//        rule2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 15, 3));
+//        rule3.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 15, 3));
+//        rule1.valueProperty().addListener((o, oldValue, newValue) -> {
+//            currentState.rule1 = newValue;
+//        });
+//        rule2.valueProperty().addListener((o, oldValue, newValue) -> {
+//            currentState.rule2 = newValue;
+//        });
+//        rule3.valueProperty().addListener((o, oldValue, newValue) -> {
+//            currentState.rule3 = newValue;
+//        });
+//
+//        MenuItem none = new MenuItem("None");
+//        MenuItem glider = new MenuItem("Glider");
+//        MenuItem spaceship = new MenuItem("Spaceship");
+//        MenuItem blinker = new MenuItem("Blinker");
+//        MenuItem block = new MenuItem("Block");
+//        structureMenuButton.getItems().addAll(none, glider, spaceship, blinker, block);
+//        none.setOnAction(event -> {
+//            structure = "None";
+//        });
+//        glider.setOnAction(event -> {
+//            structure = "Glider";
+//        });
+//        spaceship.setOnAction(event -> {
+//            structure = "Spaceship";
+//        });
+//        blinker.setOnAction(event -> {
+//            structure = "Blinker";
+//        });
+//        block.setOnAction(event -> {
+//            structure = "Block";
+//        });
 
         resetCells(currentState.width, currentState.height, currentState.cells);
         createBoard();
@@ -396,39 +396,39 @@ public class AutomatonGUIController extends Observable {
         board.setOnMouseClicked(event -> clickedOnCell(event));
     }
 
-    private void createStructure(int x, int y){
-        if (structure.equals("Glider")) {
-            currentState.cells[x][y] = 1;
-            if (x + 1 < currentState.width) currentState.cells[x + 1][y] = 1;
-            if (x + 2 < currentState.width) currentState.cells[x + 2][y] = 1;
-            if ((x + 2 < currentState.width) && (y - 1 >= 0)) currentState.cells[x + 2][y - 1] = 1;
-            if ((x + 1 < currentState.width) && (y - 2 >= 0)) currentState.cells[x + 1][y - 2] = 1;
-            structure = "None";
-        } else if (structure.equals("Spaceship")) {
-            currentState.cells[x][y] = 1;
-            if (y + 2 < currentState.height) currentState.cells[x][y + 2] = 1;
-            if (x + 3 < currentState.width) currentState.cells[x + 3][y] = 1;
-            if ((y + 3 < currentState.height) && (x + 1 < currentState.width)) currentState.cells[x + 1][y + 3] = 1;
-            if ((y + 3 < currentState.height) && (x + 2 < currentState.width)) currentState.cells[x + 2][y + 3] = 1;
-            if ((y + 3 < currentState.height) && (x + 3 < currentState.width)) currentState.cells[x + 3][y + 3] = 1;
-            if ((y + 3 < currentState.height) && (x + 4 < currentState.width)) currentState.cells[x + 4][y + 3] = 1;
-            if ((y + 2 < currentState.height) && (x + 4 < currentState.width)) currentState.cells[x + 4][y + 2] = 1;
-            if ((y + 1 < currentState.height) && (x + 4 < currentState.width)) currentState.cells[x + 4][y + 1] = 1;
-            structure = "None";
-        } else if (structure.equals("Blinker")) {
-            currentState.cells[x][y] = 1;
-            if (x + 1 < currentState.width) currentState.cells[x + 1][y] = 1;
-            if (x + 2 < currentState.width) currentState.cells[x + 2][y] = 1;
-            structure = "None";
-        } else if (structure.equals("Block")) {
-            currentState.cells[x][y] = 1;
-            if (x + 1 < currentState.width) currentState.cells[x + 1][y] = 1;
-            if ((x + 1 < currentState.width) && (y + 1 < currentState.height)) currentState.cells[x + 1][y + 1] = 1;
-            if (y + 1 < currentState.height) currentState.cells[x][y + 1] = 1;
-            structure = "None";
-        }
-
-    }
+//    private void createStructure(int x, int y){
+//        if (structure.equals("Glider")) {
+//            currentState.cells[x][y] = 1;
+//            if (x + 1 < currentState.width) currentState.cells[x + 1][y] = 1;
+//            if (x + 2 < currentState.width) currentState.cells[x + 2][y] = 1;
+//            if ((x + 2 < currentState.width) && (y - 1 >= 0)) currentState.cells[x + 2][y - 1] = 1;
+//            if ((x + 1 < currentState.width) && (y - 2 >= 0)) currentState.cells[x + 1][y - 2] = 1;
+//            structure = "None";
+//        } else if (structure.equals("Spaceship")) {
+//            currentState.cells[x][y] = 1;
+//            if (y + 2 < currentState.height) currentState.cells[x][y + 2] = 1;
+//            if (x + 3 < currentState.width) currentState.cells[x + 3][y] = 1;
+//            if ((y + 3 < currentState.height) && (x + 1 < currentState.width)) currentState.cells[x + 1][y + 3] = 1;
+//            if ((y + 3 < currentState.height) && (x + 2 < currentState.width)) currentState.cells[x + 2][y + 3] = 1;
+//            if ((y + 3 < currentState.height) && (x + 3 < currentState.width)) currentState.cells[x + 3][y + 3] = 1;
+//            if ((y + 3 < currentState.height) && (x + 4 < currentState.width)) currentState.cells[x + 4][y + 3] = 1;
+//            if ((y + 2 < currentState.height) && (x + 4 < currentState.width)) currentState.cells[x + 4][y + 2] = 1;
+//            if ((y + 1 < currentState.height) && (x + 4 < currentState.width)) currentState.cells[x + 4][y + 1] = 1;
+//            structure = "None";
+//        } else if (structure.equals("Blinker")) {
+//            currentState.cells[x][y] = 1;
+//            if (x + 1 < currentState.width) currentState.cells[x + 1][y] = 1;
+//            if (x + 2 < currentState.width) currentState.cells[x + 2][y] = 1;
+//            structure = "None";
+//        } else if (structure.equals("Block")) {
+//            currentState.cells[x][y] = 1;
+//            if (x + 1 < currentState.width) currentState.cells[x + 1][y] = 1;
+//            if ((x + 1 < currentState.width) && (y + 1 < currentState.height)) currentState.cells[x + 1][y + 1] = 1;
+//            if (y + 1 < currentState.height) currentState.cells[x][y + 1] = 1;
+//            structure = "None";
+//        }
+//
+//    }
 
     private void setButton(){
 //        if(currentState.automatonClass==OneDim.class){

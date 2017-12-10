@@ -3,7 +3,9 @@ package com.edu.agh.kis.automaton.core.neighborhood;
 import com.edu.agh.kis.automaton.core.coords.CellCoordinates;
 import com.edu.agh.kis.automaton.core.coords.Coords3D;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class VonNeumanNeighborhood3Dim implements CellNeighborhood{
@@ -21,25 +23,38 @@ public class VonNeumanNeighborhood3Dim implements CellNeighborhood{
     }
 
     @Override
-    public Set<CellCoordinates> cellNeighbors(CellCoordinates cell) {
+    public Map<CellRelativePosition,Set<CellCoordinates>> cellNeighbors(CellCoordinates cell) {
 
-        Set<CellCoordinates> cellsNeighbors = new HashSet<>();
+        Map<CellRelativePosition, Set<CellCoordinates>> result = new HashMap<>();
+        Set<CellCoordinates> cellsNeighborsUp = new HashSet<>();
+        Set<CellCoordinates> cellsNeighborsSide = new HashSet<>();
+        Set<CellCoordinates> cellsNeighborsDown = new HashSet<>();
 
         for (int i = -radious; i <= radious; i++)
             for (int j = -radious; j <= radious; j++)
-                for (int k = -radious; k <= radious; k++)
-                    if(((i != 0) && (j == 0) && (k == 0)) ||
-                            ((i == 0) && (j != 0) && (k == 0)) ||
-                            ((i == 0) && (j == 0) && (k != 0)))
-                        if((((Coords3D) cell).getX() + i >= 0) &&
-                                (((Coords3D) cell).getX() + i < width) &&
-                                (((Coords3D) cell).getY() + j >= 0) &&
-                                (((Coords3D) cell).getY() + j < height) &&
-                                (((Coords3D) cell).getZ() + k >= 0) &&
-                                (((Coords3D) cell).getZ() + k < depth))
+                for (int k = -radious; k <= radious; k++) {
+
+                }
+
+//                    if(((i != 0) && (j == 0) && (k == 0)) ||
+//                            ((i == 0) && (j != 0) && (k == 0)) ||
+//                            ((i == 0) && (j == 0) && (k != 0)))
+//                        if((((Coords3D) cell).getX() + i >= 0) &&
+//                                (((Coords3D) cell).getX() + i < width) &&
+//                                (((Coords3D) cell).getY() + j >= 0) &&
+//                                (((Coords3D) cell).getY() + j < height) &&
+//                                (((Coords3D) cell).getZ() + k >= 0) &&
+//                                (((Coords3D) cell).getZ() + k < depth)){
+                            if(k ==((Coords3D) cell).getZ())
+                                cellsNeighborsSide.add(new Coords3D((((Coords3D) cell).getX() + i),
+                                        (((Coords3D) cell).getY() + j),
+                                        (((Coords3D) cell).getZ() + k)));
+                            if()
+
+                        }
                             cellsNeighbors.add(new Coords3D((((Coords3D) cell).getX() + i),
                                     (((Coords3D) cell).getY() + j),
                                     (((Coords3D) cell).getZ() + k)));
-        return cellsNeighbors;
+        return result;
     }
 }

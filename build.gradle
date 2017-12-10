@@ -46,3 +46,13 @@ jfx {
 //  ctrl + alt + a -> add the Unversioned Files changelist under version control
 //  ctrl + k -> commit
 //  ctrl + shift + k
+
+// dyskretyzacja - 10 / 5 cm
+// czas przjscia do nastpnego stanu
+// opis jak dziaa model pod spodem
+// opis regoly przejscia
+// konwekcja - roznica temperator - zrodlo jest cieple wiec dym i cieplo przchodzi sie do gory -
+// caly mechanizm opieramy o konwkcje dym zachowuje sie jak masy powietrza
+// typ komurki jako zrodlo odnia o temp - 300 / 200 stopni
+// biblioteka do gier - czy da sie podpiac unity do javy?
+// symulacja - filtr dla padajacego swiatla 
