@@ -1,7 +1,5 @@
 package com.edu.agh.kis.automaton.core.state;
 
-import com.edu.agh.kis.automaton.core.neighborhood.SmokeDirection;
-
 public class SmokeState implements CellState{
 
     private IsSmoked isSmoked;

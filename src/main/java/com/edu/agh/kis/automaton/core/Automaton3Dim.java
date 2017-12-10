@@ -4,6 +4,7 @@ import com.edu.agh.kis.automaton.core.coords.CellCoordinates;
 import com.edu.agh.kis.automaton.core.coords.Coords3D;
 import com.edu.agh.kis.automaton.core.neighborhood.CellNeighborhood;
 import com.edu.agh.kis.automaton.core.state.CellState;
+import com.edu.agh.kis.automaton.core.state.Strategy;
 import com.edu.agh.kis.automaton.core.stateFactory.CellStateFactory;
 
 import java.util.Map;
