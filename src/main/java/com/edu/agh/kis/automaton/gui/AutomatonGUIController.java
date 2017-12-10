@@ -126,6 +126,7 @@ public class AutomatonGUIController extends Observable {
 //        currentState.start();
 //        createBoard();
 
+
     }
 
     @FXML
