@@ -146,7 +146,7 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable {
 
     protected abstract CellCoordinates nextCoordinates(CellCoordinates cellC);
 
-    protected abstract CellState nextCellState(Cell currentState, Set<Cell> neighborsStates);
+    protected abstract CellState nextCellState(Cell currentState, Map<CellRelativePosition, Set<Cell>> neighborsStates);
 
 
 
