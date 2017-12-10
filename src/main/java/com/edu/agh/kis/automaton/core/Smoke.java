@@ -15,6 +15,9 @@ public class Smoke extends Automaton3Dim{
         super();
     }
 
+
+
+
     public Smoke(Map<CellCoordinates, CellState> cells, CellNeighborhood neighborhoodStrategy, CellStateFactory stateFactory, int width, int height, int depth) {
         super(cells, neighborhoodStrategy, stateFactory, width, height, depth);
     }
@@ -24,9 +27,29 @@ public class Smoke extends Automaton3Dim{
         return new Smoke(super.getCells(), cellN, cellSF, getWidth(), getHeight(), getDepth());
     }
 
+    //Map<CellRelativePosition, Set<CellCoordinates>>
+
     @Override
     protected CellState nextCellState(Cell currentState, Set<Cell> neighborsStates) {
         //todo Implement
+
+        if ((currentState.state).equals(IsSmoked.SOURCE_OF_FIRE)) {
+            return IsSmoked.SOURCE_OF_FIRE;
+        }else if ((currentState.state).equals((IsSmoked.SMOKED))){
+            return IsSmoked.SMOKED;
+        }else{
+            // musze pobrac sasiedztwo
+            boolean neighborhood = false;
+            for(){
+                if ((currentState.state).
+            }
+            // jesli na dole jest zrodlo to zostan smoke i tem 300
+
+            // else if ((currentState.state) {}  // jesli
+            // else if (){}
+            // else { return isSmoke.CLEAR;}
+        }
+
 
         // Temporary implementation
         if((currentState.state).equals(IsSmoked.SMOKED)) return IsSmoked.SMOKED;

@@ -2,7 +2,9 @@ package com.edu.agh.kis.automaton.core;
 
 import com.edu.agh.kis.automaton.core.coords.CellCoordinates;
 import com.edu.agh.kis.automaton.core.neighborhood.CellNeighborhood;
+import com.edu.agh.kis.automaton.core.neighborhood.CellRelativePosition;
 import com.edu.agh.kis.automaton.core.state.CellState;
+import com.edu.agh.kis.automaton.core.state.SmokeState;
 import com.edu.agh.kis.automaton.core.stateFactory.CellStateFactory;
 
 import java.util.*;
@@ -147,11 +149,29 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable{
 
     protected abstract CellState nextCellState(Cell currentState, Set<Cell> neighborsStates);
 
-    private Set<Cell> mapCoordinates(Set<CellCoordinates> cellsCSet) {
+//    private Set<Cell> mapCoordinates(Set<CellCoordinates> cellsCSet) {
+//        Set<Cell> newSetCell = new HashSet<Cell>();
+//        for (CellCoordinates i : cellsCSet) {
+//            newSetCell.add(new Cell(i, cells.get(i)));
+//        }
+//        return newSetCell;
+//    }
+
+    private Map<CellRelativePosition, Set<Cell>> mapCoordinates(Map<CellRelativePosition, Set<CellCoordinates>> cellsmap) {
+        Map<CellRelativePosition, Set<Cell>> newMap = new HashMap<>();
         Set<Cell> newSetCell = new HashSet<Cell>();
-        for (CellCoordinates i : cellsCSet) {
-            newSetCell.add(new Cell(i, cells.get(i)));
+
+        for (Map.Entry<CellRelativePosition, Set<CellCoordinates>> entry : cellsmap.entrySet()){
+            CellRelativePosition cellRelativePosition = entry.getKey();
+            Set<CellCoordinates> cellCoordinatesSet = entry.getValue();
+
+            for (CellCoordinates i : cellCoordinatesSet){
+                newSetCell.add(new Cell(i, cells.get(i)));
+            }
+
+            newMap.put(cellRelativePosition, newSetCell);
         }
-        return newSetCell;
+
+        return newMap;
     }
-}
+
