@@ -21,6 +21,7 @@ public class App extends Application {
         primaryStage.setTitle("Smoke Spreading Model");
         primaryStage.setScene(scene);
         primaryStage.show();
+//        pane.setVisible(true);
     }
 
     public static void main(String[] args) {
