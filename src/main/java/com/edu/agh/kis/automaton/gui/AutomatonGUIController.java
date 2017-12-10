@@ -250,12 +250,16 @@ public class AutomatonGUIController extends Observable {
                 r.setWidth(w);
                 r.setHeight(h);
 
-                if (currentState.cells[j][i][showZ].getIsSmoked() == IsSmoked.SMOKED)
-                    r.setFill(Paint.valueOf("000000"));
-                else if(currentState.cells[j][i][showZ].getIsSmoked() == IsSmoked.SMOKED)
-                    r.setFill(Paint.valueOf("FF0000"));
-                else r.setFill(Paint.valueOf("FFFFFF"));
 
+                try {
+                    if (currentState.cells[j][i][showZ].getIsSmoked().equals(IsSmoked.SMOKED))
+                        r.setFill(Paint.valueOf("000000"));
+                    else if (currentState.cells[j][i][showZ].getIsSmoked().equals(IsSmoked.SMOKED))
+                        r.setFill(Paint.valueOf("FF0000"));
+                    else r.setFill(Paint.valueOf("FFFFFF"));
+                }catch(Exception e){
+                    System.out.println("Lamolandia");
+                }
 
 //                if ((currentState.automatonClass == GameOfLife.class) && (!currentState.quadLife)) {
 //                    if (currentState.cells[j][i] == 1) {

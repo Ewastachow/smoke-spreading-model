@@ -45,7 +45,7 @@ public class AutomatonGUISource {
         currentAutomaton = new Smoke();
         for (int i = 0; i < width; i++)
             for (int j = 0; j < height; j++)
-                for (int k = 0; k < depth; j++)
+                for (int k = 0; k < depth; k++)
                 currentAutomaton.setNewCellState(new Coords3D(i, j, k), IsSmoked.CLEAR);
         start();
     }
@@ -54,7 +54,7 @@ public class AutomatonGUISource {
         Map<CellCoordinates, CellState> tmp = new TreeMap<CellCoordinates, CellState>();
             for (int i = 0; i < width; i++)
                 for (int j = 0; j < height; j++)
-                    for (int k = 0; k < depth; j++)
+                    for (int k = 0; k < depth; k++)
                         tmp.put(new Coords3D(i, j,k), IsSmoked.CLEAR);
         currentAutomaton = new Smoke(tmp,
                     new VonNeumanNeighborhood3Dim(radious, height, width, depth),
