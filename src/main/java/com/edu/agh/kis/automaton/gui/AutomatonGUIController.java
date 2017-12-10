@@ -1,6 +1,5 @@
 package com.edu.agh.kis.automaton.gui;
 
-import com.edu.agh.kis.automaton.core.Smoke;
 import com.edu.agh.kis.automaton.core.state.CellState;
 import com.edu.agh.kis.automaton.core.state.IsSmoked;
 import com.edu.agh.kis.automaton.core.state.SmokeState;
@@ -11,10 +10,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -29,10 +26,8 @@ import java.util.Observable;
  */
 public class AutomatonGUIController extends Observable {
 
-    public AutomatonGUISource currentState;
-
+    private AutomatonGUISource currentState;
     private Timeline timeline = new Timeline();
-
     private int showZ;
 
     @FXML
@@ -102,7 +97,7 @@ public class AutomatonGUIController extends Observable {
         createBoard();
     }
 
-    public void resetCells(int w, int h, int d, CellState[][][] tab) {
+    private void resetCells(int w, int h, int d, CellState[][][] tab) {
         // todo wczytywac mape z pliku
         for (int i = 0; i < w; i++)
             for (int j = 0; j < h; j++)
@@ -110,7 +105,7 @@ public class AutomatonGUIController extends Observable {
                     tab[i][j][k] = new SmokeState(IsSmoked.CLEAR,20);
     }
 
-    public void createBoard() {
+    private void createBoard() {
         board.getChildren().clear();
         board.setMaxWidth(600);
         board.setPrefWidth(600);
@@ -139,20 +134,24 @@ public class AutomatonGUIController extends Observable {
 
     @FXML
     void initialize() {
-        przekroj.valueProperty().addListener((ObservableValue<? extends Number> observable,
-                                                 Number oldValue, Number newValue) -> {
-            showZ = newValue.intValue()-1;
-            createBoard();
-        });
-        showZ = 0;
         currentState = new AutomatonGUISource();
+        showZ = 0;
         przekroj.setMax(currentState.depth);
-
-        resetCells(currentState.width, currentState.height, currentState.depth, currentState.cells);
-        createBoard();
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.getKeyFrames().add(new KeyFrame(Duration.millis(100),
                 event -> nextButtonAction(null)));
+        setEventsHandlers();
+        resetCells(currentState.width, currentState.height, currentState.depth, currentState.cells);
+        createBoard();
+    }
+
+    private void setEventsHandlers(){
+        board.setOnMouseClicked(this::clickedOnCell);
+        przekroj.valueProperty().addListener((ObservableValue<? extends Number> observable,
+                                              Number oldValue, Number newValue) -> {
+            showZ = newValue.intValue()-1;
+            createBoard();
+        });
         widthSlider.valueProperty().addListener((ObservableValue<? extends Number> observable,
                                                  Number oldValue, Number newValue) -> {
             currentState.width = newValue.intValue();
@@ -161,14 +160,27 @@ public class AutomatonGUIController extends Observable {
             for (int i = 0; i < oldValue.intValue(); i++)
                 for (int j = 0; j < currentState.height; j++)
                     for (int k = 0; k < currentState.depth; k++) {
-                    if (i < currentState.width) tmp[i][j][k] = currentState.cells[i][j][k];
-                }
+                        if (i < currentState.width) tmp[i][j][k] = currentState.cells[i][j][k];
+                    }
             currentState.cells = tmp;
             createBoard();
 
         });
-        depthSlider.valueProperty().addListener((ObservableValue<? extends Number> observable,
+        heightSlider.valueProperty().addListener((ObservableValue<? extends Number> observable,
                                                   Number oldValue, Number newValue) -> {
+            currentState.height = newValue.intValue();
+            SmokeState[][][] tmp = new SmokeState[currentState.width][currentState.height][currentState.depth];
+            resetCells(currentState.width, currentState.height, currentState.depth, tmp);
+            for (int i = 0; i < currentState.width; i++)
+                for (int j = 0; j < oldValue.intValue(); j++)
+                    for (int k = 0; k < currentState.depth; k++){
+                        if (j < currentState.height) tmp[i][j][k] = currentState.cells[i][j][k];
+                    }
+            currentState.cells = tmp;
+            createBoard();
+        });
+        depthSlider.valueProperty().addListener((ObservableValue<? extends Number> observable,
+                                                 Number oldValue, Number newValue) -> {
             currentState.height = newValue.intValue();
             przekroj.setMax(currentState.depth);
             SmokeState[][][] tmp = new SmokeState[currentState.width][currentState.height][currentState.depth];
@@ -181,21 +193,5 @@ public class AutomatonGUIController extends Observable {
             currentState.cells = tmp;
             createBoard();
         });
-        heightSlider.valueProperty().addListener((ObservableValue<? extends Number> observable,
-                                                  Number oldValue, Number newValue) -> {
-            //TODO; JAk bd robic "Z" to trzeba zmienic mozliwe wartosci show Z
-            currentState.height = newValue.intValue();
-            SmokeState[][][] tmp = new SmokeState[currentState.width][currentState.height][currentState.depth];
-            resetCells(currentState.width, currentState.height, currentState.depth, tmp);
-            for (int i = 0; i < currentState.width; i++)
-                for (int j = 0; j < oldValue.intValue(); j++)
-                    for (int k = 0; k < currentState.depth; k++){
-                        if (j < currentState.height) tmp[i][j][k] = currentState.cells[i][j][k];
-                    }
-            currentState.cells = tmp;
-            createBoard();
-        });
-        board.setOnMouseClicked(event -> clickedOnCell(event));
     }
-
 }
