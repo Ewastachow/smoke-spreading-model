@@ -9,7 +9,7 @@ import com.edu.agh.kis.automaton.core.stateFactory.CellStateFactory;
 
 import java.util.*;
 
-public abstract class Automaton implements Iterable<Cell>, Cloneable{
+public abstract class Automaton implements Iterable<Cell>, Cloneable {
     private Map<CellCoordinates, CellState> cells = new TreeMap<>();
     private CellNeighborhood neighborhoodStrategy;
     private CellStateFactory stateFactory;
@@ -45,14 +45,14 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable{
     }
 
     @Override
-    public Object clone(){
+    public Object clone() {
         try {
             super.clone();
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
 
-        Automaton duplicate = newInstance(stateFactory,neighborhoodStrategy);
+        Automaton duplicate = newInstance(stateFactory, neighborhoodStrategy);
         duplicate.cells = new TreeMap<>(cells);
         return duplicate;
     }
@@ -106,11 +106,10 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable{
         }
 
         public Cell next() {
-            if(hasNext()){
-                currentState=nextCoordinates(currentState);
+            if (hasNext()) {
+                currentState = nextCoordinates(currentState);
                 return new Cell(currentState, cells.get(currentState));
-            }
-            else throw new NoSuchElementException();
+            } else throw new NoSuchElementException();
         }
 
         public void setState(CellState cellS) {
@@ -159,13 +158,15 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable{
 
     private Map<CellRelativePosition, Set<Cell>> mapCoordinates(Map<CellRelativePosition, Set<CellCoordinates>> cellsmap) {
         Map<CellRelativePosition, Set<Cell>> newMap = new HashMap<>();
-        Set<Cell> newSetCell = new HashSet<Cell>();
 
-        for (Map.Entry<CellRelativePosition, Set<CellCoordinates>> entry : cellsmap.entrySet()){
+
+        for (Map.Entry<CellRelativePosition, Set<CellCoordinates>> entry : cellsmap.entrySet()) {
+            Set<Cell> newSetCell = new HashSet<Cell>();
+
             CellRelativePosition cellRelativePosition = entry.getKey();
             Set<CellCoordinates> cellCoordinatesSet = entry.getValue();
 
-            for (CellCoordinates i : cellCoordinatesSet){
+            for (CellCoordinates i : cellCoordinatesSet) {
                 newSetCell.add(new Cell(i, cells.get(i)));
             }
 
@@ -174,4 +175,5 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable{
 
         return newMap;
     }
+}
 
