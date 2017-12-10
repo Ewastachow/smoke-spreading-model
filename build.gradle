@@ -1,4 +1,4 @@
-group 'smoke-spreading-model'
+ group 'smoke-spreading-model'
 version '1.0'
 
 buildscript {
