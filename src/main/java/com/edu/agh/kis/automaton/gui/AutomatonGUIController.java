@@ -341,41 +341,40 @@ public class AutomatonGUIController extends Observable {
     void initialize() {
         showZ = 0;
         currentState = new AutomatonGUISource();
-//        structure = "None";
-//        rule1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 256, 2));
-//        rule2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 15, 3));
-//        rule3.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 15, 3));
-//        rule1.valueProperty().addListener((o, oldValue, newValue) -> {
-//            currentState.rule1 = newValue;
-//        });
-//        rule2.valueProperty().addListener((o, oldValue, newValue) -> {
-//            currentState.rule2 = newValue;
-//        });
-//        rule3.valueProperty().addListener((o, oldValue, newValue) -> {
-//            currentState.rule3 = newValue;
-//        });
+        structure = "None";
+        rule1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 256, 2));
+        rule2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 15, 3));
+        rule3.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 15, 3));
+        rule1.valueProperty().addListener((o, oldValue, newValue) -> {
+        });
+        rule2.valueProperty().addListener((o, oldValue, newValue) -> {
+
+        });
+        rule3.valueProperty().addListener((o, oldValue, newValue) -> {
+
+        });
 //
-//        MenuItem none = new MenuItem("None");
-//        MenuItem glider = new MenuItem("Glider");
-//        MenuItem spaceship = new MenuItem("Spaceship");
-//        MenuItem blinker = new MenuItem("Blinker");
-//        MenuItem block = new MenuItem("Block");
-//        structureMenuButton.getItems().addAll(none, glider, spaceship, blinker, block);
-//        none.setOnAction(event -> {
-//            structure = "None";
-//        });
-//        glider.setOnAction(event -> {
-//            structure = "Glider";
-//        });
-//        spaceship.setOnAction(event -> {
-//            structure = "Spaceship";
-//        });
-//        blinker.setOnAction(event -> {
-//            structure = "Blinker";
-//        });
-//        block.setOnAction(event -> {
-//            structure = "Block";
-//        });
+        MenuItem none = new MenuItem("None");
+        MenuItem glider = new MenuItem("Glider");
+        MenuItem spaceship = new MenuItem("Spaceship");
+        MenuItem blinker = new MenuItem("Blinker");
+        MenuItem block = new MenuItem("Block");
+        structureMenuButton.getItems().addAll(none, glider, spaceship, blinker, block);
+        none.setOnAction(event -> {
+            structure = "None";
+        });
+        glider.setOnAction(event -> {
+            structure = "Glider";
+        });
+        spaceship.setOnAction(event -> {
+            structure = "Spaceship";
+        });
+        blinker.setOnAction(event -> {
+            structure = "Blinker";
+        });
+        block.setOnAction(event -> {
+            structure = "Block";
+        });
 
         resetCells(currentState.width, currentState.height, currentState.depth, currentState.cells);
         createBoard();
@@ -415,7 +414,7 @@ public class AutomatonGUIController extends Observable {
         board.setOnMouseClicked(event -> clickedOnCell(event));
     }
 
-//    private void createStructure(int x, int y){
+    private void createStructure(int x, int y){
 //        if (structure.equals("Glider")) {
 //            currentState.cells[x][y] = 1;
 //            if (x + 1 < currentState.width) currentState.cells[x + 1][y] = 1;
@@ -447,7 +446,7 @@ public class AutomatonGUIController extends Observable {
 //            structure = "None";
 //        }
 //
-//    }
+    }
 
     private void setButton(){
 //        if(currentState.automatonClass==OneDim.class){
