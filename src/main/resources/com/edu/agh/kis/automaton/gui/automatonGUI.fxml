@@ -3,50 +3,19 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.Spinner?>
-<?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="700.0" maxWidth="1200.0" minHeight="700.0" minWidth="1200.0" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.edu.agh.kis.automaton.gui.AutomatonGUIController">
+<Pane maxHeight="700.0" maxWidth="1200.0" minHeight="700.0" minWidth="1200.0" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.edu.agh.kis.automaton.gui.AutomatonGUIController">
     <children>
         <HBox prefHeight="700.0" prefWidth="1200.0">
             <children>
                 <VBox prefHeight="700.0" prefWidth="500.0">
                     <children>
-                        <HBox maxHeight="50.0" maxWidth="500.0" minHeight="50.0" minWidth="500.0" prefHeight="50.0" prefWidth="500.0">
-                            <children>
-                                <ToggleButton fx:id="gameOfLifeToggleButton" mnemonicParsing="false" onAction="#gameOfLifeToggleButtonAction" prefHeight="50.0" prefWidth="90.0" selected="true" text="Game of Life">
-                                    <HBox.margin>
-                                        <Insets left="10.0" />
-                                    </HBox.margin>
-                                    <toggleGroup>
-                                        <ToggleGroup fx:id="gamesTab" />
-                                    </toggleGroup></ToggleButton>
-                                <ToggleButton fx:id="quadLifeToggleButton1" mnemonicParsing="false" onAction="#quadLifeToggleButtonAction" prefHeight="50.0" prefWidth="90.0" text="Quad Life" toggleGroup="$gamesTab">
-                                    <HBox.margin>
-                                        <Insets left="10.0" />
-                                    </HBox.margin>
-                                </ToggleButton>
-                                <ToggleButton fx:id="wireworldToggleButton" mnemonicParsing="false" onAction="#wireworldToggleButtonAction" prefHeight="50.0" prefWidth="90.0" text="Wireworld" toggleGroup="$gamesTab">
-                                    <HBox.margin>
-                                        <Insets left="10.0" />
-                                    </HBox.margin></ToggleButton>
-                                <ToggleButton fx:id="langtonAntToggleButton" mnemonicParsing="false" onAction="#langtonAntToggleButtonAction" prefHeight="50.0" prefWidth="90.0" text="Langton Ant" textOverrun="WORD_ELLIPSIS" toggleGroup="$gamesTab">
-                                    <HBox.margin>
-                                        <Insets left="10.0" />
-                                    </HBox.margin></ToggleButton>
-                                <ToggleButton fx:id="oneDimToggleButton" mnemonicParsing="false" onAction="#oneDimToggleButtonAction" prefHeight="50.0" prefWidth="90.0" text="1 Dim" toggleGroup="$gamesTab">
-                                    <HBox.margin>
-                                        <Insets left="10.0" />
-                                    </HBox.margin></ToggleButton>
-                            </children>
+                        <HBox alignment="CENTER" maxHeight="50.0" maxWidth="500.0" minHeight="50.0" minWidth="500.0" prefHeight="50.0" prefWidth="500.0">
                             <VBox.margin>
                                 <Insets bottom="20.0" top="20.0" />
                             </VBox.margin>
@@ -80,61 +49,25 @@
                                         <Insets bottom="10.0" top="10.0" />
                                     </VBox.margin>
                                 </HBox>
-                                <HBox alignment="CENTER" prefHeight="50.0" prefWidth="500.0" spacing="20.0">
-                                    <children>
-                                        <ToggleButton fx:id="moorToggleButton" mnemonicParsing="false" onAction="#moorToggleButtonAction" prefHeight="30.0" prefWidth="200.0" selected="true" text="Moor Neighborhood" textAlignment="CENTER">
-                                            <toggleGroup>
-                                                <ToggleGroup fx:id="neighborhoodToggleButton" />
-                                            </toggleGroup>
-                                        </ToggleButton>
-                                        <ToggleButton fx:id="vonNeumanToggleButton" mnemonicParsing="false" onAction="#vonNeumanToggleButtonAction" prefHeight="30.0" prefWidth="200.0" text="Von Neuman Neighborhood" textAlignment="CENTER" toggleGroup="$neighborhoodToggleButton" />
-                                    </children>
-                                </HBox>
-                                <Label fx:id="widthLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="37.0" prefWidth="100.0" text="Width" textAlignment="CENTER" wrapText="true">
+                                <HBox alignment="CENTER" prefHeight="50.0" prefWidth="500.0" spacing="20.0" />
+                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="37.0" prefWidth="100.0" text="Width" textAlignment="CENTER" wrapText="true">
                                     <VBox.margin>
                                         <Insets top="15.0" />
                                     </VBox.margin></Label>
                                 <Slider fx:id="widthSlider" majorTickUnit="5.0" max="80.0" maxHeight="20.0" maxWidth="300.0" min="5.0" minHeight="20.0" minWidth="300.0" prefHeight="20.0" prefWidth="300.0" showTickLabels="true" value="20.0" />
-                                <Label fx:id="heightLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="37.0" prefWidth="100.0" text="Height" textAlignment="CENTER" wrapText="true">
+                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="37.0" prefWidth="100.0" text="Height" textAlignment="CENTER" wrapText="true">
                                     <VBox.margin>
                                         <Insets top="10.0" />
                                     </VBox.margin></Label>
                                 <Slider fx:id="heightSlider" majorTickUnit="5.0" max="80.0" maxHeight="20.0" maxWidth="300.0" min="5.0" minHeight="20.0" minWidth="300.0" prefHeight="20.0" prefWidth="300.0" showTickLabels="true" value="20.0" />
-                                <Label fx:id="radiousLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="37.0" prefWidth="100.0" text="Radious" textAlignment="CENTER" wrapText="true">
-                                    <VBox.margin>
-                                        <Insets top="10.0" />
-                                    </VBox.margin>
-                                </Label>
-                                <Slider fx:id="radiousSlider" majorTickUnit="1.0" max="7.0" maxHeight="20.0" maxWidth="300.0" min="1.0" minHeight="20.0" minWidth="300.0" prefHeight="20.0" prefWidth="300.0" showTickLabels="true" />
-                                <ToggleButton fx:id="wrappingToggleButton" mnemonicParsing="false" onAction="#wrappingToggleButtonAction" prefHeight="30.0" prefWidth="100.0" text="Wrapping" textAlignment="CENTER">
-                                    <VBox.margin>
-                                        <Insets top="20.0" />
-                                    </VBox.margin>
-                                </ToggleButton>
-                                <MenuButton fx:id="structureMenuButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Structure">
-                                    <VBox.margin>
-                                        <Insets top="20.0" />
-                                    </VBox.margin>
-                                </MenuButton>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="37.0" prefWidth="100.0" text="Depth" textAlignment="CENTER" wrapText="true" />
+                        <Slider fx:id="depthSlider" majorTickUnit="5.0" max="80.0" maxHeight="20.0" maxWidth="300.0" min="5.0" minHeight="20.0" minWidth="300.0" prefHeight="20.0" prefWidth="300.0" showTickLabels="true" value="20.0" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="37.0" prefWidth="100.0" text="Przekroj" textAlignment="CENTER" wrapText="true" />
+                        <Slider fx:id="przekroj" blockIncrement="1.0" majorTickUnit="5.0" max="80.0" maxHeight="20.0" maxWidth="300.0" min="1.0" minHeight="20.0" minWidth="300.0" prefHeight="20.0" prefWidth="300.0" showTickLabels="true" value="1.0" />
                                 <HBox alignment="CENTER" prefHeight="50.0" prefWidth="500.0" spacing="20.0">
                                     <VBox.margin>
                                         <Insets top="20.0" />
                                     </VBox.margin>
-                                    <children>
-                                        <Label fx:id="rulesLabel" text="Rules" textAlignment="CENTER">
-                                            <HBox.margin>
-                                                <Insets right="20.0" />
-                                            </HBox.margin>
-                                        </Label>
-                                        <Spinner fx:id="rule1" editable="true" prefHeight="30.0" prefWidth="70.0" />
-                                        <Spinner fx:id="rule2" editable="true" prefHeight="30.0" prefWidth="70.0" />
-                                        <Label fx:id="slash" text="/" textAlignment="CENTER" textFill="#9d9d9d">
-                                            <font>
-                                                <Font size="24.0" />
-                                            </font>
-                                        </Label>
-                                        <Spinner fx:id="rule3" editable="true" prefHeight="30.0" prefWidth="70.0" />
-                                    </children>
                                 </HBox>
                             </children>
                         </VBox>

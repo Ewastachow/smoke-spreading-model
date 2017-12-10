@@ -28,7 +28,23 @@ public class SmokeState implements CellState{
         this.isSmoked = isSmoked;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        SmokeState that = (SmokeState) o;
+
+        if (isSmoked != that.isSmoked) return false;
+        return temperature != null ? temperature.equals(that.temperature) : that.temperature == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = isSmoked != null ? isSmoked.hashCode() : 0;
+        result = 31 * result + (temperature != null ? temperature.hashCode() : 0);
+        return result;
+    }
 }
 
 

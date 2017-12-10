@@ -41,7 +41,7 @@ public class VonNeumanNeighborhood3Dim implements CellNeighborhood{
                             (((Coords3D) cell).getY() + j < height) &&
                             (((Coords3D) cell).getZ() + k >= 0) &&
                             (((Coords3D) cell).getZ() + k < depth)){
-                            if(k ==((Coords3D) cell).getZ() && i !=((Coords3D) cell).getX() && j !=((Coords3D) cell).getY())
+                            if(k ==((Coords3D) cell).getZ() && (i !=((Coords3D) cell).getX() || j !=((Coords3D) cell).getY()))
                                 cellsNeighborsSide.add(new Coords3D((((Coords3D) cell).getX() + i),
                                         (((Coords3D) cell).getY() + j),
                                         (((Coords3D) cell).getZ() + k)));
@@ -49,7 +49,7 @@ public class VonNeumanNeighborhood3Dim implements CellNeighborhood{
                                 cellsNeighborsUp.add(new Coords3D((((Coords3D) cell).getX() + i),
                                         (((Coords3D) cell).getY() + j),
                                         (((Coords3D) cell).getZ() + k)));
-                            if(k ==((Coords3D) cell).getZ() && i !=((Coords3D) cell).getX() && j !=((Coords3D) cell).getY())
+                            if(k < ((Coords3D) cell).getZ() && i ==((Coords3D) cell).getX() && j==((Coords3D) cell).getY())
                                 cellsNeighborsDown.add(new Coords3D((((Coords3D) cell).getX() + i),
                                         (((Coords3D) cell).getY() + j),
                                         (((Coords3D) cell).getZ() + k)));
