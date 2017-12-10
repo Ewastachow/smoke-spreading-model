@@ -5,6 +5,7 @@ import com.edu.agh.kis.automaton.core.neighborhood.CellNeighborhood;
 import com.edu.agh.kis.automaton.core.neighborhood.CellRelativePosition;
 import com.edu.agh.kis.automaton.core.state.CellState;
 import com.edu.agh.kis.automaton.core.state.IsSmoked;
+import com.edu.agh.kis.automaton.core.state.SmokeState;
 import com.edu.agh.kis.automaton.core.stateFactory.CellStateFactory;
 
 import java.util.HashSet;
@@ -33,40 +34,24 @@ public class Smoke extends Automaton3Dim{
     @Override
     protected CellState nextCellState(Cell currentState, Map<CellRelativePosition, Set<Cell>> neighborsStates) {
         //todo Implement
+        SmokeState result = new SmokeState(IsSmoked.CLEAR, 20);
 
         if ((currentState.state).equals(IsSmoked.SOURCE_OF_FIRE)) {
             return IsSmoked.SOURCE_OF_FIRE;
         }else if ((currentState.state).equals((IsSmoked.SMOKED))){
             return IsSmoked.SMOKED;
         }else{
-            boolean neighborhood = false;
 
-            for (Map.Entry<CellRelativePosition, Set<Cell>> entry : neighborsStates.entrySet()) {
-
-                CellRelativePosition cellRelativePosition = entry.getKey();
-                Set<Cell> cells = entry.getValue();
-
-                if (cellRelativePosition==CellRelativePosition.UP){
-
-                }else if (cellRelativePosition==CellRelativePosition.DOWN){
-
-                }else if (cellRelativePosition== CellRelativePosition.SIDE){
-
-                }
-
+            if(strategy == Strategy.TO_UP) {
+                boolean downSmoked = false;
+                for (Cell i : neighborsStates.get(CellRelativePosition.DOWN))
+                    if (((SmokeState) i.state).getIsSmoked() == IsSmoked.SMOKED)
+                        downSmoked = true;
+                if (downSmoked) //todo zmienic temperatura od poprzedniego
+                    return new SmokeState(IsSmoked.SMOKED, 300);
+                else return new SmokeState(IsSmoked.CLEAR, 20);
             }
+            return new SmokeState(IsSmoked.CLEAR, 20);
         }
-
-
-        // Temporary implementation
-  /*      if((currentState.state).equals(IsSmoked.SMOKED)) return IsSmoked.SMOKED;
-
-        boolean isSmokeInNeighborhood = false;
-        for(Cell i: neighborsStates)
-            if(i.state.equals(IsSmoked.SMOKED))
-                isSmokeInNeighborhood = true;
-        if(isSmokeInNeighborhood)
-            return IsSmoked.SMOKED;
-        return IsSmoked.CLEAR;*/
     }
 }
