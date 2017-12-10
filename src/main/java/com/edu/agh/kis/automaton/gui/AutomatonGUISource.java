@@ -37,6 +37,7 @@ public class AutomatonGUISource {
     AutomatonGUISource() {
         height = 20;
         width = 20;
+        depth = 20;
         radious = 1;
         cells = new SmokeState[width][height][depth];
         automatonClass = Smoke.class;
