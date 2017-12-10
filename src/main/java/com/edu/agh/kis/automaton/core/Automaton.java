@@ -148,13 +148,7 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable {
 
     protected abstract CellState nextCellState(Cell currentState, Set<Cell> neighborsStates);
 
-//    private Set<Cell> mapCoordinates(Set<CellCoordinates> cellsCSet) {
-//        Set<Cell> newSetCell = new HashSet<Cell>();
-//        for (CellCoordinates i : cellsCSet) {
-//            newSetCell.add(new Cell(i, cells.get(i)));
-//        }
-//        return newSetCell;
-//    }
+
 
     private Map<CellRelativePosition, Set<Cell>> mapCoordinates(Map<CellRelativePosition, Set<CellCoordinates>> cellsmap) {
         Map<CellRelativePosition, Set<Cell>> newMap = new HashMap<>();
