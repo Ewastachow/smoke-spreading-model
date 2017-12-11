@@ -44,11 +44,11 @@ public class VonNeumanNeighborhood3Dim implements CellNeighborhood{
                                 (((Coords3D) cell).getY() + j < height) &&
                                 (((Coords3D) cell).getZ() + k >= 0) &&
                                 (((Coords3D) cell).getZ() + k < depth)){
-                                if(k == 0 && (i != 0 || j != 0))
+                                if(j == 0 && (i != 0 || k != 0))
                                     cellsNeighborsSide.add(new Coords3D((((Coords3D) cell).getX() + i),
                                             (((Coords3D) cell).getY() + j),
                                             (((Coords3D) cell).getZ() + k)));
-                                else if(k > 0 && i == 0 && j == 0)
+                                else if(j < 0 && i == 0 && k == 0)
                                     cellsNeighborsUp.add(new Coords3D((((Coords3D) cell).getX() + i),
                                             (((Coords3D) cell).getY() + j),
                                             (((Coords3D) cell).getZ() + k)));

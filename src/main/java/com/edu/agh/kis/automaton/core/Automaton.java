@@ -10,7 +10,7 @@ import com.edu.agh.kis.automaton.core.stateFactory.CellStateFactory;
 import java.util.*;
 
 public abstract class Automaton implements Iterable<Cell>, Cloneable {
-    private Map<CellCoordinates, CellState> cells = new TreeMap<>();
+    public Map<CellCoordinates, CellState> cells = new TreeMap<>();
     private CellNeighborhood neighborhoodStrategy;
     private CellStateFactory stateFactory;
 
@@ -118,6 +118,7 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable {
     }
 
     public Automaton nextstate() {
+        checkStateChange();
         Automaton letGetStartedAgain = newInstance(stateFactory, neighborhoodStrategy);
         Map<CellCoordinates, CellState> newCells = new TreeMap<>();
         for (Map.Entry<CellCoordinates, CellState> i : cells.entrySet()) {
@@ -147,6 +148,8 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable {
     protected abstract CellCoordinates nextCoordinates(CellCoordinates cellC);
 
     protected abstract CellState nextCellState(Cell currentState, Map<CellRelativePosition, Set<Cell>> neighborsStates);
+
+    public abstract void checkStateChange();
 
 
 

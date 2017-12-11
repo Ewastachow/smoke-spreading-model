@@ -14,7 +14,6 @@ public abstract class Automaton3Dim extends Automaton {
     private int width;
     private int height;
     private int depth;
-    static Strategy strategy = Strategy.TO_UP;
 
     public Automaton3Dim() {
         super();
