@@ -1,8 +1,8 @@
 package com.edu.agh.kis.automaton.gui;
 
+
 import com.edu.agh.kis.automaton.core.state.CellState;
-import com.edu.agh.kis.automaton.core.state.IsSmoked;
-import com.edu.agh.kis.automaton.core.state.SmokeState;
+import com.edu.agh.kis.automaton.core.state.CellType;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -88,11 +88,11 @@ public class AutomatonGUIController extends Observable {
             y++;
             posY -= h;
         }
-        if(currentState.cells[x][y][showZ].getIsSmoked().equals(IsSmoked.CLEAR))
-            currentState.cells[x][y][showZ] = new SmokeState(IsSmoked.SMOKED, 300);
-        else if(currentState.cells[x][y][showZ].getIsSmoked().equals(IsSmoked.SMOKED))
-            currentState.cells[x][y][showZ] = new SmokeState(IsSmoked.SOURCE_OF_FIRE, 300);
-        else currentState.cells[x][y][showZ] = new SmokeState(IsSmoked.CLEAR, 20);
+        if(currentState.cells[x][y][showZ].getCellType().equals(CellType.AIR))
+            currentState.cells[x][y][showZ] = new CellState(CellType.BARRIER);
+        else if(currentState.cells[x][y][showZ].getCellType().equals(CellType.BARRIER))
+            currentState.cells[x][y][showZ] = new CellState(CellType.FIRE_SOURCE);
+        else currentState.cells[x][y][showZ] = new CellState(currentState.cells[x][y][showZ].getTemp());
         currentState.putIntoMap();
         createBoard();
     }
@@ -102,7 +102,7 @@ public class AutomatonGUIController extends Observable {
         for (int i = 0; i < w; i++)
             for (int j = 0; j < h; j++)
                 for (int k = 0; k < d; k++)
-                    tab[i][j][k] = new SmokeState(IsSmoked.CLEAR,20);
+                    tab[i][j][k] = new CellState(20);
     }
 
     private void createBoard() {
@@ -122,11 +122,14 @@ public class AutomatonGUIController extends Observable {
                 Rectangle r = new Rectangle();
                 r.setWidth(w);
                 r.setHeight(h);
-                if (currentState.cells[j][i][showZ].getIsSmoked().equals(IsSmoked.SMOKED))
+//TODO ale to zjebane - tu musi być w zależności od typu czerwony dla sourceFIRE, niebieski dla przeszkody,
+// todo a jeśli air to od temperatury generujemy jak ciemne bd
+                if (currentState.cells[j][i][showZ].getIsSmoked())
                     r.setFill(Paint.valueOf("000000"));
-                else if(currentState.cells[j][i][showZ].getIsSmoked().equals(IsSmoked.CLEAR))
+                else if(!currentState.cells[j][i][showZ].getIsSmoked())
                     r.setFill(Paint.valueOf("FFFFFF"));
                 else r.setFill(Paint.valueOf("FF0000"));
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ do tąd do modyfikacji
                 board.getChildren().add(r);
             }
         }
@@ -155,7 +158,7 @@ public class AutomatonGUIController extends Observable {
         widthSlider.valueProperty().addListener((ObservableValue<? extends Number> observable,
                                                  Number oldValue, Number newValue) -> {
             currentState.width = newValue.intValue();
-            SmokeState[][][] tmp = new SmokeState[currentState.width][currentState.height][currentState.depth];
+            CellState[][][] tmp = new CellState[currentState.width][currentState.height][currentState.depth];
             resetCells(currentState.width, currentState.height, currentState.depth, tmp);
             for (int i = 0; i < oldValue.intValue(); i++)
                 for (int j = 0; j < currentState.height; j++)
@@ -169,7 +172,7 @@ public class AutomatonGUIController extends Observable {
         heightSlider.valueProperty().addListener((ObservableValue<? extends Number> observable,
                                                   Number oldValue, Number newValue) -> {
             currentState.height = newValue.intValue();
-            SmokeState[][][] tmp = new SmokeState[currentState.width][currentState.height][currentState.depth];
+            CellState[][][] tmp = new CellState[currentState.width][currentState.height][currentState.depth];
             resetCells(currentState.width, currentState.height, currentState.depth, tmp);
             for (int i = 0; i < currentState.width; i++)
                 for (int j = 0; j < oldValue.intValue(); j++)
@@ -183,7 +186,7 @@ public class AutomatonGUIController extends Observable {
                                                  Number oldValue, Number newValue) -> {
             currentState.height = newValue.intValue();
             przekroj.setMax(currentState.depth);
-            SmokeState[][][] tmp = new SmokeState[currentState.width][currentState.height][currentState.depth];
+            CellState[][][] tmp = new CellState[currentState.width][currentState.height][currentState.depth];
             resetCells(currentState.width, currentState.height, currentState.depth, tmp);
             for (int i = 0; i < currentState.width; i++)
                 for (int j = 0; j < currentState.height; j++)

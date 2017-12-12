@@ -1,11 +1,10 @@
 package com.edu.agh.kis.automaton.core;
 
-import com.edu.agh.kis.automaton.core.coords.CellCoordinates;
 import com.edu.agh.kis.automaton.core.coords.Coords3D;
-import com.edu.agh.kis.automaton.core.neighborhood.CellNeighborhood;
+import com.edu.agh.kis.automaton.core.neighborhood.VonNeumanNeighborhood3Dim;
 import com.edu.agh.kis.automaton.core.state.CellState;
-import com.edu.agh.kis.automaton.core.state.Strategy;
-import com.edu.agh.kis.automaton.core.stateFactory.CellStateFactory;
+import com.edu.agh.kis.automaton.core.stateFactory.GeneralStateFactory;
+
 
 import java.util.Map;
 
@@ -22,14 +21,7 @@ public abstract class Automaton3Dim extends Automaton {
         depth = 20;
     }
 
-    public Automaton3Dim(Map<CellCoordinates, CellState> cells, CellNeighborhood neighborhoodStrategy, CellStateFactory stateFactory) {
-        super(cells, neighborhoodStrategy, stateFactory);
-        width = 20;
-        height = 20;
-        depth = 20;
-    }
-
-    public Automaton3Dim(Map<CellCoordinates, CellState> cells, CellNeighborhood neighborhoodStrategy, CellStateFactory stateFactory, int width, int height, int depth) {
+    public Automaton3Dim(Map<Coords3D, CellState> cells, VonNeumanNeighborhood3Dim neighborhoodStrategy, GeneralStateFactory stateFactory, int width, int height, int depth) {
         super(cells, neighborhoodStrategy, stateFactory);
         this.width = width;
         this.height = height;
@@ -49,30 +41,29 @@ public abstract class Automaton3Dim extends Automaton {
     }
 
     @Override
-    protected boolean hasNextCoordinates(CellCoordinates cellC) {
-        int currentSize = ((Coords3D) cellC).getX() * ((Coords3D) cellC).getY() * ((Coords3D) cellC).getY();
-        if (currentSize >= (width - 1) * (height - 1) * (depth - 1)) return false;
-        else return true;
+    protected boolean hasNextCoordinates(Coords3D cellC) {
+        int currentSize = cellC.getX() * cellC.getY() * cellC.getY();
+        return currentSize < (width - 1) * (height - 1) * (depth - 1);
     }
 
     @Override
-    protected CellCoordinates initialCoordinates(CellCoordinates cellC) {
+    protected Coords3D initialCoordinates(Coords3D cellC) {
         return new Coords3D(0, 0, -1);
     }
 
     @Override
-    protected CellCoordinates nextCoordinates(CellCoordinates cellC) {
-        if(((Coords3D) cellC).getZ() < (depth - 1)) {
-            if (((Coords3D) cellC).getY() < (height - 1))
-                return new Coords3D(((Coords3D) cellC).getX(), ((Coords3D) cellC).getY(), ((Coords3D) cellC).getZ() + 1);
-            else if (((Coords3D) cellC).getY() == (height - 1))
-                return new Coords3D(((Coords3D) cellC).getX(), 0, ((Coords3D) cellC).getZ() + 1);
+    protected Coords3D nextCoordinates(Coords3D cellC) {
+        if(cellC.getZ() < (depth - 1)) {
+            if (cellC.getY() < (height - 1))
+                return new Coords3D(cellC.getX(), cellC.getY(), cellC.getZ() + 1);
+            else if (cellC.getY() == (height - 1))
+                return new Coords3D(cellC.getX(), 0, cellC.getZ() + 1);
         }
-        else if(((Coords3D) cellC).getZ() == (depth - 1)) {
-            if (((Coords3D) cellC).getY() < (height - 1))
-                return new Coords3D(((Coords3D) cellC).getX(), ((Coords3D) cellC).getY() + 1, 0);
-            else if (((Coords3D) cellC).getY() == (height - 1))
-                return new Coords3D(((Coords3D) cellC).getX() + 1, 0, 0);
+        else if(cellC.getZ() == (depth - 1)) {
+            if (cellC.getY() < (height - 1))
+                return new Coords3D(cellC.getX(), cellC.getY() + 1, 0);
+            else if (cellC.getY() == (height - 1))
+                return new Coords3D(cellC.getX() + 1, 0, 0);
         }
         return null;
     }

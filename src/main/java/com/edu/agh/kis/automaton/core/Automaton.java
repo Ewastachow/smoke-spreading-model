@@ -1,23 +1,23 @@
 package com.edu.agh.kis.automaton.core;
 
-import com.edu.agh.kis.automaton.core.coords.CellCoordinates;
-import com.edu.agh.kis.automaton.core.neighborhood.CellNeighborhood;
+import com.edu.agh.kis.automaton.core.coords.Coords3D;
 import com.edu.agh.kis.automaton.core.neighborhood.CellRelativePosition;
+import com.edu.agh.kis.automaton.core.neighborhood.VonNeumanNeighborhood3Dim;
 import com.edu.agh.kis.automaton.core.state.CellState;
-import com.edu.agh.kis.automaton.core.state.SmokeState;
-import com.edu.agh.kis.automaton.core.stateFactory.CellStateFactory;
+import com.edu.agh.kis.automaton.core.stateFactory.GeneralStateFactory;
+
 
 import java.util.*;
 
 public abstract class Automaton implements Iterable<Cell>, Cloneable {
-    public Map<CellCoordinates, CellState> cells = new TreeMap<>();
-    private CellNeighborhood neighborhoodStrategy;
-    private CellStateFactory stateFactory;
+    public Map<Coords3D, CellState> cells = new TreeMap<>();
+    private VonNeumanNeighborhood3Dim neighborhoodStrategy;
+    private GeneralStateFactory stateFactory;
 
     public Automaton() {
     }
 
-    public Automaton(Map<CellCoordinates, CellState> cells, CellNeighborhood neighborhoodStrategy, CellStateFactory stateFactory) {
+    public Automaton(Map<Coords3D, CellState> cells, VonNeumanNeighborhood3Dim neighborhoodStrategy, GeneralStateFactory stateFactory) {
         this.cells = cells;
         this.neighborhoodStrategy = neighborhoodStrategy;
         this.stateFactory = stateFactory;
@@ -57,27 +57,27 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable {
         return duplicate;
     }
 
-    public CellState getStateOfCoords(CellCoordinates cc) {
+    public CellState getStateOfCoords(Coords3D cc) {
         return cells.get(cc);
     }
 
-    public void setNewCellState(CellCoordinates cc, CellState cs) {
+    public void setNewCellState(Coords3D cc, CellState cs) {
         cells.put(cc, cs);
     }
 
-    public Map<CellCoordinates, CellState> getCells() {
+    public Map<Coords3D, CellState> getCells() {
         return cells;
     }
 
-    public void setCells(Map<CellCoordinates, CellState> cells) {
+    public void setCells(Map<Coords3D, CellState> cells) {
         this.cells = cells;
     }
 
-    public CellStateFactory getStateFactory() {
+    public GeneralStateFactory getStateFactory() {
         return stateFactory;
     }
 
-    public void setStateFactory(CellStateFactory stateFactory) {
+    public void setStateFactory(GeneralStateFactory stateFactory) {
         this.stateFactory = stateFactory;
     }
 
@@ -85,19 +85,17 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable {
     public String toString() {
         return "Automaton{" +
                 "cells=" + cells +
-                ", neighborhoodStrategy=" + neighborhoodStrategy +
-                ", stateFactory=" + stateFactory +
                 '}';
     }
 
     public class CellIterator implements Iterator<Cell> {
-        private CellCoordinates currentState;
+        private Coords3D currentState;
 
-        public CellIterator(CellCoordinates currentCoordinates) {
+        public CellIterator(Coords3D currentCoordinates) {
             currentState = initialCoordinates(currentCoordinates);
         }
 
-        public void setCurrentState(CellCoordinates currentState) {
+        public void setCurrentState(Coords3D currentState) {
             this.currentState = currentState;
         }
 
@@ -118,10 +116,9 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable {
     }
 
     public Automaton nextstate() {
-        checkStateChange();
         Automaton letGetStartedAgain = newInstance(stateFactory, neighborhoodStrategy);
-        Map<CellCoordinates, CellState> newCells = new TreeMap<>();
-        for (Map.Entry<CellCoordinates, CellState> i : cells.entrySet()) {
+        Map<Coords3D, CellState> newCells = new TreeMap<>();
+        for (Map.Entry<Coords3D, CellState> i : cells.entrySet()) {
             Cell cell = new Cell(i.getKey(), i.getValue());
             newCells.put(cell.coords, this.nextCellState(cell,
                     this.mapCoordinates(neighborhoodStrategy.cellNeighbors(i.getKey()))));
@@ -130,7 +127,7 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable {
         return letGetStartedAgain;
     }
 
-    public void insertStructure(Map<? extends CellCoordinates, ? extends CellState> strcture) {
+    public void insertStructure(Map<? extends Coords3D, ? extends CellState> strcture) {
         cells.putAll(strcture);
     }
 
@@ -139,31 +136,27 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable {
         return new CellIterator(null);
     }
 
-    protected abstract Automaton newInstance(CellStateFactory cellSF, CellNeighborhood cellN);
+    protected abstract Automaton newInstance(GeneralStateFactory cellSF, VonNeumanNeighborhood3Dim cellN);
 
-    protected abstract boolean hasNextCoordinates(CellCoordinates cellC);
+    protected abstract boolean hasNextCoordinates(Coords3D cellC);
 
-    protected abstract CellCoordinates initialCoordinates(CellCoordinates cellC);
+    protected abstract Coords3D initialCoordinates(Coords3D cellC);
 
-    protected abstract CellCoordinates nextCoordinates(CellCoordinates cellC);
+    protected abstract Coords3D nextCoordinates(Coords3D cellC);
 
     protected abstract CellState nextCellState(Cell currentState, Map<CellRelativePosition, Set<Cell>> neighborsStates);
 
-    public abstract void checkStateChange();
-
-
-
-    private Map<CellRelativePosition, Set<Cell>> mapCoordinates(Map<CellRelativePosition, Set<CellCoordinates>> cellsmap) {
+    private Map<CellRelativePosition, Set<Cell>> mapCoordinates(Map<CellRelativePosition, Set<Coords3D>> cellsmap) {
         Map<CellRelativePosition, Set<Cell>> newMap = new HashMap<>();
 
 
-        for (Map.Entry<CellRelativePosition, Set<CellCoordinates>> entry : cellsmap.entrySet()) {
+        for (Map.Entry<CellRelativePosition, Set<Coords3D>> entry : cellsmap.entrySet()) {
             Set<Cell> newSetCell = new HashSet<Cell>();
 
             CellRelativePosition cellRelativePosition = entry.getKey();
-            Set<CellCoordinates> cellCoordinatesSet = entry.getValue();
+            Set<Coords3D> cellCoordinatesSet = entry.getValue();
 
-            for (CellCoordinates i : cellCoordinatesSet) {
+            for (Coords3D i : cellCoordinatesSet) {
                 newSetCell.add(new Cell(i, cells.get(i)));
             }
 

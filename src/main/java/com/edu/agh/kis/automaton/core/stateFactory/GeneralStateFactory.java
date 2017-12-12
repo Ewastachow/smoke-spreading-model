@@ -1,17 +1,17 @@
 package com.edu.agh.kis.automaton.core.stateFactory;
 
-import com.edu.agh.kis.automaton.core.coords.CellCoordinates;
+import com.edu.agh.kis.automaton.core.coords.Coords3D;
 import com.edu.agh.kis.automaton.core.state.CellState;
 
 import java.util.Map;
 import java.util.TreeMap;
 
-public class GeneralStateFactory implements CellStateFactory {
+public class GeneralStateFactory{
 
-    private Map<CellCoordinates, CellState> states = new TreeMap<>();
+    private Map<Coords3D, CellState> states = new TreeMap<>();
 
-    public GeneralStateFactory(Map<CellCoordinates, CellState> state) {
-        for (Map.Entry<CellCoordinates, CellState> entry : state.entrySet()) {
+    public GeneralStateFactory(Map<Coords3D, CellState> state) {
+        for (Map.Entry<Coords3D, CellState> entry : state.entrySet()) {
             states.put(entry.getKey(), entry.getValue());
         }
     }
@@ -38,8 +38,8 @@ public class GeneralStateFactory implements CellStateFactory {
         return states != null ? states.hashCode() : 0;
     }
 
-    @Override
-    public CellState initialState(CellCoordinates cellCoords) {
+
+    public CellState initialState(Coords3D cellCoords) {
         return states.get(cellCoords);
     }
 }

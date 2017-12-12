@@ -1,6 +1,6 @@
 package com.edu.agh.kis.automaton.core.coords;
 
-public class Coords3D implements CellCoordinates, Comparable<Coords3D>  {
+public class Coords3D implements Comparable<Coords3D>  {
 
     private int x;
     private int y;

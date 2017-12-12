@@ -1,11 +1,12 @@
 package com.edu.agh.kis.automaton.core;
 
-import com.edu.agh.kis.automaton.core.coords.CellCoordinates;
+
+import com.edu.agh.kis.automaton.core.coords.Coords3D;
 import com.edu.agh.kis.automaton.core.state.CellState;
 
 public class Cell {
     public CellState state;
-    public CellCoordinates coords;
+    public Coords3D coords;
 
     @Override
     public String toString() {
@@ -15,7 +16,7 @@ public class Cell {
                 '}';
     }
 
-    public Cell(CellCoordinates coords, CellState state) {
+    public Cell(Coords3D coords, CellState state) {
         this.state = state;
         this.coords = coords;
     }
