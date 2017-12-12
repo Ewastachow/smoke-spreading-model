@@ -155,6 +155,7 @@ public class AutomatonGUIController extends Observable {
             showZ = newValue.intValue()-1;
             createBoard();
         });
+        //TODO Naprawić slidery
         widthSlider.valueProperty().addListener((ObservableValue<? extends Number> observable,
                                                  Number oldValue, Number newValue) -> {
             currentState.width = newValue.intValue();

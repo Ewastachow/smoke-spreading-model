@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class Smoke extends Automaton3Dim{
+    //TODO Scalić Automaton, Automaton3Dim i Automaton w jedną klasę
 
     public Smoke() {
         super();
