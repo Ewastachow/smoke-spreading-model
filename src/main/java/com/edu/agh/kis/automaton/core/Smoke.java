@@ -66,6 +66,7 @@ public class Smoke extends Automaton3Dim{
             if (downSmoked) //todo zmienic temperatura od poprzedniego
                 return new SmokeState(IsSmoked.SMOKED, 300);
 
+
 //            if(strategy == Strategy.TO_UP) {
 //                boolean downSmoked = false;
 //                for (Cell i : neighborsStates.get(CellRelativePosition.DOWN))
