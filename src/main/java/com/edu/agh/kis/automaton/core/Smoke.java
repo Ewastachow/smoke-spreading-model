@@ -5,8 +5,11 @@ import com.edu.agh.kis.automaton.core.coords.Coords3D;
 import com.edu.agh.kis.automaton.core.neighborhood.CellRelativePosition;
 import com.edu.agh.kis.automaton.core.neighborhood.VonNeumanNeighborhood3Dim;
 import com.edu.agh.kis.automaton.core.state.CellState;
+import com.edu.agh.kis.automaton.core.state.CellType;
 import com.edu.agh.kis.automaton.core.stateFactory.GeneralStateFactory;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -74,6 +77,100 @@ public class Smoke extends Automaton3Dim{
 ////            }
 //            return new CellState(IsSmoked.CLEAR, 20);
 
-        return currentState.state;
+
+//        Cell downCell = null;
+//        for(Cell i: neighborsStates.get(CellRelativePosition.DOWN))
+//            if(currentState.state.getTemp() < i.state.getTemp())
+//                downCell = i;
+//        Cell upCell = null;
+//        for(Cell i: neighborsStates.get(CellRelativePosition.UP))
+//            if(currentState.state.getTemp() < i.state.getTemp())
+//                upCell = i;
+//        boolean hasBarrier = false;
+//        List<Cell> sideCellList = new ArrayList<>();
+//        for(Cell i: neighborsStates.get(CellRelativePosition.SIDE))
+//            if(currentState.state.getTemp() < i.state.getTemp())
+//                sideCellList.add(i);
+//        int hasSide = (sideCellList.isEmpty()) ? 0 : 1;
+
+//        if(downCell!=null && upCell!=null && !sideCellList.isEmpty() && !hasBarrier){
+//            double sideAver = 0;
+//            for(Cell i: sideCellList)
+//                sideAver += i.state.getTemp();
+//            sideAver = sideAver/sideCellList.size();
+//            double newTemp = currentState.state.getTemp() + 5*(downCell.state.getTemp()) + 2*(sideAver) + 0.1*(upCell.state.getTemp());
+//            newTemp = newTemp/(1+5+2+0.1);
+//            return new CellState(newTemp);
+//        }else if()
+
+        if(currentState.state.getCellType().equals(CellType.BARRIER) ||
+                currentState.state.getCellType().equals(CellType.FIRE_SOURCE))
+            return currentState.state;
+
+        double upSum = 0;
+        double downSum = 0;
+        double sideSum = 0;
+        for(Cell i: neighborsStates.get(CellRelativePosition.DOWN))
+            downSum += i.state.getTemp();
+        for(Cell i: neighborsStates.get(CellRelativePosition.UP))
+            upSum += i.state.getTemp();
+        for(Cell i: neighborsStates.get(CellRelativePosition.SIDE))
+            sideSum += i.state.getTemp();
+        double newTemp = 3*currentState.state.getTemp() +
+                1*(neighborsStates.get(CellRelativePosition.UP).isEmpty() ? 0 : upSum/neighborsStates.get(CellRelativePosition.UP).size()) +
+                8*(neighborsStates.get(CellRelativePosition.DOWN).isEmpty() ? 0 : downSum/neighborsStates.get(CellRelativePosition.DOWN).size()) +
+                2*(neighborsStates.get(CellRelativePosition.SIDE).isEmpty() ? 0 : sideSum/neighborsStates.get(CellRelativePosition.SIDE).size());
+        return new CellState(newTemp/(3+(neighborsStates.get(CellRelativePosition.UP).isEmpty() ? 0 : 1)+
+                (neighborsStates.get(CellRelativePosition.DOWN).isEmpty() ? 0 : 8)+
+                (neighborsStates.get(CellRelativePosition.SIDE).isEmpty() ? 0 : 2)));
+
+//        if(!neighborsStates.get(CellRelativePosition.UP).isEmpty() &&
+//                !neighborsStates.get(CellRelativePosition.DOWN).isEmpty() &&
+//                neighborsStates.get(CellRelativePosition.SIDE).size()==4){
+//            double sideAver = 0;
+//            for(Cell i: sideCellList)
+//                sideAver += i.state.getTemp();
+//            sideAver = sideAver/sideCellList.size();
+//            if(downCell!=null && upCell!=null)
+//                return new CellState((currentState.state.getTemp() + 5*(downCell.state.getTemp()) + 2*(sideAver) + 0.1*(upCell.state.getTemp()))/(1+5+2*hasSide+0.1));
+//            else if(downCell!=null)
+//                return new CellState((currentState.state.getTemp() + 5*(downCell.state.getTemp()) + 2*(sideAver))/(1+5+2*hasSide));
+//            else if (upCell!=null)
+//                return new CellState((currentState.state.getTemp() + 2*(sideAver) + 0.1*(upCell.state.getTemp()))/(1+2*hasSide+0.1));
+//            else
+//                return new CellState((currentState.state.getTemp() + 2*(sideAver))/(1+2*hasSide));
+//        }else if(!neighborsStates.get(CellRelativePosition.UP).isEmpty() &&
+//                !neighborsStates.get(CellRelativePosition.DOWN).isEmpty() &&
+//                neighborsStates.get(CellRelativePosition.SIDE).size()<4){
+//            double sideAver = 0;
+//            for(Cell i: sideCellList)
+//                sideAver += i.state.getTemp();
+//            sideAver = sideAver/sideCellList.size();
+//            if(downCell!=null && upCell!=null)
+//                return new CellState((currentState.state.getTemp() + 5*(downCell.state.getTemp()) + 3*(sideAver) + 2*(upCell.state.getTemp()))/(1+5+3*hasSide+2));
+//            else if(downCell!=null)
+//                return new CellState((currentState.state.getTemp() + 5*(downCell.state.getTemp()) + 3*(sideAver))/(1+5+3*hasSide));
+//            else if (upCell!=null)
+//                return new CellState((currentState.state.getTemp() + 3*(sideAver) + 2*(upCell.state.getTemp()))/(1+3*hasSide+2));
+//            else
+//                return new CellState((currentState.state.getTemp() + 3*(sideAver))/(1+3*hasSide));
+//        }else if(neighborsStates.get(CellRelativePosition.UP).isEmpty()){
+//            double sideAver = 0;
+//            for(Cell i: sideCellList)
+//                sideAver += i.state.getTemp();
+//            sideAver = sideAver/sideCellList.size();
+//            if(downCell!=null && upCell!=null)
+//                return new CellState((currentState.state.getTemp() + 5*(downCell.state.getTemp()) + 3*(sideAver) + 2*(upCell.state.getTemp()))/(1+5+3*hasSide+2));
+//            else if(downCell!=null)
+//                return new CellState((currentState.state.getTemp() + 5*(downCell.state.getTemp()) + 3*(sideAver))/(1+5+3*hasSide));
+//            else if (upCell!=null)
+//                return new CellState((currentState.state.getTemp() + 3*(sideAver) + 2*(upCell.state.getTemp()))/(1+3*hasSide+2));
+//            else
+//                return new CellState((currentState.state.getTemp() + 3*(sideAver))/(1+3*hasSide));
+//
+//        }
+//
+//
+//        return currentState.state;
     }
 }

@@ -25,9 +25,9 @@ class AutomatonGUISource {
     CellState[][][] cells;
 
     AutomatonGUISource() {
-        height = 5;
-        width = 5;
-        depth = 5;
+        height = 20;
+        width = 20;
+        depth = 20;
         radious = 1;
         cells = new CellState[width][height][depth];
         automatonClass = Smoke.class;

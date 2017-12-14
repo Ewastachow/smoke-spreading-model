@@ -92,7 +92,7 @@ public class AutomatonGUIController extends Observable {
             currentState.cells[x][y][showZ] = new CellState(CellType.BARRIER);
         else if(currentState.cells[x][y][showZ].getCellType().equals(CellType.BARRIER))
             currentState.cells[x][y][showZ] = new CellState(CellType.FIRE_SOURCE);
-        else currentState.cells[x][y][showZ] = new CellState(currentState.cells[x][y][showZ].getTemp());
+        else currentState.cells[x][y][showZ] = new CellState(20);
         currentState.putIntoMap();
         createBoard();
     }
@@ -124,11 +124,13 @@ public class AutomatonGUIController extends Observable {
                 r.setHeight(h);
 //TODO ale to zjebane - tu musi być w zależności od typu czerwony dla sourceFIRE, niebieski dla przeszkody,
 // todo a jeśli air to od temperatury generujemy jak ciemne bd
-                if (currentState.cells[j][i][showZ].getIsSmoked())
+                if (currentState.cells[j][i][showZ].getCellType().equals(CellType.FIRE_SOURCE))
+                    r.setFill(Paint.valueOf("FF0000"));
+                else if (currentState.cells[j][i][showZ].getCellType().equals(CellType.BARRIER))
+                    r.setFill(Paint.valueOf("0000FF"));
+                else if(currentState.cells[j][i][showZ].getIsSmoked())
                     r.setFill(Paint.valueOf("000000"));
-                else if(!currentState.cells[j][i][showZ].getIsSmoked())
-                    r.setFill(Paint.valueOf("FFFFFF"));
-                else r.setFill(Paint.valueOf("FF0000"));
+                else r.setFill(Paint.valueOf("FFFFFF"));
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ do tąd do modyfikacji
                 board.getChildren().add(r);
             }

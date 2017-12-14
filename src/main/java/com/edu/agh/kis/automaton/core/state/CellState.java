@@ -14,7 +14,7 @@ public class CellState {
         this.cellType = cellType;
         switch (cellType){
             case AIR: temp = 20;
-            case BARRIER: temp = 0;
+            case BARRIER: temp = 20;
             case FIRE_SOURCE: temp = 300;
         }
     }
