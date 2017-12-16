@@ -83,7 +83,7 @@ public class Smoke extends Automaton3Dim{
         return new CellState(newTemp/(1 + sideVal*sideCounter + ((downCell == null) ? 0 : downVal) + ((upCell == null) ? 0 : upVal)));
     }
 
-    private Map<CellRelativePosition, Set<Cell>> removeFireSourceAndBarrier(Map<CellRelativePosition, Set<Cell>> neighborsStates){
+    public Map<CellRelativePosition, Set<Cell>> removeFireSourceAndBarrier(Map<CellRelativePosition, Set<Cell>> neighborsStates){
         for(Map.Entry<CellRelativePosition, Set<Cell>> entry : neighborsStates.entrySet()){
             Set<Cell> cellsToRemove = new HashSet<>();
             for (Cell i : entry.getValue())
