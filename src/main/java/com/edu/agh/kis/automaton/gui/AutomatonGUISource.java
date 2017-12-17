@@ -22,12 +22,14 @@ class AutomatonGUISource {
     int depth;
     private int radious;
 
+    private int sizeBoard = 20;
+
     CellState[][][] cells;
 
     AutomatonGUISource() {
-        height = 20;
-        width = 20;
-        depth = 20;
+        height = sizeBoard;
+        width = sizeBoard;
+        depth = sizeBoard;
         radious = 1;
         cells = new CellState[width][height][depth];
         automatonClass = Smoke.class;

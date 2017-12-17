@@ -41,6 +41,9 @@ public class Smoke extends Automaton3Dim{
             if(i.state.getCellType().equals(CellType.FIRE_SOURCE))
                 return new CellState((6*i.state.getTemp() + currentState.state.getTemp())/7);
 
+        //Jeżeli temp większa niż 300 to zwracamy te temp
+        if(currentState.state.getTemp() > 300) return currentState.state;
+
         // Usuwam zbędne elementy z setów
         neighborsStates = removeFireSourceAndBarrierFromMap(neighborsStates);
 
