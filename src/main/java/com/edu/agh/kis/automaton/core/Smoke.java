@@ -42,7 +42,7 @@ public class Smoke extends Automaton3Dim{
                 return new CellState((6*i.state.getTemp() + currentState.state.getTemp())/7);
 
         // Usuwam zbędne elementy z setów
-        neighborsStates = removeFireSourceAndBarrier(neighborsStates);
+        neighborsStates = removeFireSourceAndBarrierFromMap(neighborsStates);
 
         // Jeżeli ma nad sobą sufit
 
@@ -57,10 +57,11 @@ public class Smoke extends Automaton3Dim{
             return nextCellStateHelper(currentState, neighborsStates, 3, 5, 0.1);
         }
 
-        return nextCellStateHelper(currentState, neighborsStates, 0.1, 5, 0.1);
+        return nextCellStateHelper(currentState, neighborsStates, 0, 3, 0.03);
     }
 
     private CellState nextCellStateHelper(Cell currentState, Map<CellRelativePosition, Set<Cell>> neighborsStates, double upVal, double downVal, double sideVal){
+        if(upVal + downVal + sideVal == 0) return currentState.state;
         int sideCounter = 0;
         double aver = 0;
         for(Cell i: neighborsStates.get(CellRelativePosition.SIDE))
@@ -76,22 +77,60 @@ public class Smoke extends Automaton3Dim{
         for(Cell i: neighborsStates.get(CellRelativePosition.UP))
             if(i.state.getTemp() > currentState.state.getTemp())
                 upCell = i;
-        double newTemp = currentState.state.getTemp() +
-                sideVal*sideCounter*aver +
-                downVal*((downCell == null) ? 0 : downCell.state.getTemp()) +
-                upVal*((upCell == null) ? 0 : upCell.state.getTemp());
-        return new CellState(newTemp/(1 + sideVal*sideCounter + ((downCell == null) ? 0 : downVal) + ((upCell == null) ? 0 : upVal)));
+//        if(downCell != null && upCell != null)
+//            return new CellState(currentState.state.getTemp() +
+//                    (upVal*upCell.state.getTemp() + sideVal*sideCounter*aver + downVal*downCell.state.getTemp())/
+//                            (1 + upVal + sideVal + downVal));
+//        else if(downCell != null && upCell == null)
+//        return new CellState(currentState.state.getTemp() +
+//                (sideVal*sideCounter*aver + downVal*downCell.state.getTemp())/
+//                        (1 + upVal + sideVal + downVal));
+//        else if(downCell == null && upCell != null)
+//            return new CellState(currentState.state.getTemp() +
+//                    (upVal*upCell.state.getTemp() + sideVal*sideCounter*aver)/
+//                            (1 + upVal + sideVal + downVal));
+//        else return new CellState(currentState.state.getTemp() +
+//                    (sideVal*sideCounter*aver)/
+//                            (1 + upVal + sideVal + downVal));
+
+        if(downCell != null && upCell != null)
+            return new CellState((currentState.state.getTemp() + upVal*upCell.state.getTemp() + sideVal*sideCounter*aver + downVal*downCell.state.getTemp())/
+                            (1 + upVal + sideVal*sideCounter + downVal));
+        else if(downCell != null && upCell == null)
+        return new CellState((currentState.state.getTemp() + sideVal*sideCounter*aver + downVal*downCell.state.getTemp())/
+                        (1 + sideVal*sideCounter + downVal));
+        else if(downCell == null && upCell != null)
+            return new CellState((currentState.state.getTemp() + upVal*upCell.state.getTemp() + sideVal*sideCounter*aver)/
+                            (1 + upVal + sideVal*sideCounter));
+        else return new CellState((currentState.state.getTemp() + sideVal*sideCounter*aver)/
+                            (1 + sideVal*sideCounter));
+
+//        double newTemp = sideVal*sideCounter*aver +
+//                downVal*((downCell == null) ? 0 : downCell.state.getTemp()) +
+//                upVal*((upCell == null) ? 0 : upCell.state.getTemp());
+//        return new CellState(currentState.state.getTemp() + (newTemp/(sideVal*sideCounter + ((downCell == null) ? 0 : downVal) + ((upCell == null) ? 0 : upVal))));
+
+
+//        double newTemp = currentState.state.getTemp() +
+//                sideVal*sideCounter*aver +
+//                downVal*((downCell == null) ? 0 : downCell.state.getTemp()) +
+//                upVal*((upCell == null) ? 0 : upCell.state.getTemp());
+//        return new CellState((newTemp/(1 + sideVal*sideCounter + ((downCell == null) ? 0 : downVal) + ((upCell == null) ? 0 : upVal))));
     }
 
-    public Map<CellRelativePosition, Set<Cell>> removeFireSourceAndBarrier(Map<CellRelativePosition, Set<Cell>> neighborsStates){
-        for(Map.Entry<CellRelativePosition, Set<Cell>> entry : neighborsStates.entrySet()){
-            Set<Cell> cellsToRemove = new HashSet<>();
-            for (Cell i : entry.getValue())
-                if(i.state.getCellType().equals(CellType.BARRIER) || i.state.getCellType().equals(CellType.FIRE_SOURCE))
-                    cellsToRemove.add(i);
-            for (Cell i: cellsToRemove)
-                entry.getValue().remove(i);
-        }
+    public Map<CellRelativePosition, Set<Cell>> removeFireSourceAndBarrierFromMap(Map<CellRelativePosition, Set<Cell>> neighborsStates){
+        for(Map.Entry<CellRelativePosition, Set<Cell>> entry : neighborsStates.entrySet())
+            removeFireSourceAndBarrierFromSet(entry.getValue());
+        return neighborsStates;
+    }
+
+    public Set<Cell> removeFireSourceAndBarrierFromSet( Set<Cell> neighborsStates){
+        Set<Cell> cellsToRemove = new HashSet<>();
+        for(Cell i: neighborsStates)
+            if (i.state.getCellType().equals(CellType.FIRE_SOURCE) || i.state.getCellType().equals(CellType.BARRIER))
+                cellsToRemove.add(i);
+        for(Cell i: cellsToRemove)
+            neighborsStates.remove(i);
         return neighborsStates;
     }
 }

@@ -129,7 +129,17 @@ public class AutomatonGUIController extends Observable {
                 else if (currentState.cells[j][i][showZ].getCellType().equals(CellType.BARRIER))
                     r.setFill(Paint.valueOf("0000FF"));
                 else if(currentState.cells[j][i][showZ].getIsSmoked())
-                    r.setFill(Paint.valueOf("000000"));
+                    if(currentState.cells[j][i][showZ].getTemp() > 280)
+                        r.setFill(Paint.valueOf("000000"));
+                    else if(currentState.cells[j][i][showZ].getTemp() > 240)
+                        r.setFill(Paint.valueOf("202020"));
+                    else if(currentState.cells[j][i][showZ].getTemp() > 200)
+                        r.setFill(Paint.valueOf("606060"));
+                    else if(currentState.cells[j][i][showZ].getTemp() > 160)
+                        r.setFill(Paint.valueOf("808080"));
+                    else if(currentState.cells[j][i][showZ].getTemp() > 120)
+                        r.setFill(Paint.valueOf("A0A0A0"));
+                    else r.setFill(Paint.valueOf("C0C0C0"));
                 else r.setFill(Paint.valueOf("FFFFFF"));
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ do tąd do modyfikacji
                 board.getChildren().add(r);

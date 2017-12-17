@@ -44,10 +44,10 @@ public class CellState {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CellState that = (CellState) o;
+        CellState cellState = (CellState) o;
 
-        if (Double.compare(that.temp, temp) != 0) return false;
-        return cellType == that.cellType;
+        if (Double.compare(cellState.temp, temp) != 0) return false;
+        return cellType == cellState.cellType;
     }
 
     @Override
@@ -58,6 +58,14 @@ public class CellState {
         result = (int) (temp1 ^ (temp1 >>> 32));
         result = 31 * result + (cellType != null ? cellType.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "CellState{" +
+                "temp=" + temp +
+                ", cellType=" + cellType +
+                '}';
     }
 }
 
