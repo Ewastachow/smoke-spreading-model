@@ -44,17 +44,19 @@ public class Smoke extends Automaton3Dim{
         // Usuwam zbędne elementy z setów
         neighborsStates = removeFireSourceAndBarrierFromMap(neighborsStates);
 
+        if(!isAnyNeighborSmoked(neighborsStates)) return currentState.state;
+
         // Jeżeli ma nad sobą sufit
 
         if(neighborsStates.get(CellRelativePosition.UP).size() + neighborsStates.get(CellRelativePosition.UP_SIDE).size() == 0){
-            return nextCellStateHelper(currentState, neighborsStates, 0, 5, 1);
+            return nextCellStateHelper(currentState, neighborsStates, 0, 5, 3);
         }
 
         // Jeżeli ma ścianę obok
         if(neighborsStates.get(CellRelativePosition.SIDE).size() < 4 &&
                 neighborsStates.get(CellRelativePosition.DOWN_SIDE).size() < 5 &&
                 neighborsStates.get(CellRelativePosition.UP_SIDE).size() < 5){
-            return nextCellStateHelper(currentState, neighborsStates, 3, 5, 0.1);
+            return nextCellStateHelper(currentState, neighborsStates, 3, 5, 0.3);
         }
 
         return nextCellStateHelper(currentState, neighborsStates, 0, 3, 0.03);
@@ -62,21 +64,40 @@ public class Smoke extends Automaton3Dim{
 
     private CellState nextCellStateHelper(Cell currentState, Map<CellRelativePosition, Set<Cell>> neighborsStates, double upVal, double downVal, double sideVal){
         if(upVal + downVal + sideVal == 0) return currentState.state;
+        neighborsStates = removeColdFromMap(currentState, neighborsStates);
+//        int sideCounter = 0;
+//        double aver = 0;
+//        for(Cell i: neighborsStates.get(CellRelativePosition.SIDE))
+//            if(i.state.getTemp() > currentState.state.getTemp()){
+//                aver += i.state.getTemp();
+//                sideCounter++;
+//            }
+//        Cell downCell = null;
+//        for(Cell i: neighborsStates.get(CellRelativePosition.DOWN))
+//            if(i.state.getTemp() > currentState.state.getTemp())
+//                downCell = i;
+//        Cell upCell = null;
+//        for(Cell i: neighborsStates.get(CellRelativePosition.UP))
+//            if(i.state.getTemp() > currentState.state.getTemp())
+//                upCell = i;
+
+
         int sideCounter = 0;
         double aver = 0;
-        for(Cell i: neighborsStates.get(CellRelativePosition.SIDE))
-            if(i.state.getTemp() > currentState.state.getTemp()){
-                aver += i.state.getTemp();
-                sideCounter++;
-            }
+        for(Cell i: neighborsStates.get(CellRelativePosition.SIDE)){
+            aver += i.state.getTemp();
+            sideCounter++;
+        }
         Cell downCell = null;
         for(Cell i: neighborsStates.get(CellRelativePosition.DOWN))
-            if(i.state.getTemp() > currentState.state.getTemp())
-                downCell = i;
+            downCell = i;
         Cell upCell = null;
         for(Cell i: neighborsStates.get(CellRelativePosition.UP))
-            if(i.state.getTemp() > currentState.state.getTemp())
-                upCell = i;
+            upCell = i;
+
+
+
+
 //        if(downCell != null && upCell != null)
 //            return new CellState(currentState.state.getTemp() +
 //                    (upVal*upCell.state.getTemp() + sideVal*sideCounter*aver + downVal*downCell.state.getTemp())/
@@ -93,6 +114,9 @@ public class Smoke extends Automaton3Dim{
 //                    (sideVal*sideCounter*aver)/
 //                            (1 + upVal + sideVal + downVal));
 
+//        if(upCell != null && upCell.state.getTemp() > currentState.state.getTemp()){
+//
+//        }
         if(downCell != null && upCell != null)
             return new CellState((currentState.state.getTemp() + upVal*upCell.state.getTemp() + sideVal*sideCounter*aver + downVal*downCell.state.getTemp())/
                             (1 + upVal + sideVal*sideCounter + downVal));
@@ -132,5 +156,29 @@ public class Smoke extends Automaton3Dim{
         for(Cell i: cellsToRemove)
             neighborsStates.remove(i);
         return neighborsStates;
+    }
+
+    public Map<CellRelativePosition, Set<Cell>> removeColdFromMap(Cell currentState, Map<CellRelativePosition, Set<Cell>> neighborsStates){
+        for(Map.Entry<CellRelativePosition, Set<Cell>> entry : neighborsStates.entrySet())
+            removeColdFromSet(currentState, entry.getValue());
+        return neighborsStates;
+    }
+
+    public Set<Cell> removeColdFromSet(Cell currentState, Set<Cell> neighborsStates){
+        Set<Cell> cellsToRemove = new HashSet<>();
+        for(Cell i: neighborsStates)
+            if (i.state.getTemp() < currentState.state.getTemp())
+                cellsToRemove.add(i);
+        for(Cell i: cellsToRemove)
+            neighborsStates.remove(i);
+        return neighborsStates;
+    }
+
+    public boolean isAnyNeighborSmoked(Map<CellRelativePosition, Set<Cell>> neighborsStates){
+        boolean smoked = false;
+        for(Map.Entry<CellRelativePosition, Set<Cell>> entry : neighborsStates.entrySet())
+            for(Cell i: entry.getValue())
+                if(i.state.getIsSmoked()) smoked = true;
+        return smoked;
     }
 }

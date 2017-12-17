@@ -36,7 +36,7 @@ public class CellState {
     }
 
     public boolean getIsSmoked() {
-        return temp > 150;
+        return cellType.equals(CellType.AIR) && temp > 60;
     }
 
     @Override
