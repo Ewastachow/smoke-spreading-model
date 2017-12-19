@@ -10,7 +10,7 @@ import com.edu.agh.kis.automaton.core.stateFactory.GeneralStateFactory;
 import java.util.Map;
 import java.util.TreeMap;
 
-class AutomatonGUISource {
+public class AutomatonGUISource {
 
     private Automaton currentAutomaton;
 
@@ -26,7 +26,7 @@ class AutomatonGUISource {
 
     CellState[][][] cells;
 
-    AutomatonGUISource() {
+    public AutomatonGUISource() {
         height = sizeBoard;
         width = sizeBoard;
         depth = sizeBoard;

@@ -253,7 +253,6 @@ public class AppGUI extends Application {
                                               Number oldValue, Number newValue) -> {
             showZ = newValue.intValue()-1;
             create2DBoard();
-            create3DBoard();
         });
         model2D.setOnMouseClicked(this::clickedOnCell);
         timeline.setCycleCount(Animation.INDEFINITE);
