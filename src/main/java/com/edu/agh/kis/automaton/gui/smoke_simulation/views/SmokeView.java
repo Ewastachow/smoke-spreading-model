@@ -1,7 +1,6 @@
-package com.edu.agh.kis.automaton.gui.views;
+package com.edu.agh.kis.automaton.gui.smoke_simulation.views;
 
 import javafx.scene.SubScene;
-import javafx.scene.layout.Pane;
 
 public abstract class SmokeView {
 

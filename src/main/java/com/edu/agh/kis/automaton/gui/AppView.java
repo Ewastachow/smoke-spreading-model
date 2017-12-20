@@ -1,10 +1,8 @@
 package com.edu.agh.kis.automaton.gui;
 
-import com.edu.agh.kis.automaton.gui.toolbox.ToolBoxController;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 
 public class AppView {
 

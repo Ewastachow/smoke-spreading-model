@@ -1,8 +1,8 @@
-package com.edu.agh.kis.automaton.gui.toolbox;
+package com.edu.agh.kis.automaton.gui.toolbox.views;
 
 import javafx.scene.layout.Pane;
 
-public class ToolBoxView {
+public abstract class ToolBoxView {
     private Pane toolBoxPane;
 
     public Pane getToolBoxPane() {
@@ -12,4 +12,6 @@ public class ToolBoxView {
     public void setToolBoxPane(Pane toolBoxPane) {
         this.toolBoxPane = toolBoxPane;
     }
+
+    public abstract Pane createToolBoxPane();
 }

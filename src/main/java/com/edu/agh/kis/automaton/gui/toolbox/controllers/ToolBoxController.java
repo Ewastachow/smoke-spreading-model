@@ -1,6 +1,8 @@
-package com.edu.agh.kis.automaton.gui.toolbox;
+package com.edu.agh.kis.automaton.gui.toolbox.controllers;
 
-public class ToolBoxController {
+import com.edu.agh.kis.automaton.gui.toolbox.views.ToolBoxView;
+
+public abstract class ToolBoxController {
     private ToolBoxView toolBoxView;
 
     public ToolBoxView getToolBoxView() {

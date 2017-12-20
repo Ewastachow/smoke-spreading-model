@@ -1,9 +1,10 @@
 package com.edu.agh.kis.automaton.gui;
 
-import com.edu.agh.kis.automaton.gui.controllers.Smoke2DController;
-import com.edu.agh.kis.automaton.gui.controllers.Smoke3DController;
-import com.edu.agh.kis.automaton.gui.controllers.SmokeController;
-import com.edu.agh.kis.automaton.gui.toolbox.ToolBoxController;
+import com.edu.agh.kis.automaton.gui.smoke_simulation.controllers.Smoke2DController;
+import com.edu.agh.kis.automaton.gui.smoke_simulation.controllers.Smoke3DController;
+import com.edu.agh.kis.automaton.gui.smoke_simulation.controllers.SmokeController;
+import com.edu.agh.kis.automaton.gui.toolbox.controllers.ToolBoxController;
+import com.edu.agh.kis.automaton.gui.toolbox.controllers.ToolBoxSetupController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -19,10 +20,11 @@ public class AppController extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         appView = new AppView();
-        toolBox = new ToolBoxController();
-        smoke2D = new Smoke2DController();
-        smoke3D = new Smoke3DController();
-        smoke = smoke2D;
+        toolBox = new ToolBoxSetupController();
+        //TODO te 3 niżej trzeba zrobić przy zmianie toolboxa w toolbox chyba - np w konstruktorze tego nowego??? nw ;//
+        //smoke2D = new Smoke2DController();
+        //smoke3D = new Smoke3DController();
+        //smoke = smoke2D;
 
         appView.borderPane.setLeft(toolBox.getToolBoxView().getToolBoxPane());
         appView.borderPane.setRight(smoke.getSmokeView().getSubScene());

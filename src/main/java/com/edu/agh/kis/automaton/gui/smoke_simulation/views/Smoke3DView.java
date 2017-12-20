@@ -1,4 +1,4 @@
-package com.edu.agh.kis.automaton.gui.views;
+package com.edu.agh.kis.automaton.gui.smoke_simulation.views;
 
 import javafx.scene.*;
 import javafx.scene.input.MouseEvent;

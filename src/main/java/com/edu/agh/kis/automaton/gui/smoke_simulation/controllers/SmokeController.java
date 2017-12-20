@@ -1,8 +1,7 @@
-package com.edu.agh.kis.automaton.gui.controllers;
+package com.edu.agh.kis.automaton.gui.smoke_simulation.controllers;
 
 import com.edu.agh.kis.automaton.gui.AutomatonGUISource;
-import com.edu.agh.kis.automaton.gui.views.SmokeView;
-import javafx.scene.layout.Pane;
+import com.edu.agh.kis.automaton.gui.smoke_simulation.views.SmokeView;
 
 import java.awt.event.MouseEvent;
 
