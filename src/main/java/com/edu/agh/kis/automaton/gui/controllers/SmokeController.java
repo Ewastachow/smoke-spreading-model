@@ -35,6 +35,7 @@ public abstract class SmokeController{
     // czy tworzenie tablicy i przepisywanie tablicy do mapy nie zrobić tu i na rectangle juz ???
     // i wtedy create board byłoby tylko narusowaniem rectangle / boxes z tablicy
 
+
     public abstract void createBoard();
     public abstract void clickOnCell(MouseEvent event); //TODO czy to wg potrzebne? skoro nie ma w 3D
     public abstract void putTabIntoMap();
