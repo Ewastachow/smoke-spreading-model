@@ -7,8 +7,9 @@ public abstract class SmokeView {
 
     private SubScene subScene;
 
-    int weight;
-    int height;
+    private int weight;
+    private int height;
+    private int depth;
 
     public SubScene getSubScene() {
         return subScene;

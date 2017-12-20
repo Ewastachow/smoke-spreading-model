@@ -15,6 +15,8 @@ public class Smoke3DController extends SmokeController {
         setSmokeView(new Smoke3DView());
     }
 
+
+
     @Override
     public void createBoard() {
 

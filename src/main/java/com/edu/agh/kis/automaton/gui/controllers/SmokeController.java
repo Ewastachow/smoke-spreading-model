@@ -36,7 +36,7 @@ public abstract class SmokeController{
     // i wtedy create board byłoby tylko narusowaniem rectangle / boxes z tablicy
 
     public abstract void createBoard();
-    public abstract void clickOnCell(MouseEvent event);
+    public abstract void clickOnCell(MouseEvent event); //TODO czy to wg potrzebne? skoro nie ma w 3D
     public abstract void putTabIntoMap();
     public abstract void putMapIntoTab();
 //    public abstract void addSubSceneToPane(Pane pane); // w smokeView mamy obiekt group
