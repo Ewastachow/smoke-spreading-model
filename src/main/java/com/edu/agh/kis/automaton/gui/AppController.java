@@ -30,6 +30,9 @@ public class AppController extends Application{
         // toolbox -> 400x600
         // smoke -> 600x600
 
+        //TODO Ogólnie to zrobić coś takiego, że na początku mamy sam toolBox z ustalaniem wymiarów pomieszczenia, np. w "m"
+        //TODO Zczytujemy to i na tej podstawie dobiero tworzymy 2D i 3D view i kontrolery
+        //TODO i czyścimy toolbox i dodajemy nowe rzeczy już do obsługi dla podanych wymiarów
 
 
         primaryStage.setTitle("Smoke Spreading Model");

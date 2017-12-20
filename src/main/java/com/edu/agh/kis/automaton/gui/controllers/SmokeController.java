@@ -11,6 +11,11 @@ public abstract class SmokeController{
     private SmokeView smokeView;
     private AutomatonGUISource smokeAutomatonSource;
 
+    //TODO Wymyśleć lepsze nazwy, jest to ilość komórek w danej płaszczyźnie, dodać getery i setery
+    private int x;
+    private int y;
+    private int z;
+
     public SmokeView getSmokeView() {
         return smokeView;
     }
