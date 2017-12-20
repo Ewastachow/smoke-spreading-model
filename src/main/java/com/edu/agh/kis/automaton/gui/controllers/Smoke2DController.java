@@ -11,7 +11,7 @@ public class Smoke2DController extends SmokeController {
 
     public Smoke2DController() {
         super();
-        smokeView = new Smoke2DView();
+        setSmokeView(new Smoke2DView());
     }
 
     @Override

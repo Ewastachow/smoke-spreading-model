@@ -1,5 +1,6 @@
 package com.edu.agh.kis.automaton.gui.controllers;
 
+import com.edu.agh.kis.automaton.gui.views.Smoke2DView;
 import com.edu.agh.kis.automaton.gui.views.Smoke3DView;
 import javafx.scene.shape.Box;
 
@@ -11,7 +12,7 @@ public class Smoke3DController extends SmokeController {
 
     public Smoke3DController() {
         super();
-        smokeView = new Smoke3DView();
+        setSmokeView(new Smoke3DView());
     }
 
     @Override

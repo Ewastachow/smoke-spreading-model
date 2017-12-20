@@ -1,13 +1,31 @@
 package com.edu.agh.kis.automaton.gui.controllers;
 
 import com.edu.agh.kis.automaton.gui.AutomatonGUISource;
-import com.edu.agh.kis.automaton.gui.views.SmokeViewInterface;
+import com.edu.agh.kis.automaton.gui.views.SmokeView;
+import javafx.scene.layout.Pane;
 
 import java.awt.event.MouseEvent;
 
 public abstract class SmokeController{
-    SmokeViewInterface smokeView;
-    AutomatonGUISource smokeAutomatonSource;
+
+    private SmokeView smokeView;
+    private AutomatonGUISource smokeAutomatonSource;
+
+    public SmokeView getSmokeView() {
+        return smokeView;
+    }
+
+    public void setSmokeView(SmokeView smokeView) {
+        this.smokeView = smokeView;
+    }
+
+    public AutomatonGUISource getSmokeAutomatonSource() {
+        return smokeAutomatonSource;
+    }
+
+    public void setSmokeAutomatonSource(AutomatonGUISource smokeAutomatonSource) {
+        this.smokeAutomatonSource = smokeAutomatonSource;
+    }
 
     public SmokeController() {
         smokeAutomatonSource = new AutomatonGUISource();
@@ -21,5 +39,6 @@ public abstract class SmokeController{
     public abstract void clickOnCell(MouseEvent event);
     public abstract void putTabIntoMap();
     public abstract void putMapIntoTab();
+//    public abstract void addSubSceneToPane(Pane pane); // w smokeView mamy obiekt group
 
 }

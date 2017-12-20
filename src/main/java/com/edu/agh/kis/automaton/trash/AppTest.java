@@ -1,4 +1,4 @@
-package com.edu.agh.kis.automaton.gui;
+package com.edu.agh.kis.automaton.trash;
 
 import javafx.application.Application;
 import javafx.scene.Group;

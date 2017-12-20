@@ -82,7 +82,6 @@ public class AppGUI extends Application {
 
         Pane root2D = new Pane();
         root2D.setPrefSize(750,500);
-        pane.setLeft(root2D);
 
         toolBox = new VBox();
         toolBox.setPrefSize(200,700);
@@ -91,6 +90,9 @@ public class AppGUI extends Application {
         model2D = new FlowPane();
         model2D.setPrefSize(550,700);
         root2D.getChildren().add(model2D);
+
+        SubScene subScene2D = new SubScene(root2D, 750,700);
+        pane.setLeft(subScene2D);
 
         initial();
 
