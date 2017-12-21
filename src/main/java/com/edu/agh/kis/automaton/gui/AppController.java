@@ -15,6 +15,9 @@ public class AppController extends Application{
 
     AppView appView;
     ToolBoxController toolBox;
+    SmokeController smoke;
+    Smoke2DController smoke2D;
+    Smoke3DController smoke3D;
     // Gdzie dać atomaton GUI source????
 
 
