@@ -1,46 +1,27 @@
 package com.edu.agh.kis.automaton.gui;
 
-import com.edu.agh.kis.automaton.gui.smoke_simulation.controllers.Smoke2DController;
-import com.edu.agh.kis.automaton.gui.smoke_simulation.controllers.Smoke3DController;
-import com.edu.agh.kis.automaton.gui.smoke_simulation.controllers.SmokeController;
 import com.edu.agh.kis.automaton.gui.toolbox.controllers.ToolBoxControlController;
 import com.edu.agh.kis.automaton.gui.toolbox.controllers.ToolBoxController;
 import com.edu.agh.kis.automaton.gui.toolbox.controllers.ToolBoxSetupController;
+import com.edu.agh.kis.automaton.gui.toolbox.views.ToolBoxControlView;
 import com.edu.agh.kis.automaton.gui.toolbox.views.ToolBoxSetupView;
 import javafx.application.Application;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class AppController extends Application{
 
     AppView appView;
     ToolBoxController toolBox;
-    SmokeController smoke;
-    Smoke2DController smoke2D;
-    Smoke3DController smoke3D;
-    // Gdzie dać atomaton GUI source????
-
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         appView = new AppView();
         toolBox = new ToolBoxSetupController();
-        //TODO te 3 niżej trzeba zrobić przy zmianie toolboxa w toolbox chyba - np w konstruktorze tego nowego??? nw ;//
-        //smoke2D = new Smoke2DController();
-        //smoke3D = new Smoke3DController();
-        //smoke = smoke2D;
         setToolBox();
         setSetupButtonAction((ToolBoxSetupView)toolBox.getToolBoxView());
 
-//        appView.borderPane.setRight(smoke.getSmokeView().getSubScene());
-
         // toolbox -> 400x600
         // smoke -> 600x600
-
-        //TODO Ogólnie to zrobić coś takiego, że na początku mamy sam toolBox z ustalaniem wymiarów pomieszczenia, np. w "m"
-        //TODO Zczytujemy to i na tej podstawie dobiero tworzymy 2D i 3D view i kontrolery
-        //TODO i czyścimy toolbox i dodajemy nowe rzeczy już do obsługi dla podanych wymiarów
-
 
         primaryStage.setTitle("Smoke Spreading Model");
         primaryStage.setScene(appView.scene);
@@ -59,21 +40,18 @@ public class AppController extends Application{
                 z = Double.parseDouble(zString);
             }catch (Exception ex){
                 toolBoxSetupView.getAcceptButton().setText("Not right value inside");
-                //TODO wywalić to, dać return;
-                x=10;
-                y=10;
-                z=10;
+                //TODO wywalić to, dać return; -> wymaga naprawy tego w bloku try bo nie rzutuje
+                x=1;
+                y=1;
+                z=1;
             }
             int xAmong = (new Double(10*x)).intValue();
             int yAmong = (new Double(10*y)).intValue();
             int zAmong = (new Double(10*z)).intValue();
-            smoke2D = new Smoke2DController(xAmong, yAmong, zAmong);
-            smoke3D = new Smoke3DController(xAmong, yAmong, zAmong);
-            smoke = smoke2D;
-            toolBox = new ToolBoxControlController();
+            toolBox = new ToolBoxControlController(xAmong, yAmong, zAmong);
             setToolBox();
-            setSmoke();
-
+            setSubScene();
+            setChangeSubSceneButtonAction((ToolBoxControlView)toolBox.getToolBoxView());
         });
     }
 
@@ -85,9 +63,19 @@ public class AppController extends Application{
         appView.borderPane.setLeft(toolBox.getToolBoxView().getToolBoxPane());
     }
 
-    private void setSmoke(){
+    private void setSubScene(){
+        //TODO Czy to jest poprawcne??
         appView.borderPane.getChildren().clear();
         setToolBox();
-        appView.borderPane.setRight(smoke.getSmokeView().getSubScene());
+        appView.borderPane.setRight(((ToolBoxControlController)toolBox).getSmoke().getSmokeView().getSubScene());
     }
+
+    private void setChangeSubSceneButtonAction(ToolBoxControlView toolBoxControlView){
+        toolBoxControlView.getChangeSubScene().setOnAction(e ->{
+            ((ToolBoxControlController)toolBox).onSubSceneChange();
+            setSubScene();
+        });
+
+    }
+
 }

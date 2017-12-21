@@ -8,12 +8,29 @@ import java.awt.event.MouseEvent;
 public abstract class SmokeController{
 
     private SmokeView smokeView;
-    private AutomatonGUISource smokeAutomatonSource;
 
     //TODO Wymyśleć lepsze nazwy, jest to ilość komórek w danej płaszczyźnie, dodać getery i setery
-    private int x;
-    private int y;
-    private int z;
+    private int xAmong;
+    private int yAmong;
+    private int zAmong;
+
+    public SmokeController(int xAmong, int yAmong, int zAmong) {
+        this.xAmong = xAmong;
+        this.yAmong = yAmong;
+        this.zAmong = zAmong;
+    }
+
+    public int getxAmong() {
+        return xAmong;
+    }
+
+    public int getyAmong() {
+        return yAmong;
+    }
+
+    public int getzAmong() {
+        return zAmong;
+    }
 
     public SmokeView getSmokeView() {
         return smokeView;
@@ -23,17 +40,6 @@ public abstract class SmokeController{
         this.smokeView = smokeView;
     }
 
-    public AutomatonGUISource getSmokeAutomatonSource() {
-        return smokeAutomatonSource;
-    }
-
-    public void setSmokeAutomatonSource(AutomatonGUISource smokeAutomatonSource) {
-        this.smokeAutomatonSource = smokeAutomatonSource;
-    }
-
-    public SmokeController(int x, int y, int z) {
-        smokeAutomatonSource = new AutomatonGUISource();
-    }
     // przydal by się obiekt przechowujący boxy / rectangle żeby je tylko modyfikować a nie od nowa rysować
     // clickOnBoard czy clickOnRectangle????
     // czy tworzenie tablicy i przepisywanie tablicy do mapy nie zrobić tu i na rectangle juz ???
@@ -41,7 +47,6 @@ public abstract class SmokeController{
 
 
     public abstract void createBoard();
-    public abstract void clickOnCell(MouseEvent event); //TODO czy to wg potrzebne? skoro nie ma w 3D
     public abstract void putTabIntoMap();
     public abstract void putMapIntoTab();
 //    public abstract void addSubSceneToPane(Pane pane); // w smokeView mamy obiekt group

@@ -21,6 +21,13 @@ public abstract class Automaton3Dim extends Automaton {
         depth = 20;
     }
 
+    public Automaton3Dim(int width, int height, int depth){
+        super();
+        this.width = width;
+        this.height = height;
+        this.depth = depth;
+    }
+
     public Automaton3Dim(Map<Coords3D, CellState> cells, VonNeumanNeighborhood3Dim neighborhoodStrategy, GeneralStateFactory stateFactory, int width, int height, int depth) {
         super(cells, neighborhoodStrategy, stateFactory);
         this.width = width;

@@ -1,6 +1,8 @@
 package com.edu.agh.kis.automaton.gui.toolbox.views;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
@@ -10,17 +12,26 @@ public class ToolBoxControlView extends ToolBoxView{
     Button startButton;
     Button stopButton;
     Button resetButton;
+
+    Button changeSubScene;
+
+    Label sliderLabel;
+    Slider slider; //TODO slider do przemieszczania się pomiędzy przekrojami, ma być nieaktywny przy 3D, ale w onAction lepiej walnąć if == Smoke3DController.class
     //TODO Toolbox control controller musi miec obiekt smoke - chyba te 3 z appcontroller i tam dodamy view przez referencje tu
 
 
-    public ToolBoxControlView() {
-        setToolBoxPane(createToolBoxPane());
+    public Button getChangeSubScene() {
+        return changeSubScene;
     }
 
-    @Override
-    public GridPane createToolBoxPane() {
+    public ToolBoxControlView(int depth) {
+        setToolBoxPane(createToolBoxPane(depth));
+    }
+
+    public GridPane createToolBoxPane(int depth) {
         GridPane pane = createGridPane();
         setupButtons(pane);
+        setupSlider(pane,depth);
         //TODO Implement Kontrola działania automatu
         return pane;
     }
@@ -34,5 +45,18 @@ public class ToolBoxControlView extends ToolBoxView{
         pane.add(stopButton,2,0);
         resetButton = createButton("Reset");
         pane.add(resetButton,3,0);
+        changeSubScene = createButton("Change Simulation View");
+        pane.add(changeSubScene,2,1);
+    }
+
+    private void setupSlider(GridPane pane, int depth){
+        sliderLabel = createLabel("Crosses");
+        pane.add(sliderLabel,2,2);
+        slider = createSlider();
+        slider.setMax(depth);
+        slider.setMin(1);
+        slider.setValue(1);
+        pane.add(slider,2,3);
+
     }
 }

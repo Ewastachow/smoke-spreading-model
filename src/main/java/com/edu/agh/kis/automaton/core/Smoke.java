@@ -17,6 +17,10 @@ public class Smoke extends Automaton3Dim{
         super();
     }
 
+    public Smoke(int width, int height, int depth){
+        super(width,height,depth);
+    }
+
     public Smoke(Map<Coords3D, CellState> cells, VonNeumanNeighborhood3Dim neighborhoodStrategy, GeneralStateFactory stateFactory, int width, int height, int depth) {
         super(cells, neighborhoodStrategy, stateFactory, width, height, depth);
     }

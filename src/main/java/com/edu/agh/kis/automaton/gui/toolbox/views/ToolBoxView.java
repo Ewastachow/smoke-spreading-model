@@ -2,6 +2,8 @@ package com.edu.agh.kis.automaton.gui.toolbox.views;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -16,9 +18,6 @@ public abstract class ToolBoxView {
     public void setToolBoxPane(GridPane toolBoxPane) {
         this.toolBoxPane = toolBoxPane;
     }
-
-    public abstract GridPane createToolBoxPane();
-
 
     public Button createButton(String title){
         Button button = new Button(title);
@@ -38,5 +37,17 @@ public abstract class ToolBoxView {
         pane.setHgap(10);
         pane.setVgap(10);
         return pane;
+    }
+
+    public Slider createSlider(){
+        Slider slider = new Slider();
+        //TODO co z nim
+        return slider;
+    }
+
+    public Label createLabel(String title){
+        Label label = new Label(title);
+        //TODO Jak ma wyglądać label
+        return label;
     }
 }

@@ -1,12 +1,18 @@
 package com.edu.agh.kis.automaton.gui.smoke_simulation.views;
 
 import javafx.scene.SubScene;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 public class Smoke2DView extends SmokeView {
-    FlowPane root2D;
+    private FlowPane root2D;
+
+    public FlowPane getRoot2D() {
+        return root2D;
+    }
 
     public Smoke2DView() {
         super();
@@ -18,18 +24,25 @@ public class Smoke2DView extends SmokeView {
 
     private Pane createBorderPane(){
         Pane pane = new Pane();
+        pane.setPrefSize(700,700);
+        pane.setStyle("-fx-background-color: aqua");
         //TODO Zaimplmentować padding itp
         return pane;
     }
 
     private FlowPane createBoard(){
         FlowPane flowPane = new FlowPane();
+        flowPane.setPrefSize(600,600);
+        flowPane.setStyle("-fx-background-color: aliceblue");
         //TODO Implement własności
         return flowPane;
     }
 
-    public Rectangle createRectangle(){
+    public Rectangle createRectangle(Paint paint, int xAmong, int yAmong){
         Rectangle rectangle = new Rectangle();
+        rectangle.setFill(paint);
+        rectangle.setWidth(root2D.getPrefWidth()/xAmong);
+        rectangle.setHeight(root2D.getPrefHeight()/yAmong);
         //TODO: Implement - własnosci poza kolorem, ale mozna w sumie jakiś domyślny walanc
         return rectangle;
     }

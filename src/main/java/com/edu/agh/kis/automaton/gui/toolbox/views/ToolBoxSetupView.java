@@ -41,7 +41,6 @@ public class ToolBoxSetupView extends ToolBoxView{
         return acceptButton;
     }
 
-    @Override
     public GridPane createToolBoxPane() {
         GridPane pane = createGridPane();
         setupLabels(pane);
@@ -51,12 +50,6 @@ public class ToolBoxSetupView extends ToolBoxView{
         //TODO Po kliknieciu przyciku potmieniamy w kontrolerze konstruktor toolBoxView na te z control i
         //TODO ustawiamy controllery smoke dla wybranych rozmiarow automatu
         return pane;
-    }
-
-    private Label createLabel(String title){
-        Label label = new Label(title);
-        //TODO Jak ma wyglądać label
-        return label;
     }
 
     //czy te create nie powinny byc w abstrakcyjnej żeby ujednolicić???

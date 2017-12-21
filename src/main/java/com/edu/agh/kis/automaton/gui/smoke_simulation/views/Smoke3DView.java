@@ -3,6 +3,7 @@ package com.edu.agh.kis.automaton.gui.smoke_simulation.views;
 import javafx.scene.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Material;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.transform.Rotate;
@@ -24,6 +25,10 @@ public class Smoke3DView extends SmokeView {
         setSubScene(createSubScene(camera,Color.WHITE,root3D));
         addFloor();
         addLight();
+    }
+
+    public Group getRoot3D() {
+        return root3D;
     }
 
     private Group createRoot3D(){
@@ -83,8 +88,13 @@ public class Smoke3DView extends SmokeView {
         return boxes; //TODO : to bd wywołyać w kontrolerze i do niego przypisywać
     }
 
-    private Box createBox(){
+    public Box createBox(Material material, int xAmong, int yAmong, int zAmong){
         Box box = new Box();
+        box.setMaterial(material);
+        //TODO Co zamiast 1400????
+        box.setWidth(1400/xAmong);
+        box.setHeight(1400/yAmong);
+        box.setDepth(1400/zAmong);
         //TODO Parametry, mozna pominąć kolor, albo dać domyślny
         return box;
     }
