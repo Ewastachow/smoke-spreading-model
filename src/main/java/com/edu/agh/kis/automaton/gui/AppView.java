@@ -6,8 +6,16 @@ import javafx.scene.layout.BorderPane;
 
 public class AppView {
 
-    Scene scene;
-    BorderPane borderPane;
+    private Scene scene;
+    private BorderPane borderPane;
+
+    public BorderPane getBorderPane() {
+        return borderPane;
+    }
+
+    public Scene getScene() {
+        return scene;
+    }
 
     public AppView() {
         borderPane = new BorderPane();

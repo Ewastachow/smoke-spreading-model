@@ -20,8 +20,28 @@ public class ToolBoxControlView extends ToolBoxView{
     //TODO Toolbox control controller musi miec obiekt smoke - chyba te 3 z appcontroller i tam dodamy view przez referencje tu
 
 
+    public Button getNextButton() {
+        return nextButton;
+    }
+
+    public Button getStartButton() {
+        return startButton;
+    }
+
+    public Button getStopButton() {
+        return stopButton;
+    }
+
+    public Button getResetButton() {
+        return resetButton;
+    }
+
     public Button getChangeSubScene() {
         return changeSubScene;
+    }
+
+    public Slider getSlider() {
+        return slider;
     }
 
     public ToolBoxControlView(int depth) {
@@ -56,6 +76,11 @@ public class ToolBoxControlView extends ToolBoxView{
         slider.setMax(depth);
         slider.setMin(1);
         slider.setValue(1);
+        slider.setShowTickLabels(true);
+        slider.setShowTickMarks(true);
+        slider.setMajorTickUnit(50);
+        slider.setMinorTickCount(5);
+        slider.setBlockIncrement(1);
         pane.add(slider,2,3);
 
     }

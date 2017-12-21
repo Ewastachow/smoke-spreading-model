@@ -16,7 +16,7 @@ public class AppController extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         appView = new AppView();
-        toolBox = new ToolBoxSetupController();
+        toolBox = new ToolBoxSetupController(appView);
         setToolBox();
         setSetupButtonAction((ToolBoxSetupView)toolBox.getToolBoxView());
 
@@ -24,7 +24,7 @@ public class AppController extends Application{
         // smoke -> 600x600
 
         primaryStage.setTitle("Smoke Spreading Model");
-        primaryStage.setScene(appView.scene);
+        primaryStage.setScene(appView.getScene());
         primaryStage.show();
     }
 
@@ -48,7 +48,7 @@ public class AppController extends Application{
             int xAmong = (new Double(10*x)).intValue();
             int yAmong = (new Double(10*y)).intValue();
             int zAmong = (new Double(10*z)).intValue();
-            toolBox = new ToolBoxControlController(xAmong, yAmong, zAmong);
+            toolBox = new ToolBoxControlController(appView, xAmong, yAmong, zAmong);
             setToolBox();
             setSubScene();
             setChangeSubSceneButtonAction((ToolBoxControlView)toolBox.getToolBoxView());
@@ -60,14 +60,14 @@ public class AppController extends Application{
     }
 
     private void setToolBox(){
-        appView.borderPane.setLeft(toolBox.getToolBoxView().getToolBoxPane());
+        appView.getBorderPane().setLeft(toolBox.getToolBoxView().getToolBoxPane());
     }
 
     private void setSubScene(){
         //TODO Czy to jest poprawcne??
-        appView.borderPane.getChildren().clear();
+        appView.getBorderPane().getChildren().clear();
         setToolBox();
-        appView.borderPane.setRight(((ToolBoxControlController)toolBox).getSmoke().getSmokeView().getSubScene());
+        appView.getBorderPane().setRight(((ToolBoxControlController)toolBox).getSmoke().getSmokeView().getSubScene());
     }
 
     private void setChangeSubSceneButtonAction(ToolBoxControlView toolBoxControlView){

@@ -1,5 +1,7 @@
 package com.edu.agh.kis.automaton.gui.smoke_simulation.controllers;
 
+import com.edu.agh.kis.automaton.core.Automaton;
+import com.edu.agh.kis.automaton.core.Smoke;
 import com.edu.agh.kis.automaton.gui.AutomatonGUISource;
 import com.edu.agh.kis.automaton.gui.smoke_simulation.views.SmokeView;
 
@@ -47,8 +49,8 @@ public abstract class SmokeController{
 
 
     public abstract void createBoard();
-    public abstract void putTabIntoMap();
-    public abstract void putMapIntoTab();
+//    public abstract void putTabIntoMap(Smoke automaton);
+    public abstract void putMapIntoTab(Automaton automaton);
 //    public abstract void addSubSceneToPane(Pane pane); // w smokeView mamy obiekt group
 
 }

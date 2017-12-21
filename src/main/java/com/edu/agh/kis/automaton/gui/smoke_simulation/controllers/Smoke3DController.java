@@ -1,8 +1,14 @@
 package com.edu.agh.kis.automaton.gui.smoke_simulation.controllers;
 
+import com.edu.agh.kis.automaton.core.Automaton;
+import com.edu.agh.kis.automaton.core.Smoke;
+import com.edu.agh.kis.automaton.core.coords.Coords3D;
+import com.edu.agh.kis.automaton.core.state.CellState;
+import com.edu.agh.kis.automaton.core.state.CellType;
 import com.edu.agh.kis.automaton.gui.smoke_simulation.views.Smoke3DView;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 
@@ -35,14 +41,31 @@ public class Smoke3DController extends SmokeController {
 //    }
 
     @Override
-    public void putTabIntoMap() {
-        //TODO chyba zbędne, bo w 3D nie modyfikujemy wartosci
-
-    }
-
-    @Override
-    public void putMapIntoTab() {
+    public void putMapIntoTab(Automaton automaton) {
         //TODO Ustaiwamy odpowiedi material na boxach!!! - nie tworzymy boxów na nowo
+        for(int i=0; i<getxAmong(); i++)
+            for(int j=0; j<getyAmong(); j++)
+                for(int k=0; k<getzAmong(); k++){
+                    CellState cellState = automaton.cells.get(new Coords3D(i,j,k));
+                    if(cellState.getCellType().equals(CellType.BARRIER))
+                        viewTab[i][j][k].setMaterial(new PhongMaterial(new Color(0,0,1,1)));
+                    else if(cellState.getCellType().equals(CellType.FIRE_SOURCE))
+                        viewTab[i][j][k].setMaterial(new PhongMaterial(new Color(1,0,0,1)));
+                    else if(cellState.getTemp() > 280)
+                        viewTab[i][j][k].setMaterial(new PhongMaterial(new Color(0,0,0,0.9)));
+                    else if(cellState.getTemp() > 240)
+                        viewTab[i][j][k].setMaterial(new PhongMaterial(new Color(0,0,0,0.7)));
+                    else if(cellState.getTemp() > 200)
+                        viewTab[i][j][k].setMaterial(new PhongMaterial(new Color(0,0,0,0.5)));
+                    else if(cellState.getTemp() > 160)
+                        viewTab[i][j][k].setMaterial(new PhongMaterial(new Color(0,0,0,0.4)));
+                    else if(cellState.getTemp() > 120)
+                        viewTab[i][j][k].setMaterial(new PhongMaterial(new Color(0,0,0,0.3)));
+                    else if(cellState.getTemp() > 70)
+                        viewTab[i][j][k].setMaterial(new PhongMaterial(new Color(0,0,0,0.2)));
+                    else viewTab[i][j][k].setMaterial(new PhongMaterial(new Color(0,0,0,0)));
+//                    viewTab[i][j][k].setFill(rectangleCellStateColorMap.get(automaton.cells.get(new Coords3D(i,j,k))));
+                }
     }
 
     private Box[][][] createBoxTable(){
