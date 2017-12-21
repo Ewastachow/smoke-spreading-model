@@ -3,19 +3,20 @@ package com.edu.agh.kis.automaton.gui;
 import com.edu.agh.kis.automaton.gui.smoke_simulation.controllers.Smoke2DController;
 import com.edu.agh.kis.automaton.gui.smoke_simulation.controllers.Smoke3DController;
 import com.edu.agh.kis.automaton.gui.smoke_simulation.controllers.SmokeController;
+import com.edu.agh.kis.automaton.gui.toolbox.controllers.ToolBoxControlController;
 import com.edu.agh.kis.automaton.gui.toolbox.controllers.ToolBoxController;
 import com.edu.agh.kis.automaton.gui.toolbox.controllers.ToolBoxSetupController;
+import com.edu.agh.kis.automaton.gui.toolbox.views.ToolBoxSetupView;
 import javafx.application.Application;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class AppController extends Application{
 
     AppView appView;
     ToolBoxController toolBox;
-    SmokeController smoke;
-    Smoke2DController smoke2D;
-    Smoke3DController smoke3D;
     // Gdzie dać atomaton GUI source????
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -25,9 +26,10 @@ public class AppController extends Application{
         //smoke2D = new Smoke2DController();
         //smoke3D = new Smoke3DController();
         //smoke = smoke2D;
+        setToolBox();
+        setSetupButtonAction((ToolBoxSetupView)toolBox.getToolBoxView());
 
-        appView.borderPane.setLeft(toolBox.getToolBoxView().getToolBoxPane());
-        appView.borderPane.setRight(smoke.getSmokeView().getSubScene());
+//        appView.borderPane.setRight(smoke.getSmokeView().getSubScene());
 
         // toolbox -> 400x600
         // smoke -> 600x600
@@ -42,7 +44,47 @@ public class AppController extends Application{
         primaryStage.show();
     }
 
+    private void setSetupButtonAction(ToolBoxSetupView toolBoxSetupView){
+        toolBoxSetupView.getAcceptButton().setOnAction(e -> {
+            String xString = toolBoxSetupView.getxAmongField().toString();
+            String yString = toolBoxSetupView.getyAmongField().toString();
+            String zString = toolBoxSetupView.getzAmongField().toString();
+            double x,y,z;
+            try{
+                x = Double.parseDouble(xString);
+                y = Double.parseDouble(yString);
+                z = Double.parseDouble(zString);
+            }catch (Exception ex){
+                toolBoxSetupView.getAcceptButton().setText("Not right value inside");
+                //TODO wywalić to, dać return;
+                x=10;
+                y=10;
+                z=10;
+            }
+            int xAmong = (new Double(10*x)).intValue();
+            int yAmong = (new Double(10*y)).intValue();
+            int zAmong = (new Double(10*z)).intValue();
+            smoke2D = new Smoke2DController(xAmong, yAmong, zAmong);
+            smoke3D = new Smoke3DController(xAmong, yAmong, zAmong);
+            smoke = smoke2D;
+            toolBox = new ToolBoxControlController();
+            setToolBox();
+            setSmoke();
+
+        });
+    }
+
     public static void main(String[] args) {
         launch(args);
+    }
+
+    private void setToolBox(){
+        appView.borderPane.setLeft(toolBox.getToolBoxView().getToolBoxPane());
+    }
+
+    private void setSmoke(){
+        appView.borderPane.getChildren().clear();
+        setToolBox();
+        appView.borderPane.setRight(smoke.getSmokeView().getSubScene());
     }
 }

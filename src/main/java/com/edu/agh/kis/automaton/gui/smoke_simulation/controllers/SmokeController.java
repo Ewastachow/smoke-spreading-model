@@ -31,7 +31,7 @@ public abstract class SmokeController{
         this.smokeAutomatonSource = smokeAutomatonSource;
     }
 
-    public SmokeController() {
+    public SmokeController(int x, int y, int z) {
         smokeAutomatonSource = new AutomatonGUISource();
     }
     // przydal by się obiekt przechowujący boxy / rectangle żeby je tylko modyfikować a nie od nowa rysować

@@ -9,8 +9,8 @@ public class Smoke3DController extends SmokeController {
 
     Box[][][] viewTab;
 
-    public Smoke3DController() {
-        super();
+    public Smoke3DController(int x, int y, int z) {
+        super(x,y,z);
         setSmokeView(new Smoke3DView());
     }
 
