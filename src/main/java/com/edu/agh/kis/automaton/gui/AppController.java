@@ -16,7 +16,7 @@ public class AppController extends Application{
     @Override
     public void start(Stage primaryStage) throws Exception {
         appView = new AppView();
-        toolBox = new ToolBoxSetupController(appView);
+        toolBox = new ToolBoxSetupController();
         setToolBox();
         setSetupButtonAction((ToolBoxSetupView)toolBox.getToolBoxView());
 
@@ -48,7 +48,7 @@ public class AppController extends Application{
             int xAmong = (new Double(10*x)).intValue();
             int yAmong = (new Double(10*y)).intValue();
             int zAmong = (new Double(10*z)).intValue();
-            toolBox = new ToolBoxControlController(appView, xAmong, yAmong, zAmong);
+            toolBox = new ToolBoxControlController(xAmong, yAmong, zAmong);
             setToolBox();
             setSubScene();
             setChangeSubSceneButtonAction((ToolBoxControlView)toolBox.getToolBoxView());

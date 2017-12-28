@@ -43,8 +43,8 @@ public class ToolBoxControlController extends ToolBoxController{
         return smoke3D;
     }
 
-    public ToolBoxControlController(AppView appView, int x, int y, int z) {
-        super(appView);
+    public ToolBoxControlController(int x, int y, int z) {
+//        super(appView);
         setToolBoxView(new ToolBoxControlView(z));
         automaton = createAutomaton(x,y,z);
         smoke2D = new Smoke2DController(x,y,z,automaton);
@@ -57,12 +57,10 @@ public class ToolBoxControlController extends ToolBoxController{
 
     public void onSubSceneChange(){
         if(smoke.getClass() == Smoke2DController.class){
-            //TODO dezaktywacja slidera, albo nie, zmieniajmy pozycje showZ w smoke2
             smoke = smoke3D;
         }
         else{
             smoke = smoke2D;
-            //TODO aktywacja slidera
         }
         //TODO co jeszcze zmienić????
     }
