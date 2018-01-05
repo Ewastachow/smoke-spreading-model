@@ -41,13 +41,13 @@ public class AppController extends Application{
             }catch (Exception ex){
                 toolBoxSetupView.getAcceptButton().setText("Not right value inside");
                 //TODO wywalić to, dać return; -> wymaga naprawy tego w bloku try bo nie rzutuje
-                x=1;
-                y=1;
-                z=1;
+                x=3;
+                y=3;
+                z=3;
             }
-            int xAmong = (new Double(10*x)).intValue();
-            int yAmong = (new Double(10*y)).intValue();
-            int zAmong = (new Double(10*z)).intValue();
+            int xAmong = (new Double(x)).intValue();
+            int yAmong = (new Double(y)).intValue();
+            int zAmong = (new Double(z)).intValue();
             toolBox = new ToolBoxControlController(xAmong, yAmong, zAmong);
             setToolBox();
             setSubScene();

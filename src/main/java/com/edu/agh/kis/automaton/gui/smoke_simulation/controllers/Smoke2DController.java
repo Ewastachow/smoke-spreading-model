@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class Smoke2DController extends SmokeController {
 
-    Rectangle[][][] viewTab;
+    CellState[][][] viewTab;
     int showZ;
     Automaton automaton; //Z tą referencja jest raczej cos nie tak
 
@@ -34,6 +34,7 @@ public class Smoke2DController extends SmokeController {
         viewTab = createRectangleTable();
         showZ = 0;
         createBoard();
+        setFlowPaneOnClick(((Smoke2DView)getSmokeView()).getRoot2D());
     }
 
     @Override
@@ -101,7 +102,7 @@ public class Smoke2DController extends SmokeController {
             for(int j=0; j<getyAmong(); j++)
                 for(int k=0; k<getzAmong(); k++){
                     Rectangle r = ((Smoke2DView)getSmokeView()).createRectangle(paint,getxAmong(),getyAmong());
-                    setRactangleOnClick(r);
+//                    setRactangleOnClick(r);
                     rectangleTab[i][j][k] = r;
                 }
         return rectangleTab;
@@ -118,6 +119,32 @@ public class Smoke2DController extends SmokeController {
             else if(previosPaint.equals(Paint.valueOf("FFFFFF")))
             ractangle.setFill(Paint.valueOf("FF0000"));
             putTabIntoMap(automaton);
+        });
+    }
+
+    private void setFlowPaneOnClick(FlowPane flowPane){
+        flowPane.setOnMouseClicked(e -> {
+            double posX = e.getX();
+            double posY = e.getY();
+            double w = ((Smoke2DView)getSmokeView()).getRoot2D().getPrefWidth();
+            double h = ((Smoke2DView)getSmokeView()).getRoot2D().getPrefHeight();
+            int x = 0;
+            while (posX > w){
+                x++;
+                posX -= w;
+            }
+            int y = 0;
+            while (posY > h) {
+                y++;
+                posY -= h;
+            }
+            if(viewTab[x][y][showZ].equals(Paint.valueOf("FF0000")))
+                viewTab[x][y][showZ].setFill(Paint.valueOf("0000FF"));
+            else if(viewTab[x][y][showZ].equals(Paint.valueOf("0000FF")))
+                viewTab[x][y][showZ].setFill(Paint.valueOf("FFFFFF"));
+            else if(viewTab[x][y][showZ].equals(Paint.valueOf("FFFFFF")))
+                viewTab[x][y][showZ].setFill(Paint.valueOf("FF0000"));
+
         });
     }
 }

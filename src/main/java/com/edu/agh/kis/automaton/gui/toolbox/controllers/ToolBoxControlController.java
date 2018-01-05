@@ -76,6 +76,7 @@ public class ToolBoxControlController extends ToolBoxController{
         automaton = automaton.nextstate();
         smoke2D.setAutomaton(automaton);
         smoke.putMapIntoTab(automaton);
+        smoke2D.createBoard();
     }
     private void resetStep(){
         timeline.stop();
