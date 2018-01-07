@@ -72,22 +72,6 @@ public class Smoke extends Automaton3Dim{
     private CellState nextCellStateHelper(Cell currentState, Map<CellRelativePosition, Set<Cell>> neighborsStates, double upVal, double downVal, double sideVal){
         if(upVal + downVal + sideVal == 0) return currentState.state;
         neighborsStates = removeColdFromMap(currentState, neighborsStates);
-//        int sideCounter = 0;
-//        double aver = 0;
-//        for(Cell i: neighborsStates.get(CellRelativePosition.SIDE))
-//            if(i.state.getTemp() > currentState.state.getTemp()){
-//                aver += i.state.getTemp();
-//                sideCounter++;
-//            }
-//        Cell downCell = null;
-//        for(Cell i: neighborsStates.get(CellRelativePosition.DOWN))
-//            if(i.state.getTemp() > currentState.state.getTemp())
-//                downCell = i;
-//        Cell upCell = null;
-//        for(Cell i: neighborsStates.get(CellRelativePosition.UP))
-//            if(i.state.getTemp() > currentState.state.getTemp())
-//                upCell = i;
-
 
         int sideCounter = 0;
         double aver = 0;
@@ -103,27 +87,6 @@ public class Smoke extends Automaton3Dim{
             upCell = i;
 
 
-
-
-//        if(downCell != null && upCell != null)
-//            return new CellState(currentState.state.getTemp() +
-//                    (upVal*upCell.state.getTemp() + sideVal*sideCounter*aver + downVal*downCell.state.getTemp())/
-//                            (1 + upVal + sideVal + downVal));
-//        else if(downCell != null && upCell == null)
-//        return new CellState(currentState.state.getTemp() +
-//                (sideVal*sideCounter*aver + downVal*downCell.state.getTemp())/
-//                        (1 + upVal + sideVal + downVal));
-//        else if(downCell == null && upCell != null)
-//            return new CellState(currentState.state.getTemp() +
-//                    (upVal*upCell.state.getTemp() + sideVal*sideCounter*aver)/
-//                            (1 + upVal + sideVal + downVal));
-//        else return new CellState(currentState.state.getTemp() +
-//                    (sideVal*sideCounter*aver)/
-//                            (1 + upVal + sideVal + downVal));
-
-//        if(upCell != null && upCell.state.getTemp() > currentState.state.getTemp()){
-//
-//        }
         if(downCell != null && upCell != null)
             return new CellState((currentState.state.getTemp() + upVal*upCell.state.getTemp() + sideVal*sideCounter*aver + downVal*downCell.state.getTemp())/
                             (1 + upVal + sideVal*sideCounter + downVal));
@@ -136,17 +99,6 @@ public class Smoke extends Automaton3Dim{
         else return new CellState((currentState.state.getTemp() + sideVal*sideCounter*aver)/
                             (1 + sideVal*sideCounter));
 
-//        double newTemp = sideVal*sideCounter*aver +
-//                downVal*((downCell == null) ? 0 : downCell.state.getTemp()) +
-//                upVal*((upCell == null) ? 0 : upCell.state.getTemp());
-//        return new CellState(currentState.state.getTemp() + (newTemp/(sideVal*sideCounter + ((downCell == null) ? 0 : downVal) + ((upCell == null) ? 0 : upVal))));
-
-
-//        double newTemp = currentState.state.getTemp() +
-//                sideVal*sideCounter*aver +
-//                downVal*((downCell == null) ? 0 : downCell.state.getTemp()) +
-//                upVal*((upCell == null) ? 0 : upCell.state.getTemp());
-//        return new CellState((newTemp/(1 + sideVal*sideCounter + ((downCell == null) ? 0 : downVal) + ((upCell == null) ? 0 : upVal))));
     }
 
     public Map<CellRelativePosition, Set<Cell>> removeFireSourceAndBarrierFromMap(Map<CellRelativePosition, Set<Cell>> neighborsStates){

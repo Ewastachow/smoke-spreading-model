@@ -8,19 +8,25 @@ import com.edu.agh.kis.automaton.core.stateFactory.GeneralStateFactory;
 
 
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public abstract class Automaton implements Iterable<Cell>, Cloneable {
     public Map<Coords3D, CellState> cells = new TreeMap<>();
     private VonNeumanNeighborhood3Dim neighborhoodStrategy;
     private GeneralStateFactory stateFactory;
 
+    ExecutorService executor;
+
     public Automaton() {
+        executor = Executors.newFixedThreadPool(10);
     }
 
     public Automaton(Map<Coords3D, CellState> cells, VonNeumanNeighborhood3Dim neighborhoodStrategy, GeneralStateFactory stateFactory) {
         this.cells = cells;
         this.neighborhoodStrategy = neighborhoodStrategy;
         this.stateFactory = stateFactory;
+        executor = Executors.newFixedThreadPool(cells.size());
     }
 
     public CellState getStateOfCoords(Coords3D cc) {

@@ -31,12 +31,16 @@ public class Smoke3DView extends SmokeView {
         root3D = createRoot3D();
         setRoot3DEvents();
         setSubScene(createSubScene(camera,Color.WHITE,root3D));
-        addFloor();
+//        addFloor();
         addLight();
     }
 
     public Group getRoot3D() {
         return root3D;
+    }
+
+    public double getSizePerCell() {
+        return sizePerCell;
     }
 
     private Group createRoot3D(){
@@ -74,7 +78,7 @@ public class Smoke3DView extends SmokeView {
         camera.setVerticalFieldOfView(false);
         camera.setNearClip(0.1);
         camera.setFarClip(100000.0);
-        camera.getTransforms().addAll (rotateX, rotateY, new Translate(0, 0, -3000));
+        camera.getTransforms().addAll (rotateX, rotateY, new Translate(0, 0, -5000));
         return camera;
     }
 
@@ -108,9 +112,9 @@ public class Smoke3DView extends SmokeView {
         Box box = new Box();
         box.setMaterial(material);
         //TODO Co zamiast 1400????
-        box.setWidth(1000/xAmong);
-        box.setHeight(1000/yAmong);
-        box.setDepth(1000/zAmong);
+        box.setWidth(sizePerCell);
+        box.setHeight(sizePerCell);
+        box.setDepth(sizePerCell);
         //TODO Parametry, mozna pominąć kolor, albo dać domyślny
         return box;
     }
