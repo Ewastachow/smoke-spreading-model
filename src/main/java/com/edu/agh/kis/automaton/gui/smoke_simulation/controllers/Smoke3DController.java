@@ -15,7 +15,7 @@ public class Smoke3DController extends SmokeController {
 
     public Smoke3DController(int x, int y, int z, Map<Coords3D,CellState> cells) {
         super(x,y,z,cells);
-        setSmokeView(new Smoke3DView());
+        setSmokeView(new Smoke3DView(x,y,z));
         drawBoard();
     }
 

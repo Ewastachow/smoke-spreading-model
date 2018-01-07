@@ -23,40 +23,6 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable {
         this.stateFactory = stateFactory;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Automaton automaton = (Automaton) o;
-
-        if (cells != null ? !cells.equals(automaton.cells) : automaton.cells != null) return false;
-        if (neighborhoodStrategy != null ? !neighborhoodStrategy.equals(automaton.neighborhoodStrategy) : automaton.neighborhoodStrategy != null)
-            return false;
-        return stateFactory != null ? stateFactory.equals(automaton.stateFactory) : automaton.stateFactory == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = cells != null ? cells.hashCode() : 0;
-        result = 31 * result + (neighborhoodStrategy != null ? neighborhoodStrategy.hashCode() : 0);
-        result = 31 * result + (stateFactory != null ? stateFactory.hashCode() : 0);
-        return result;
-    }
-
-    @Override
-    public Object clone() {
-        try {
-            super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-
-        Automaton duplicate = newInstance(stateFactory, neighborhoodStrategy);
-        duplicate.cells = new TreeMap<>(cells);
-        return duplicate;
-    }
-
     public CellState getStateOfCoords(Coords3D cc) {
         return cells.get(cc);
     }
@@ -79,13 +45,6 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable {
 
     public void setStateFactory(GeneralStateFactory stateFactory) {
         this.stateFactory = stateFactory;
-    }
-
-    @Override
-    public String toString() {
-        return "Automaton{" +
-                "cells=" + cells +
-                '}';
     }
 
     public class CellIterator implements Iterator<Cell> {
@@ -164,6 +123,47 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable {
         }
 
         return newMap;
+    }
+
+    @Override
+    public String toString() {
+        return "Automaton{" +
+                "cells=" + cells +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Automaton automaton = (Automaton) o;
+
+        if (cells != null ? !cells.equals(automaton.cells) : automaton.cells != null) return false;
+        if (neighborhoodStrategy != null ? !neighborhoodStrategy.equals(automaton.neighborhoodStrategy) : automaton.neighborhoodStrategy != null)
+            return false;
+        return stateFactory != null ? stateFactory.equals(automaton.stateFactory) : automaton.stateFactory == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = cells != null ? cells.hashCode() : 0;
+        result = 31 * result + (neighborhoodStrategy != null ? neighborhoodStrategy.hashCode() : 0);
+        result = 31 * result + (stateFactory != null ? stateFactory.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public Object clone() {
+        try {
+            super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+
+        Automaton duplicate = newInstance(stateFactory, neighborhoodStrategy);
+        duplicate.cells = new TreeMap<>(cells);
+        return duplicate;
     }
 }
 
