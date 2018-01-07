@@ -9,6 +9,10 @@ import javafx.scene.shape.Box;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Smoke3DView extends SmokeView {
     Group root3D;
 
@@ -17,8 +21,12 @@ public class Smoke3DView extends SmokeView {
     private double mousePosX, mousePosY;
     private double mouseOldX, mouseOldY;
 
-    public Smoke3DView() {
+    private double sizePerCell;
+    //TODO ustawic zmiane
+
+    public Smoke3DView(int xAmong, int yAmong, int zAmong) {
         super();
+        sizePerCell = findSizePerCell(xAmong,yAmong,zAmong);
         PerspectiveCamera camera = createCamera();
         root3D = createRoot3D();
         setRoot3DEvents();
@@ -35,6 +43,14 @@ public class Smoke3DView extends SmokeView {
         Group group = new Group();
         //TODO Co tu wg mozna doimplementowac????
         return group;
+    }
+
+    private double findSizePerCell(int x, int y, int z){
+        List<Integer> findMaxList = new ArrayList<>();
+        findMaxList.add(x);
+        findMaxList.add(y);
+        findMaxList.add(z);
+        return 1400/(Collections.max(findMaxList));
     }
 
     private void setRoot3DEvents(){

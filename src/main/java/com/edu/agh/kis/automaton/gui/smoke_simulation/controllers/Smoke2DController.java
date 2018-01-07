@@ -32,9 +32,9 @@ public class Smoke2DController extends SmokeController {
     public void drawBoard(){
         FlowPane pane = ((Smoke2DView)getSmokeView()).getRoot2D();
         pane.getChildren().clear();
-        for(int i=0; i<getxAmong(); i++)
-            for(int j=0; j<getyAmong(); j++){
-                CellState cellState = getCells().get(new Coords3D(j,i,showZ));
+        for(int j=0; j<getyAmong(); j++)
+            for(int i=0; i<getxAmong(); i++){
+                CellState cellState = getCells().get(new Coords3D(i,j,showZ));
                 Paint paint;
                 if(cellState.getCellType().equals(CellType.BARRIER))
                     paint = Paint.valueOf("0000FF");

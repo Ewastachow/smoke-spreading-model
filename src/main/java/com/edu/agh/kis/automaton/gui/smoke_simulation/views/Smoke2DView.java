@@ -25,16 +25,12 @@ public class Smoke2DView extends SmokeView {
     private Pane createBorderPane(){
         Pane pane = new Pane();
         pane.setPrefSize(700,700);
-        pane.setStyle("-fx-background-color: aqua");
-        //TODO Zaimplmentować padding itp
         return pane;
     }
 
     private FlowPane createBoard(){
         FlowPane flowPane = new FlowPane();
         flowPane.setPrefSize(600,600);
-        flowPane.setStyle("-fx-background-color: aliceblue");
-        //TODO Implement własności
         return flowPane;
     }
 
@@ -43,7 +39,6 @@ public class Smoke2DView extends SmokeView {
         rectangle.setFill(paint);
         rectangle.setWidth(root2D.getPrefWidth()/xAmong);
         rectangle.setHeight(root2D.getPrefHeight()/yAmong);
-        //TODO: Implement - własnosci poza kolorem, ale mozna w sumie jakiś domyślny walanc
         return rectangle;
     }
 }

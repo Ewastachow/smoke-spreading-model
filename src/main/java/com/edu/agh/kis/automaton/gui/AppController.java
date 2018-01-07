@@ -30,9 +30,9 @@ public class AppController extends Application{
 
     private void setSetupButtonAction(ToolBoxSetupView toolBoxSetupView){
         toolBoxSetupView.getAcceptButton().setOnAction(e -> {
-            String xString = toolBoxSetupView.getxAmongField().toString();
-            String yString = toolBoxSetupView.getyAmongField().toString();
-            String zString = toolBoxSetupView.getzAmongField().toString();
+            String xString = toolBoxSetupView.getxAmongField().getText();
+            String yString = toolBoxSetupView.getyAmongField().getText();
+            String zString = toolBoxSetupView.getzAmongField().getText();
             double x,y,z;
             try{
                 x = Double.parseDouble(xString);
