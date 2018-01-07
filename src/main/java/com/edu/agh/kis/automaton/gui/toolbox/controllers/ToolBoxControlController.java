@@ -56,18 +56,15 @@ public class ToolBoxControlController extends ToolBoxController{
     }
 
     public void onSubSceneChange(){
-        if(smoke.getClass() == Smoke2DController.class){
+        if(smoke.getClass() == Smoke2DController.class)
             smoke = smoke3D;
-        }
-        else{
-            smoke = smoke2D;
-        }
-        //TODO co jeszcze zmienić????
+        else smoke = smoke2D;
+        draw();
     }
 
     private void setControlPanelOnAction(){
         ((ToolBoxControlView)getToolBoxView()).getNextButton().setOnAction(e -> nextStep());
-        ((ToolBoxControlView)getToolBoxView()).getNextButton().setOnAction(e -> timeline.play());
+        ((ToolBoxControlView)getToolBoxView()).getStartButton().setOnAction(e -> timeline.play());
         ((ToolBoxControlView)getToolBoxView()).getStopButton().setOnAction(e -> timeline.stop());
         ((ToolBoxControlView)getToolBoxView()).getResetButton().setOnAction(e -> resetStep());
     }

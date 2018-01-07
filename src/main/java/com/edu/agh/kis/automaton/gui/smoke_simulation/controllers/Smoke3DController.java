@@ -21,6 +21,9 @@ public class Smoke3DController extends SmokeController {
 
     @Override
     public void drawBoard() {
+        //TODO - nw w ktorej metodzie:
+        //TODO 1. zeby nie byl kwadrat - 1400/max(x,y,z) i potem wielkoscie x*to coś, y*to coś, z*to coś
+        //TODO 2. jakie translate dać żeby to było db ułozone
         Group root3D = ((Smoke3DView)getSmokeView()).getRoot3D();
         root3D.getChildren().clear();
         ((Smoke3DView)getSmokeView()).addFloor();
