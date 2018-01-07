@@ -92,9 +92,9 @@ public class Smoke3DView extends SmokeView {
         Box box = new Box();
         box.setMaterial(material);
         //TODO Co zamiast 1400????
-        box.setWidth(1400/xAmong);
-        box.setHeight(1400/yAmong);
-        box.setDepth(1400/zAmong);
+        box.setWidth(1000/xAmong);
+        box.setHeight(1000/yAmong);
+        box.setDepth(1000/zAmong);
         //TODO Parametry, mozna pominąć kolor, albo dać domyślny
         return box;
     }

@@ -47,8 +47,8 @@ public class ToolBoxControlController extends ToolBoxController{
 //        super(appView);
         setToolBoxView(new ToolBoxControlView(z));
         automaton = createAutomaton(x,y,z);
-        smoke2D = new Smoke2DController(x,y,z,automaton);
-        smoke3D = new Smoke3DController(x,y,z);
+        smoke2D = new Smoke2DController(x,y,z,automaton.getCells());
+        smoke3D = new Smoke3DController(x,y,z,automaton.getCells());
         smoke = smoke2D;
         setTimeline();
         setControlPanelOnAction();
@@ -74,9 +74,7 @@ public class ToolBoxControlController extends ToolBoxController{
 
     private void nextStep(){
         automaton = automaton.nextstate();
-        smoke2D.setAutomaton(automaton);
-        smoke.putMapIntoTab(automaton);
-        smoke2D.createBoard();
+        draw();
     }
     private void resetStep(){
         timeline.stop();
@@ -90,10 +88,10 @@ public class ToolBoxControlController extends ToolBoxController{
     }
 
     private void setupSlider(){
-        ((ToolBoxControlView)getToolBoxView()).getSlider().valueProperty().addListener((ObservableValue<? extends Number> observable,
-                                                                                        Number oldValue, Number newValue) -> {
+        ((ToolBoxControlView)getToolBoxView()).getSlider().valueProperty().addListener(
+                (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
             smoke2D.setShowZ(newValue.intValue()-1);
-            smoke2D.putMapIntoTab(automaton);
+            smoke2D.drawBoard();
         });
     }
 
@@ -115,5 +113,10 @@ public class ToolBoxControlController extends ToolBoxController{
                 x, y, z);
         //TODO coś jest pojebane z kolejnością x y z
         return automaton;
+    }
+
+    private void draw(){
+        smoke.setCells(automaton.getCells());
+        smoke.drawBoard();
     }
 }
