@@ -17,6 +17,10 @@ public class Smoke extends Automaton3Dim{
         super();
     }
 
+    public Smoke(int width, int height, int depth){
+        super(width,height,depth);
+    }
+
     public Smoke(Map<Coords3D, CellState> cells, VonNeumanNeighborhood3Dim neighborhoodStrategy, GeneralStateFactory stateFactory, int width, int height, int depth) {
         super(cells, neighborhoodStrategy, stateFactory, width, height, depth);
     }
@@ -40,6 +44,9 @@ public class Smoke extends Automaton3Dim{
         for(Cell i: neighborsStates.get(CellRelativePosition.DOWN))
             if(i.state.getCellType().equals(CellType.FIRE_SOURCE))
                 return new CellState((6*i.state.getTemp() + currentState.state.getTemp())/7);
+
+        //Jeżeli temp większa niż 300 to zwracamy te temp
+        if(currentState.state.getTemp() > 300) return currentState.state;
 
         // Usuwam zbędne elementy z setów
         neighborsStates = removeFireSourceAndBarrierFromMap(neighborsStates);

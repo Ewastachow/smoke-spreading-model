@@ -50,18 +50,6 @@
                                     </VBox.margin>
                                 </HBox>
                                 <HBox alignment="CENTER" prefHeight="50.0" prefWidth="500.0" spacing="20.0" />
-                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="37.0" prefWidth="100.0" text="Width" textAlignment="CENTER" wrapText="true">
-                                    <VBox.margin>
-                                        <Insets top="15.0" />
-                                    </VBox.margin></Label>
-                                <Slider fx:id="widthSlider" majorTickUnit="5.0" max="80.0" maxHeight="20.0" maxWidth="300.0" min="5.0" minHeight="20.0" minWidth="300.0" prefHeight="20.0" prefWidth="300.0" showTickLabels="true" value="20.0" />
-                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="37.0" prefWidth="100.0" text="Height" textAlignment="CENTER" wrapText="true">
-                                    <VBox.margin>
-                                        <Insets top="10.0" />
-                                    </VBox.margin></Label>
-                                <Slider fx:id="heightSlider" majorTickUnit="5.0" max="80.0" maxHeight="20.0" maxWidth="300.0" min="5.0" minHeight="20.0" minWidth="300.0" prefHeight="20.0" prefWidth="300.0" showTickLabels="true" value="20.0" />
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="37.0" prefWidth="100.0" text="Depth" textAlignment="CENTER" wrapText="true" />
-                        <Slider fx:id="depthSlider" majorTickUnit="5.0" max="80.0" maxHeight="20.0" maxWidth="300.0" min="5.0" minHeight="20.0" minWidth="300.0" prefHeight="20.0" prefWidth="300.0" showTickLabels="true" value="20.0" />
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="37.0" prefWidth="100.0" text="Przekroj" textAlignment="CENTER" wrapText="true" />
                         <Slider fx:id="przekroj" blockIncrement="1.0" majorTickUnit="5.0" max="80.0" maxHeight="20.0" maxWidth="300.0" min="1.0" minHeight="20.0" minWidth="300.0" prefHeight="20.0" prefWidth="300.0" showTickLabels="true" value="1.0" />
                                 <HBox alignment="CENTER" prefHeight="50.0" prefWidth="500.0" spacing="20.0">

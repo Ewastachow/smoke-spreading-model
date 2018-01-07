@@ -34,15 +34,6 @@ public class AutomatonGUIController extends Observable {
     private Slider przekroj;
 
     @FXML
-    private Slider widthSlider;
-
-    @FXML
-    private Slider heightSlider;
-
-    @FXML
-    private Slider depthSlider;
-
-    @FXML
     private FlowPane board;
 
     @FXML
@@ -167,47 +158,47 @@ public class AutomatonGUIController extends Observable {
             showZ = newValue.intValue()-1;
             createBoard();
         });
-        //TODO Naprawić slidery
-        widthSlider.valueProperty().addListener((ObservableValue<? extends Number> observable,
-                                                 Number oldValue, Number newValue) -> {
-            currentState.width = newValue.intValue();
-            CellState[][][] tmp = new CellState[currentState.width][currentState.height][currentState.depth];
-            resetCells(currentState.width, currentState.height, currentState.depth, tmp);
-            for (int i = 0; i < oldValue.intValue(); i++)
-                for (int j = 0; j < currentState.height; j++)
-                    for (int k = 0; k < currentState.depth; k++) {
-                        if (i < currentState.width) tmp[i][j][k] = currentState.cells[i][j][k];
-                    }
-            currentState.cells = tmp;
-            createBoard();
-
-        });
-        heightSlider.valueProperty().addListener((ObservableValue<? extends Number> observable,
-                                                  Number oldValue, Number newValue) -> {
-            currentState.height = newValue.intValue();
-            CellState[][][] tmp = new CellState[currentState.width][currentState.height][currentState.depth];
-            resetCells(currentState.width, currentState.height, currentState.depth, tmp);
-            for (int i = 0; i < currentState.width; i++)
-                for (int j = 0; j < oldValue.intValue(); j++)
-                    for (int k = 0; k < currentState.depth; k++){
-                        if (j < currentState.height) tmp[i][j][k] = currentState.cells[i][j][k];
-                    }
-            currentState.cells = tmp;
-            createBoard();
-        });
-        depthSlider.valueProperty().addListener((ObservableValue<? extends Number> observable,
-                                                 Number oldValue, Number newValue) -> {
-            currentState.height = newValue.intValue();
-            przekroj.setMax(currentState.depth);
-            CellState[][][] tmp = new CellState[currentState.width][currentState.height][currentState.depth];
-            resetCells(currentState.width, currentState.height, currentState.depth, tmp);
-            for (int i = 0; i < currentState.width; i++)
-                for (int j = 0; j < currentState.height; j++)
-                    for (int k = 0; k < oldValue.intValue(); k++){
-                        if (j < currentState.height) tmp[i][j][k] = currentState.cells[i][j][k];
-                    }
-            currentState.cells = tmp;
-            createBoard();
-        });
+//        //TODO Naprawić slidery
+//        widthSlider.valueProperty().addListener((ObservableValue<? extends Number> observable,
+//                                                 Number oldValue, Number newValue) -> {
+//            currentState.width = newValue.intValue();
+//            CellState[][][] tmp = new CellState[currentState.width][currentState.height][currentState.depth];
+//            resetCells(currentState.width, currentState.height, currentState.depth, tmp);
+//            for (int i = 0; i < oldValue.intValue(); i++)
+//                for (int j = 0; j < currentState.height; j++)
+//                    for (int k = 0; k < currentState.depth; k++) {
+//                        if (i < currentState.width) tmp[i][j][k] = currentState.cells[i][j][k];
+//                    }
+//            currentState.cells = tmp;
+//            createBoard();
+//
+//        });
+//        heightSlider.valueProperty().addListener((ObservableValue<? extends Number> observable,
+//                                                  Number oldValue, Number newValue) -> {
+//            currentState.height = newValue.intValue();
+//            CellState[][][] tmp = new CellState[currentState.width][currentState.height][currentState.depth];
+//            resetCells(currentState.width, currentState.height, currentState.depth, tmp);
+//            for (int i = 0; i < currentState.width; i++)
+//                for (int j = 0; j < oldValue.intValue(); j++)
+//                    for (int k = 0; k < currentState.depth; k++){
+//                        if (j < currentState.height) tmp[i][j][k] = currentState.cells[i][j][k];
+//                    }
+//            currentState.cells = tmp;
+//            createBoard();
+//        });
+//        depthSlider.valueProperty().addListener((ObservableValue<? extends Number> observable,
+//                                                 Number oldValue, Number newValue) -> {
+//            currentState.height = newValue.intValue();
+//            przekroj.setMax(currentState.depth);
+//            CellState[][][] tmp = new CellState[currentState.width][currentState.height][currentState.depth];
+//            resetCells(currentState.width, currentState.height, currentState.depth, tmp);
+//            for (int i = 0; i < currentState.width; i++)
+//                for (int j = 0; j < currentState.height; j++)
+//                    for (int k = 0; k < oldValue.intValue(); k++){
+//                        if (j < currentState.height) tmp[i][j][k] = currentState.cells[i][j][k];
+//                    }
+//            currentState.cells = tmp;
+//            createBoard();
+//        });
     }
 }
