@@ -37,8 +37,8 @@ public class Smoke2DView extends SmokeView {
     public Rectangle createRectangle(Paint paint, int xAmong, int yAmong){
         Rectangle rectangle = new Rectangle();
         rectangle.setFill(paint);
-        rectangle.setWidth(root2D.getPrefWidth()/xAmong);
-        rectangle.setHeight(root2D.getPrefHeight()/yAmong);
+        rectangle.setWidth(Math.floor(root2D.getPrefWidth()/xAmong));
+        rectangle.setHeight(Math.floor(root2D.getPrefHeight()/yAmong));
         return rectangle;
     }
 }

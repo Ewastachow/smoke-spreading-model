@@ -4,7 +4,6 @@ import com.edu.agh.kis.automaton.core.Automaton;
 import com.edu.agh.kis.automaton.core.Smoke;
 import com.edu.agh.kis.automaton.core.coords.Coords3D;
 import com.edu.agh.kis.automaton.core.state.CellState;
-import com.edu.agh.kis.automaton.gui.AutomatonGUISource;
 import com.edu.agh.kis.automaton.gui.smoke_simulation.views.SmokeView;
 
 import java.awt.event.MouseEvent;

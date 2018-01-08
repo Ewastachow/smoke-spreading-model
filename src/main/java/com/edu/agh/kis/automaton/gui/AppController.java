@@ -35,9 +35,9 @@ public class AppController extends Application{
             String zString = toolBoxSetupView.getzAmongField().getText();
             double x,y,z;
             try{
-                x = Double.parseDouble(xString);
-                y = Double.parseDouble(yString);
-                z = Double.parseDouble(zString);
+                x = Double.parseDouble(xString)*5;
+                y = Double.parseDouble(yString)*5;
+                z = Double.parseDouble(zString)*5;
             }catch (Exception ex){
                 toolBoxSetupView.getAcceptButton().setText("Not right value inside");
                 //TODO wywalić to, dać return; -> wymaga naprawy tego w bloku try bo nie rzutuje

@@ -31,6 +31,7 @@ public class Smoke2DController extends SmokeController {
 
     public void drawBoard(){
         FlowPane pane = ((Smoke2DView)getSmokeView()).getRoot2D();
+//        pane.setPrefHeight(getxAmong()*);
         pane.getChildren().clear();
         for(int j=0; j<getyAmong(); j++)
             for(int i=0; i<getxAmong(); i++){
