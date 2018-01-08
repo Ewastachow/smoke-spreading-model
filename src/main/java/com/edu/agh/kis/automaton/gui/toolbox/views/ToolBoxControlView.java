@@ -3,6 +3,7 @@ package com.edu.agh.kis.automaton.gui.toolbox.views;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
@@ -16,6 +17,10 @@ public class ToolBoxControlView extends ToolBoxView{
     Button changeSubScene;
 
     Label sliderLabel;
+
+    TextField iterateAmong;
+    Button iterateButton;
+
     Slider slider; //TODO slider do przemieszczania się pomiędzy przekrojami, ma być nieaktywny przy 3D, ale w onAction lepiej walnąć if == Smoke3DController.class
     //TODO Toolbox control controller musi miec obiekt smoke - chyba te 3 z appcontroller i tam dodamy view przez referencje tu
 
@@ -36,6 +41,14 @@ public class ToolBoxControlView extends ToolBoxView{
         return resetButton;
     }
 
+    public Button getIterateButton() {
+        return iterateButton;
+    }
+
+    public TextField getIterateAmong() {
+        return iterateAmong;
+    }
+
     public Button getChangeSubScene() {
         return changeSubScene;
     }
@@ -52,6 +65,7 @@ public class ToolBoxControlView extends ToolBoxView{
         GridPane pane = createGridPane();
         setupButtons(pane);
         setupSlider(pane,depth);
+        setupIterate(pane);
         //TODO Implement Kontrola działania automatu
         return pane;
     }
@@ -66,7 +80,14 @@ public class ToolBoxControlView extends ToolBoxView{
         resetButton = createButton("Reset");
         pane.add(resetButton,3,0);
         changeSubScene = createButton("Change Simulation View");
-        pane.add(changeSubScene,2,1);
+        pane.add(changeSubScene,2,4);
+    }
+
+    private void setupIterate(GridPane pane){
+        iterateAmong = new TextField("Among of iteration");
+        pane.add(iterateAmong,1,1);
+        iterateButton = createButton("Generate");
+        pane.add(iterateButton,3,1);
     }
 
     private void setupSlider(GridPane pane, int depth){

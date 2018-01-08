@@ -61,10 +61,20 @@ public class ToolBoxControlController extends ToolBoxController{
     }
 
     private void setControlPanelOnAction(){
-        ((ToolBoxControlView)getToolBoxView()).getNextButton().setOnAction(e -> nextStep());
-        ((ToolBoxControlView)getToolBoxView()).getStartButton().setOnAction(e -> timeline.play());
-        ((ToolBoxControlView)getToolBoxView()).getStopButton().setOnAction(e -> timeline.stop());
-        ((ToolBoxControlView)getToolBoxView()).getResetButton().setOnAction(e -> resetStep());
+        ToolBoxControlView tbcv = (ToolBoxControlView)getToolBoxView();
+        tbcv.getNextButton().setOnAction(e -> nextStep());
+        tbcv.getStartButton().setOnAction(e -> timeline.play());
+        tbcv.getStopButton().setOnAction(e -> timeline.stop());
+        tbcv.getResetButton().setOnAction(e -> resetStep());
+        tbcv.getIterateButton().setOnAction(e -> {
+            try{
+                int iterate = Integer.parseInt(tbcv.getIterateAmong().getText());
+                for(int i = 0; i<iterate; i++)
+                    nextStep();
+            }catch(Exception ee){
+                tbcv.getIterateAmong().setText("Wrong input");
+            }
+        });
     }
 
     private void nextStep(){
