@@ -69,11 +69,21 @@ public class ToolBoxControlController extends ToolBoxController{
         tbcv.getIterateButton().setOnAction(e -> {
             try{
                 int iterate = Integer.parseInt(tbcv.getIterateAmong().getText());
-                for(int i = 0; i<(iterate/3); i++)
+                for(int i = 0; i<(iterate); i++)
                     nextStep();
             }catch(Exception ee){
                 tbcv.getIterateAmong().setText("Wrong input");
             }
+        });
+        tbcv.getHowManyWithSmokeButton().setOnAction(e -> {
+            int howMany = 0;
+            int howManySmoked = 0;
+            for(Map.Entry<Coords3D, CellState> entry : automaton.getCells().entrySet()) {
+                howMany++;
+                if(entry.getValue().getIsSmoked())
+                    howManySmoked++;
+            }
+            tbcv.getHowManyWithSmokeButton().setText("Smoked: "+howManySmoked+" All: "+howMany);
         });
     }
 
