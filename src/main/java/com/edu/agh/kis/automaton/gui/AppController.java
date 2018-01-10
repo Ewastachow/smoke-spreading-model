@@ -41,9 +41,9 @@ public class AppController extends Application{
             }catch (Exception ex){
                 toolBoxSetupView.getAcceptButton().setText("Not right value inside");
                 //TODO wywalić to, dać return; -> wymaga naprawy tego w bloku try bo nie rzutuje
-                x=3;
-                y=3;
-                z=3;
+                x=7;
+                y=7;
+                z=7;
             }
             int xAmong = (new Double(x)).intValue();
             int yAmong = (new Double(y)).intValue();

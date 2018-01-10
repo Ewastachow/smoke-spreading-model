@@ -63,10 +63,10 @@ public class Smoke extends Automaton3Dim{
         if(neighborsStates.get(CellRelativePosition.SIDE).size() < 4 &&
                 neighborsStates.get(CellRelativePosition.DOWN_SIDE).size() < 5 &&
                 neighborsStates.get(CellRelativePosition.UP_SIDE).size() < 5){
-            return nextCellStateHelper(currentState, neighborsStates, 3, 5, 0.3);
+            return nextCellStateHelper(currentState, neighborsStates, 0.4, 5, 6);
         }
 
-        return nextCellStateHelper(currentState, neighborsStates, 0, 3, 0.03);
+        return nextCellStateHelper(currentState, neighborsStates, 0.1, 3, 0.03);
     }
 
     private CellState nextCellStateHelper(Cell currentState, Map<CellRelativePosition, Set<Cell>> neighborsStates, double upVal, double downVal, double sideVal){
