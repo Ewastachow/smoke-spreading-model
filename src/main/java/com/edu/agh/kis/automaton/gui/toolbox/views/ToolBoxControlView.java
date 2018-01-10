@@ -84,7 +84,7 @@ public class ToolBoxControlView extends ToolBoxView{
     }
 
     private void setupIterate(GridPane pane){
-        iterateAmong = new TextField("Among of iteration");
+        iterateAmong = new TextField("Among of minutes");
         pane.add(iterateAmong,1,1);
         iterateButton = createButton("Generate");
         pane.add(iterateButton,3,1);

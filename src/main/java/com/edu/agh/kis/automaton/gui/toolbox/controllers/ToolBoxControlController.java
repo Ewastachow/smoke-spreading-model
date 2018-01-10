@@ -69,7 +69,7 @@ public class ToolBoxControlController extends ToolBoxController{
         tbcv.getIterateButton().setOnAction(e -> {
             try{
                 int iterate = Integer.parseInt(tbcv.getIterateAmong().getText());
-                for(int i = 0; i<iterate; i++)
+                for(int i = 0; i<(iterate/3); i++)
                     nextStep();
             }catch(Exception ee){
                 tbcv.getIterateAmong().setText("Wrong input");
@@ -83,7 +83,14 @@ public class ToolBoxControlController extends ToolBoxController{
     }
     private void resetStep(){
         timeline.stop();
-        //TODO RESET CELL -> nowy obiekt automatonu, putToTab Dla smoke2D i smoke3D
+        int x = smoke.getxAmong();
+        int y = smoke.getyAmong();
+        int z = smoke.getzAmong();
+        automaton = createAutomaton(x,y,z);
+        smoke2D = new Smoke2DController(x,y,z,automaton.getCells());
+        smoke3D = new Smoke3DController(x,y,z,automaton.getCells());
+        smoke = smoke2D;
+        draw();
     }
 
     private void setTimeline(){
