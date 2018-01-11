@@ -1,6 +1,5 @@
 package com.edu.agh.kis.automaton.core;
 
-
 import com.edu.agh.kis.automaton.core.coords.Coords3D;
 import com.edu.agh.kis.automaton.core.neighborhood.CellRelativePosition;
 import com.edu.agh.kis.automaton.core.neighborhood.VonNeumanNeighborhood3Dim;
@@ -11,14 +10,9 @@ import com.edu.agh.kis.automaton.core.stateFactory.GeneralStateFactory;
 import java.util.*;
 
 public class Smoke extends Automaton3Dim{
-    //TODO Scalić Automaton, Automaton3Dim i Automaton w jedną klasę
 
     public Smoke() {
         super();
-    }
-
-    public Smoke(int width, int height, int depth){
-        super(width,height,depth);
     }
 
     public Smoke(Map<Coords3D, CellState> cells, VonNeumanNeighborhood3Dim neighborhoodStrategy, GeneralStateFactory stateFactory, int width, int height, int depth) {
@@ -30,36 +24,27 @@ public class Smoke extends Automaton3Dim{
         return new Smoke(super.getCells(), cellN, cellSF, getWidth(), getHeight(), getDepth());
     }
 
-    //TODO: Implement w zależności od TEMP -> potem dodać w zależności od ułożenia BARRIER
     @Override
     protected CellState nextCellState(Cell currentState, Map<CellRelativePosition, Set<Cell>> neighborsStates) {
-
-        // Jeżeli komorka jest babierą lub źródłem ognia to zwracamy ten stan
 
         if(currentState.state.getCellType().equals(CellType.BARRIER) ||
                 currentState.state.getCellType().equals(CellType.FIRE_SOURCE))
             return currentState.state;
 
-        // Jeżeli pod jest źródło ognia to zwraca na podstawie źródła ognia
         for(Cell i: neighborsStates.get(CellRelativePosition.DOWN))
             if(i.state.getCellType().equals(CellType.FIRE_SOURCE))
                 return new CellState((6*i.state.getTemp() + currentState.state.getTemp())/7);
 
-        //Jeżeli temp większa niż 300 to zwracamy te temp
         if(currentState.state.getTemp() > 300) return currentState.state;
 
-        // Usuwam zbędne elementy z setów
         neighborsStates = removeFireSourceAndBarrierFromMap(neighborsStates);
 
         if(!isAnyNeighborSmoked(neighborsStates)) return currentState.state;
-
-        // Jeżeli ma nad sobą sufit
 
         if(neighborsStates.get(CellRelativePosition.UP).size() + neighborsStates.get(CellRelativePosition.UP_SIDE).size() == 0){
             return nextCellStateHelper(currentState, neighborsStates, 0, 5, 3);
         }
 
-        // Jeżeli ma ścianę obok
         if(neighborsStates.get(CellRelativePosition.SIDE).size() < 4 &&
                 neighborsStates.get(CellRelativePosition.DOWN_SIDE).size() < 5 &&
                 neighborsStates.get(CellRelativePosition.UP_SIDE).size() < 5){
@@ -85,7 +70,6 @@ public class Smoke extends Automaton3Dim{
         Cell upCell = null;
         for(Cell i: neighborsStates.get(CellRelativePosition.UP))
             upCell = i;
-
 
         if(downCell != null && upCell != null)
             return new CellState((currentState.state.getTemp() + upVal*upCell.state.getTemp() + sideVal*sideCounter*aver + downVal*downCell.state.getTemp())/

@@ -1,7 +1,6 @@
 package com.edu.agh.kis.automaton.core.state;
 
 public class CellState {
-    //TODO change name as CellState
     private double temp;
     private CellType cellType;
 
@@ -23,16 +22,8 @@ public class CellState {
         return temp;
     }
 
-    public void setTemp(double temp) {
-        this.temp = temp;
-    }
-
     public CellType getCellType() {
         return cellType;
-    }
-
-    public void setCellType(CellType cellType) {
-        this.cellType = cellType;
     }
 
     public boolean getIsSmoked() {

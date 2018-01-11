@@ -6,7 +6,6 @@ import com.edu.agh.kis.automaton.core.neighborhood.VonNeumanNeighborhood3Dim;
 import com.edu.agh.kis.automaton.core.state.CellState;
 import com.edu.agh.kis.automaton.core.stateFactory.GeneralStateFactory;
 
-
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -29,14 +28,6 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable {
         executor = Executors.newFixedThreadPool(cells.size());
     }
 
-    public CellState getStateOfCoords(Coords3D cc) {
-        return cells.get(cc);
-    }
-
-    public void setNewCellState(Coords3D cc, CellState cs) {
-        cells.put(cc, cs);
-    }
-
     public Map<Coords3D, CellState> getCells() {
         return cells;
     }
@@ -45,23 +36,11 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable {
         this.cells = cells;
     }
 
-    public GeneralStateFactory getStateFactory() {
-        return stateFactory;
-    }
-
-    public void setStateFactory(GeneralStateFactory stateFactory) {
-        this.stateFactory = stateFactory;
-    }
-
     public class CellIterator implements Iterator<Cell> {
         private Coords3D currentState;
 
         public CellIterator(Coords3D currentCoordinates) {
             currentState = initialCoordinates(currentCoordinates);
-        }
-
-        public void setCurrentState(Coords3D currentState) {
-            this.currentState = currentState;
         }
 
         public boolean hasNext() {
@@ -92,10 +71,6 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable {
         return letGetStartedAgain;
     }
 
-    public void insertStructure(Map<? extends Coords3D, ? extends CellState> strcture) {
-        cells.putAll(strcture);
-    }
-
     @Override
     public Iterator<Cell> iterator() {
         return new CellIterator(null);
@@ -113,21 +88,15 @@ public abstract class Automaton implements Iterable<Cell>, Cloneable {
 
     private Map<CellRelativePosition, Set<Cell>> mapCoordinates(Map<CellRelativePosition, Set<Coords3D>> cellsmap) {
         Map<CellRelativePosition, Set<Cell>> newMap = new HashMap<>();
-
-
         for (Map.Entry<CellRelativePosition, Set<Coords3D>> entry : cellsmap.entrySet()) {
-            Set<Cell> newSetCell = new HashSet<Cell>();
-
+            Set<Cell> newSetCell = new HashSet<>();
             CellRelativePosition cellRelativePosition = entry.getKey();
             Set<Coords3D> cellCoordinatesSet = entry.getValue();
-
             for (Coords3D i : cellCoordinatesSet) {
                 newSetCell.add(new Cell(i, cells.get(i)));
             }
-
             newMap.put(cellRelativePosition, newSetCell);
         }
-
         return newMap;
     }
 

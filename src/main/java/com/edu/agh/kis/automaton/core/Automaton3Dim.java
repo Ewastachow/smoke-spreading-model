@@ -5,7 +5,6 @@ import com.edu.agh.kis.automaton.core.neighborhood.VonNeumanNeighborhood3Dim;
 import com.edu.agh.kis.automaton.core.state.CellState;
 import com.edu.agh.kis.automaton.core.stateFactory.GeneralStateFactory;
 
-
 import java.util.Map;
 
 public abstract class Automaton3Dim extends Automaton {
@@ -19,13 +18,6 @@ public abstract class Automaton3Dim extends Automaton {
         width = 20;
         height = 20;
         depth = 20;
-    }
-
-    public Automaton3Dim(int width, int height, int depth){
-        super();
-        this.width = width;
-        this.height = height;
-        this.depth = depth;
     }
 
     public Automaton3Dim(Map<Coords3D, CellState> cells, VonNeumanNeighborhood3Dim neighborhoodStrategy, GeneralStateFactory stateFactory, int width, int height, int depth) {
