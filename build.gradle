@@ -33,7 +33,13 @@ dependencies {
     compile group: 'org.jogamp.jogl', name: 'jogl-all-main', version: '2.3.2'
 }
 
-jfx {
-    mainClass = 'com.edu.agh.kis.automaton.gui.AppController'
-    vendor = 'ES'
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Implementation',
+                'Implementation-Version': version,
+                'Main-Class': 'com.edu.agh.kis.automaton.gui.AppController'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
