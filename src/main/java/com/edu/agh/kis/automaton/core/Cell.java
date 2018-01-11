@@ -1,6 +1,5 @@
 package com.edu.agh.kis.automaton.core;
 
-
 import com.edu.agh.kis.automaton.core.coords.Coords3D;
 import com.edu.agh.kis.automaton.core.state.CellState;
 

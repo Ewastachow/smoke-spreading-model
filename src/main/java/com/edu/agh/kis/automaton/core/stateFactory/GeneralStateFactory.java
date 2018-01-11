@@ -37,9 +37,4 @@ public class GeneralStateFactory{
     public int hashCode() {
         return states != null ? states.hashCode() : 0;
     }
-
-
-    public CellState initialState(Coords3D cellCoords) {
-        return states.get(cellCoords);
-    }
 }

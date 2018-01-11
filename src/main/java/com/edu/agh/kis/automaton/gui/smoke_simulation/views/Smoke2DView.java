@@ -1,7 +1,6 @@
 package com.edu.agh.kis.automaton.gui.smoke_simulation.views;
 
 import javafx.scene.SubScene;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
@@ -37,8 +36,8 @@ public class Smoke2DView extends SmokeView {
     public Rectangle createRectangle(Paint paint, int xAmong, int yAmong){
         Rectangle rectangle = new Rectangle();
         rectangle.setFill(paint);
-        rectangle.setWidth(root2D.getPrefWidth()/xAmong);
-        rectangle.setHeight(root2D.getPrefHeight()/yAmong);
+        rectangle.setWidth(Math.floor(root2D.getPrefWidth()/xAmong));
+        rectangle.setHeight(Math.floor(root2D.getPrefHeight()/yAmong));
         return rectangle;
     }
 }

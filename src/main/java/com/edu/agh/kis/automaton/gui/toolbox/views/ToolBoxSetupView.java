@@ -1,12 +1,9 @@
 package com.edu.agh.kis.automaton.gui.toolbox.views;
 
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-
 
 public class ToolBoxSetupView extends ToolBoxView{
 
@@ -46,13 +43,8 @@ public class ToolBoxSetupView extends ToolBoxView{
         setupLabels(pane);
         setupTextFields(pane);
         setupButton(pane);
-        //TODO Implement Panel ustawiający początkowy panel, wybieramy tam wymiary automatu, i klikamy przycisk akceptacji
-        //TODO Po kliknieciu przyciku potmieniamy w kontrolerze konstruktor toolBoxView na te z control i
-        //TODO ustawiamy controllery smoke dla wybranych rozmiarow automatu
         return pane;
     }
-
-    //czy te create nie powinny byc w abstrakcyjnej żeby ujednolicić???
 
     private void setupLabels(GridPane pane){
         xAmongLabel = createLabel("Długość w metrach");

@@ -4,7 +4,6 @@ import javafx.scene.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Material;
-import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
@@ -22,7 +21,6 @@ public class Smoke3DView extends SmokeView {
     private double mouseOldX, mouseOldY;
 
     private double sizePerCell;
-    //TODO ustawic zmiane
 
     public Smoke3DView(int xAmong, int yAmong, int zAmong) {
         super();
@@ -31,7 +29,6 @@ public class Smoke3DView extends SmokeView {
         root3D = createRoot3D();
         setRoot3DEvents();
         setSubScene(createSubScene(camera,Color.WHITE,root3D));
-        addFloor();
         addLight();
     }
 
@@ -39,9 +36,12 @@ public class Smoke3DView extends SmokeView {
         return root3D;
     }
 
+    public double getSizePerCell() {
+        return sizePerCell;
+    }
+
     private Group createRoot3D(){
         Group group = new Group();
-        //TODO Co tu wg mozna doimplementowac????
         return group;
     }
 
@@ -54,7 +54,6 @@ public class Smoke3DView extends SmokeView {
     }
 
     private void setRoot3DEvents(){
-        //TODO czy nie wyeksportować tego do controllera?
         root3D.setOnMousePressed((MouseEvent me) -> {
             mouseOldX = me.getSceneX();
             mouseOldY = me.getSceneY();
@@ -74,7 +73,7 @@ public class Smoke3DView extends SmokeView {
         camera.setVerticalFieldOfView(false);
         camera.setNearClip(0.1);
         camera.setFarClip(100000.0);
-        camera.getTransforms().addAll (rotateX, rotateY, new Translate(0, 0, -3000));
+        camera.getTransforms().addAll (rotateX, rotateY, new Translate(0, 0, -5000));
         return camera;
     }
 
@@ -91,27 +90,12 @@ public class Smoke3DView extends SmokeView {
         root3D.getChildren().add(new AmbientLight(Color.WHITE));
     }
 
-    public void addFloor(){
-        Box floor = new Box(1400, 10, 1400);
-        floor.setMaterial(new PhongMaterial(Color.GRAY));
-        floor.setTranslateY(405);
-        root3D.getChildren().add(floor);
-    }
-
-    public Box[][][] createBoxesTable(int x, int y, int z){
-        Box[][][] boxes = new Box[x][y][z];
-        //TODO Implement
-        return boxes; //TODO : to bd wywołyać w kontrolerze i do niego przypisywać
-    }
-
-    public Box createBox(Material material, int xAmong, int yAmong, int zAmong){
+    public Box createBox(Material material){
         Box box = new Box();
         box.setMaterial(material);
-        //TODO Co zamiast 1400????
-        box.setWidth(1000/xAmong);
-        box.setHeight(1000/yAmong);
-        box.setDepth(1000/zAmong);
-        //TODO Parametry, mozna pominąć kolor, albo dać domyślny
+        box.setWidth(sizePerCell);
+        box.setHeight(sizePerCell);
+        box.setDepth(sizePerCell);
         return box;
     }
 }

@@ -6,8 +6,6 @@ import com.edu.agh.kis.automaton.core.coords.Coords3D;
 import com.edu.agh.kis.automaton.core.neighborhood.VonNeumanNeighborhood3Dim;
 import com.edu.agh.kis.automaton.core.state.CellState;
 import com.edu.agh.kis.automaton.core.stateFactory.GeneralStateFactory;
-import com.edu.agh.kis.automaton.gui.AppView;
-import com.edu.agh.kis.automaton.gui.AutomatonGUISource;
 import com.edu.agh.kis.automaton.gui.smoke_simulation.controllers.Smoke2DController;
 import com.edu.agh.kis.automaton.gui.smoke_simulation.controllers.Smoke3DController;
 import com.edu.agh.kis.automaton.gui.smoke_simulation.controllers.SmokeController;
@@ -35,16 +33,7 @@ public class ToolBoxControlController extends ToolBoxController{
         return smoke;
     }
 
-    public Smoke2DController getSmoke2D() {
-        return smoke2D;
-    }
-
-    public Smoke3DController getSmoke3D() {
-        return smoke3D;
-    }
-
     public ToolBoxControlController(int x, int y, int z) {
-//        super(appView);
         setToolBoxView(new ToolBoxControlView(z));
         automaton = createAutomaton(x,y,z);
         smoke2D = new Smoke2DController(x,y,z,automaton.getCells());
@@ -63,10 +52,30 @@ public class ToolBoxControlController extends ToolBoxController{
     }
 
     private void setControlPanelOnAction(){
-        ((ToolBoxControlView)getToolBoxView()).getNextButton().setOnAction(e -> nextStep());
-        ((ToolBoxControlView)getToolBoxView()).getStartButton().setOnAction(e -> timeline.play());
-        ((ToolBoxControlView)getToolBoxView()).getStopButton().setOnAction(e -> timeline.stop());
-        ((ToolBoxControlView)getToolBoxView()).getResetButton().setOnAction(e -> resetStep());
+        ToolBoxControlView tbcv = (ToolBoxControlView)getToolBoxView();
+        tbcv.getNextButton().setOnAction(e -> nextStep());
+        tbcv.getStartButton().setOnAction(e -> timeline.play());
+        tbcv.getStopButton().setOnAction(e -> timeline.stop());
+        tbcv.getResetButton().setOnAction(e -> resetStep());
+        tbcv.getIterateButton().setOnAction(e -> {
+            try{
+                int iterate = Integer.parseInt(tbcv.getIterateAmong().getText());
+                for(int i = 0; i<(iterate); i++)
+                    nextStep();
+            }catch(Exception ee){
+                tbcv.getIterateAmong().setText("Wrong input");
+            }
+        });
+        tbcv.getHowManyWithSmokeButton().setOnAction(e -> {
+            int howMany = 0;
+            int howManySmoked = 0;
+            for(Map.Entry<Coords3D, CellState> entry : automaton.getCells().entrySet()) {
+                howMany++;
+                if(entry.getValue().getIsSmoked())
+                    howManySmoked++;
+            }
+            tbcv.getHowManyWithSmokeButton().setText("Smoked: "+howManySmoked+" All: "+howMany);
+        });
     }
 
     private void nextStep(){
@@ -75,7 +84,14 @@ public class ToolBoxControlController extends ToolBoxController{
     }
     private void resetStep(){
         timeline.stop();
-        //TODO RESET CELL -> nowy obiekt automatonu, putToTab Dla smoke2D i smoke3D
+        int x = smoke.getxAmong();
+        int y = smoke.getyAmong();
+        int z = smoke.getzAmong();
+        automaton = createAutomaton(x,y,z);
+        smoke2D = new Smoke2DController(x,y,z,automaton.getCells());
+        smoke3D = new Smoke3DController(x,y,z,automaton.getCells());
+        smoke = smoke2D;
+        draw();
     }
 
     private void setTimeline(){
@@ -93,12 +109,7 @@ public class ToolBoxControlController extends ToolBoxController{
     }
 
     private Automaton createAutomaton(int x, int y, int z){
-//        Automaton automaton = new Smoke(x,y,z);
-//        for (int i = 0; i < x; i++)
-//            for (int j = 0; j < y; j++)
-//                for (int k = 0; k < z; k++)
-//                    automaton.setNewCellState(new Coords3D(i, j, k), new CellState(20));
-        Automaton automaton = new Smoke();
+         automaton = new Smoke();
         Map<Coords3D, CellState> tmp = new TreeMap<>();
         for (int i = 0; i < x; i++)
             for (int j = 0; j < y; j++)
@@ -108,7 +119,6 @@ public class ToolBoxControlController extends ToolBoxController{
                 new VonNeumanNeighborhood3Dim(1, y, x, z),
                 new GeneralStateFactory(automaton.getCells()),
                 x, y, z);
-        //TODO coś jest pojebane z kolejnością x y z
         return automaton;
     }
 

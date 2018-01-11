@@ -1,7 +1,5 @@
 package com.edu.agh.kis.automaton.gui.smoke_simulation.controllers;
 
-import com.edu.agh.kis.automaton.core.Automaton;
-
 import com.edu.agh.kis.automaton.core.coords.Coords3D;
 import com.edu.agh.kis.automaton.core.state.CellState;
 import com.edu.agh.kis.automaton.core.state.CellType;
@@ -12,10 +10,9 @@ import javafx.scene.shape.Rectangle;
 
 import java.util.Map;
 
-
 public class Smoke2DController extends SmokeController {
 
-    int showZ;
+    private int showZ;
 
     public void setShowZ(int showZ) {
         this.showZ = showZ;
@@ -74,7 +71,6 @@ public class Smoke2DController extends SmokeController {
             else
                 getCells().put(new Coords3D(x,y,showZ), new CellState(CellType.BARRIER));
             drawBoard();
-
         });
     }
 }

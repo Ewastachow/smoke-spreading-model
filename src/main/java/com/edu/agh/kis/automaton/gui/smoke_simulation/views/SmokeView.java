@@ -8,9 +8,6 @@ public abstract class SmokeView {
 
     private int weight;
     private int height;
-    private int depth;
-
-
 
     public SubScene getSubScene() {
         return subScene;
@@ -24,16 +21,8 @@ public abstract class SmokeView {
         return weight;
     }
 
-    public void setWeight(int weight) {
-        this.weight = weight;
-    }
-
     public int getHeight() {
         return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
     }
 
     public SmokeView() {

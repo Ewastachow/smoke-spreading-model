@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Set;
 
 public class VonNeumanNeighborhood3Dim{
-    //TODO wywalić radious, albo narazie chociaż z konstruktora
 
     private int radious;
     private int height;
