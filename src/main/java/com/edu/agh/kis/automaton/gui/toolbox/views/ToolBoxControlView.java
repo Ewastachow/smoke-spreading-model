@@ -5,7 +5,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 
 public class ToolBoxControlView extends ToolBoxView{
 
@@ -21,9 +20,7 @@ public class ToolBoxControlView extends ToolBoxView{
     TextField iterateAmong;
     Button iterateButton;
 
-    Slider slider; //TODO slider do przemieszczania się pomiędzy przekrojami, ma być nieaktywny przy 3D, ale w onAction lepiej walnąć if == Smoke3DController.class
-    //TODO Toolbox control controller musi miec obiekt smoke - chyba te 3 z appcontroller i tam dodamy view przez referencje tu
-
+    Slider slider;
 
     public Button getNextButton() {
         return nextButton;
@@ -66,7 +63,6 @@ public class ToolBoxControlView extends ToolBoxView{
         setupButtons(pane);
         setupSlider(pane,depth);
         setupIterate(pane);
-        //TODO Implement Kontrola działania automatu
         return pane;
     }
 

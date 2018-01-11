@@ -21,12 +21,8 @@ public class Smoke3DController extends SmokeController {
 
     @Override
     public void drawBoard() {
-        //TODO - nw w ktorej metodzie:
-        //TODO 1. zeby nie byl kwadrat - 1400/max(x,y,z) i potem wielkoscie x*to coś, y*to coś, z*to coś
-        //TODO 2. jakie translate dać żeby to było db ułozone
         Group root3D = ((Smoke3DView)getSmokeView()).getRoot3D();
         root3D.getChildren().clear();
-//        ((Smoke3DView)getSmokeView()).addFloor();
         ((Smoke3DView)getSmokeView()).addLight();
         for(int i=0; i<getxAmong(); i++)
             for(int j=0; j<getyAmong(); j++)
@@ -54,7 +50,7 @@ public class Smoke3DController extends SmokeController {
 
                     Smoke3DView smoke3DView = ((Smoke3DView)getSmokeView());
 
-                    Box box = smoke3DView.createBox(new PhongMaterial(color),getxAmong(),getyAmong(),getzAmong());
+                    Box box = smoke3DView.createBox(new PhongMaterial(color));
                     box.setTranslateX(i*smoke3DView.getSizePerCell()-600);
                     box.setTranslateY(j*smoke3DView.getSizePerCell()-600);
                     box.setTranslateZ(k*smoke3DView.getSizePerCell()-600);

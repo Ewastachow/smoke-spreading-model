@@ -1,7 +1,6 @@
 package com.edu.agh.kis.automaton.gui.smoke_simulation.views;
 
 import javafx.scene.SubScene;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
