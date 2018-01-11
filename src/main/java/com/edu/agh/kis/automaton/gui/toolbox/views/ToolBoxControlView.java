@@ -15,6 +15,8 @@ public class ToolBoxControlView extends ToolBoxView{
 
     Button changeSubScene;
 
+    Button howManyWithSmokeButton;
+
     Label sliderLabel;
 
     TextField iterateAmong;
@@ -54,6 +56,10 @@ public class ToolBoxControlView extends ToolBoxView{
         return slider;
     }
 
+    public Button getHowManyWithSmokeButton() {
+        return howManyWithSmokeButton;
+    }
+
     public ToolBoxControlView(int depth) {
         setToolBoxPane(createToolBoxPane(depth));
     }
@@ -77,10 +83,12 @@ public class ToolBoxControlView extends ToolBoxView{
         pane.add(resetButton,3,0);
         changeSubScene = createButton("Change Simulation View");
         pane.add(changeSubScene,2,4);
+        howManyWithSmokeButton = createButton("How many with smoke?");
+        pane.add(howManyWithSmokeButton,2,5);
     }
 
     private void setupIterate(GridPane pane){
-        iterateAmong = new TextField("Among of iteration");
+        iterateAmong = new TextField("Among of minutes");
         pane.add(iterateAmong,1,1);
         iterateButton = createButton("Generate");
         pane.add(iterateButton,3,1);

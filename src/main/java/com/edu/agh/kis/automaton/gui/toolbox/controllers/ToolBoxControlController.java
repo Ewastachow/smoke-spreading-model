@@ -33,7 +33,16 @@ public class ToolBoxControlController extends ToolBoxController{
         return smoke;
     }
 
+    public Smoke2DController getSmoke2D() {
+        return smoke2D;
+    }
+
+    public Smoke3DController getSmoke3D() {
+        return smoke3D;
+    }
+
     public ToolBoxControlController(int x, int y, int z) {
+//        super(appView);
         setToolBoxView(new ToolBoxControlView(z));
         automaton = createAutomaton(x,y,z);
         smoke2D = new Smoke2DController(x,y,z,automaton.getCells());
@@ -60,11 +69,21 @@ public class ToolBoxControlController extends ToolBoxController{
         tbcv.getIterateButton().setOnAction(e -> {
             try{
                 int iterate = Integer.parseInt(tbcv.getIterateAmong().getText());
-                for(int i = 0; i<iterate; i++)
+                for(int i = 0; i<(iterate); i++)
                     nextStep();
             }catch(Exception ee){
                 tbcv.getIterateAmong().setText("Wrong input");
             }
+        });
+        tbcv.getHowManyWithSmokeButton().setOnAction(e -> {
+            int howMany = 0;
+            int howManySmoked = 0;
+            for(Map.Entry<Coords3D, CellState> entry : automaton.getCells().entrySet()) {
+                howMany++;
+                if(entry.getValue().getIsSmoked())
+                    howManySmoked++;
+            }
+            tbcv.getHowManyWithSmokeButton().setText("Smoked: "+howManySmoked+" All: "+howMany);
         });
     }
 
@@ -74,6 +93,14 @@ public class ToolBoxControlController extends ToolBoxController{
     }
     private void resetStep(){
         timeline.stop();
+        int x = smoke.getxAmong();
+        int y = smoke.getyAmong();
+        int z = smoke.getzAmong();
+        automaton = createAutomaton(x,y,z);
+        smoke2D = new Smoke2DController(x,y,z,automaton.getCells());
+        smoke3D = new Smoke3DController(x,y,z,automaton.getCells());
+        smoke = smoke2D;
+        draw();
     }
 
     private void setTimeline(){
@@ -91,6 +118,11 @@ public class ToolBoxControlController extends ToolBoxController{
     }
 
     private Automaton createAutomaton(int x, int y, int z){
+//        Automaton automaton = new Smoke(x,y,z);
+//        for (int i = 0; i < x; i++)
+//            for (int j = 0; j < y; j++)
+//                for (int k = 0; k < z; k++)
+//                    automaton.setNewCellState(new Coords3D(i, j, k), new CellState(20));
          automaton = new Smoke();
         Map<Coords3D, CellState> tmp = new TreeMap<>();
         for (int i = 0; i < x; i++)
@@ -101,6 +133,7 @@ public class ToolBoxControlController extends ToolBoxController{
                 new VonNeumanNeighborhood3Dim(1, y, x, z),
                 new GeneralStateFactory(automaton.getCells()),
                 x, y, z);
+        //TODO coś jest pojebane z kolejnością x y z
         return automaton;
     }
 
