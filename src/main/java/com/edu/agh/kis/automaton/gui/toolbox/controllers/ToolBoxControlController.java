@@ -33,16 +33,7 @@ public class ToolBoxControlController extends ToolBoxController{
         return smoke;
     }
 
-    public Smoke2DController getSmoke2D() {
-        return smoke2D;
-    }
-
-    public Smoke3DController getSmoke3D() {
-        return smoke3D;
-    }
-
     public ToolBoxControlController(int x, int y, int z) {
-//        super(appView);
         setToolBoxView(new ToolBoxControlView(z));
         automaton = createAutomaton(x,y,z);
         smoke2D = new Smoke2DController(x,y,z,automaton.getCells());
@@ -118,11 +109,6 @@ public class ToolBoxControlController extends ToolBoxController{
     }
 
     private Automaton createAutomaton(int x, int y, int z){
-//        Automaton automaton = new Smoke(x,y,z);
-//        for (int i = 0; i < x; i++)
-//            for (int j = 0; j < y; j++)
-//                for (int k = 0; k < z; k++)
-//                    automaton.setNewCellState(new Coords3D(i, j, k), new CellState(20));
          automaton = new Smoke();
         Map<Coords3D, CellState> tmp = new TreeMap<>();
         for (int i = 0; i < x; i++)
@@ -133,7 +119,6 @@ public class ToolBoxControlController extends ToolBoxController{
                 new VonNeumanNeighborhood3Dim(1, y, x, z),
                 new GeneralStateFactory(automaton.getCells()),
                 x, y, z);
-        //TODO coś jest pojebane z kolejnością x y z
         return automaton;
     }
 
